@@ -1,0 +1,1 @@
+ALTER TABLE `scan_sessions` ADD `progress` int DEFAULT 0 NOT NULL;

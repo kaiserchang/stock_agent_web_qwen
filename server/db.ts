@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertScanResult, InsertScanSession, InsertUser, scanResults, scanSessions, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -87,6 +87,74 @@ export async function getUserByOpenId(openId: string) {
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
 
   return result.length > 0 ? result[0] : undefined;
+}
+
+export async function insertScanSession(session: InsertScanSession): Promise<number | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot insert scan session: database not available");
+    return null;
+  }
+  try {
+    const result = await db.insert(scanSessions).values({
+      ...session,
+      progress: session.progress || 0, // Ensure progress is set, default to 0
+    });
+    return result[0].insertId;
+  } catch (error) {
+    console.error("[Database] Failed to insert scan session:", error);
+    return null;
+  }
+}
+
+export async function updateScanSession(sessionId: number, updates: Partial<InsertScanSession>): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update scan session: database not available");
+    return;
+  }
+  try {
+    await db.update(scanSessions).set(updates).where(eq(scanSessions.id, sessionId));
+  } catch (error) {
+    console.error("[Database] Failed to update scan session:", error);
+  }
+}
+
+export async function insertScanResult(result: InsertScanResult) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot insert scan result: database not available");
+    return;
+  }
+  await db.insert(scanResults).values(result);
+}
+
+export async function getLatestScanSession(userId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get latest scan session: database not available");
+    return undefined;
+  }
+  const result = await db.select().from(scanSessions).where(eq(scanSessions.userId, userId)).orderBy(desc(scanSessions.scanStartTime)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getScanResultsBySessionId(sessionId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get scan results: database not available");
+    return [];
+  }
+  return await db.select().from(scanResults).where(eq(scanResults.sessionId, sessionId)).orderBy(scanResults.signalType, scanResults.stockId);
+}
+
+export async function getScanSessions(userId: number, limit: number = 10) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get scan sessions: database not available");
+    return [];
+  }
+  return await db.select().from(scanSessions).where(eq(scanSessions.userId, userId)).orderBy(desc(scanSessions.scanStartTime)).limit(limit);
 }
 
 // TODO: add feature queries here as your schema grows.
