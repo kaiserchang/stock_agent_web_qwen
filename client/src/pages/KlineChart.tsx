@@ -54,20 +54,26 @@ export default function KlineChart() {
   useEffect(() => {
     if (getKlineDataQuery.data) {
       const data = getKlineDataQuery.data as any;
-      // 後端回傳的是 { status, data: [...] } 或 { status, klines: [...] }
+      console.log('[KlineChart] Received data from API:', data);
+      // 後端回傳的是 { status, klines: [...] }
       const klines = data.klines || data.data || [];
       if (data.status === "success" && klines && klines.length > 0) {
         const formattedData = klines.map((kline: any) => ({
-          date: kline.date,
-          open: parseFloat(kline.open),
-          high: parseFloat(kline.high),
-          low: parseFloat(kline.low),
-          close: parseFloat(kline.close),
-          volume: parseFloat(kline.volume),
-          signal: kline.signal || null,
+          date: kline.Date || kline.date,
+          open: parseFloat(kline.Open || kline.open),
+          high: parseFloat(kline.High || kline.high),
+          low: parseFloat(kline.Low || kline.low),
+          close: parseFloat(kline.Close || kline.close),
+          volume: parseFloat(kline.Volume || kline.volume),
+          signal: kline.Signal || kline.signal || null,
         }));
         setKlineData(formattedData);
+        console.log('[KlineChart] Successfully loaded', formattedData.length, 'klines');
+      } else {
+        console.log('[KlineChart] No valid kline data:', { status: data.status, klinesCount: klines.length });
       }
+    } else {
+      console.log('[KlineChart] No data from query');
     }
   }, [getKlineDataQuery.data]);
 
@@ -97,6 +103,8 @@ export default function KlineChart() {
     }
     return acc;
   }, {} as Record<string, number>);
+
+  console.log('[KlineChart] Current state:', { klineDataLength: klineData.length, signalCounts, isLoading: getKlineDataQuery.isLoading, error: getKlineDataQuery.error });
 
   // 自訂 Tooltip 以顯示 K 線詳細信息
   const CustomTooltip = ({ active, payload }: any) => {
@@ -155,6 +163,7 @@ export default function KlineChart() {
             <CardTitle className="text-lg">K 線圖表</CardTitle>
             <CardDescription>
               藍色線為收盤價，黃色為20日均線，紅色為60日均線（季線）。圖上標註了技術訊號位置。
+              {klineData.length > 0 && <span className="ml-2 text-xs text-slate-500">已加載 {klineData.length} 筆數據</span>}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -170,6 +179,7 @@ export default function KlineChart() {
                 <AlertCircle className="h-4 w-4 text-slate-600" />
                 <AlertDescription className="text-slate-700">
                   無法取得該股票的 K 線數據。請確認股票代號是否正確。
+                  {getKlineDataQuery.error && <p className="mt-2 text-xs">錯誤: {(getKlineDataQuery.error as any)?.message}</p>}
                 </AlertDescription>
               </Alert>
             ) : (

@@ -262,7 +262,7 @@ def get_stock_kline_data(stock_id, start_date_str, end_date_str):
             "Above_MA60": bool(row["Above_MA60"])
         })
     
-    return {"status": "success", "data": kline_data}
+    return {"status": "success", "klines": kline_data}
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

@@ -1,6 +1,6 @@
 import { spawn } from 'child_process';
-import { resolve } from 'path';
-import { insertScanLog } from '../db';
+import { resolve, join } from 'path';
+import { insertScanLog } from '../fileStorage';
 
 export async function executePythonScript(scriptPath: string, args: (string | object)[] = [], progressCallback?: (progress: number) => void): Promise<any> {
   return new Promise((resolvePromise, reject) => {
@@ -12,7 +12,11 @@ export async function executePythonScript(scriptPath: string, args: (string | ob
       }
     });
 
-    const pythonProcess = spawn('python3', [scriptPath, ...processedArgs]);
+    // 使用相對路徑，相對於 process.cwd()
+    const resolvedScriptPath = scriptPath.startsWith('/') ? scriptPath : join(process.cwd(), scriptPath);
+    console.log(`[pythonExecutor] Executing Python script: ${resolvedScriptPath}`);
+
+    const pythonProcess = spawn('python3', [resolvedScriptPath, ...processedArgs]);
 
     let stdout = '';
     let stderr = '';
@@ -37,8 +41,8 @@ export async function executePythonScript(scriptPath: string, args: (string | ob
         if (line.startsWith('LOG:')) {
           try {
             const logData = JSON.parse(line.substring(4));
-            // Asynchronously write log to database
-            insertScanLog(logData).catch(err => console.error('Failed to insert scan log:', err));
+            // Synchronously write log to file storage
+            insertScanLog(logData);
           } catch (e) {
             console.error('Failed to parse log line:', line, e);
           }
@@ -56,11 +60,13 @@ export async function executePythonScript(scriptPath: string, args: (string | ob
           reject(new Error(`Python script output is not valid JSON: ${stdout}`));
         }
       } else {
+        console.error(`[pythonExecutor] Python script exited with code ${code}. Stderr:`, stderr);
         reject(new Error(`Python script exited with code ${code}. Stderr: ${stderr}`));
       }
     });
 
     pythonProcess.on('error', (err) => {
+      console.error(`[pythonExecutor] Failed to start Python script at ${resolvedScriptPath}:`, err);
       reject(new Error(`Failed to start Python script: ${err.message}`));
     });
   });
