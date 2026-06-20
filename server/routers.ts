@@ -4,10 +4,11 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { executePythonScript } from "./_core/pythonExecutor";
-import { insertScanResult, insertScanSession, getLatestScanSession, getScanResultsBySessionId, getScanSessions, updateScanSession, getScanLogsBySessionId } from "./db";
+import { insertScanResult, insertScanSession, getLatestScanSession, getScanResultsBySessionId, getScanSessions, updateScanSession, getScanLogsBySessionId, insertScanLog } from "./fileStorage";
 import { TRPCError } from "@trpc/server";
 
 const PYTHON_SCRIPT_PATH = "/home/ubuntu/stock_agent_web/server/python_logic/scan_orchestrator.py";
+
 
 export const appRouter = router({
   system: systemRouter,
@@ -38,8 +39,9 @@ export const appRouter = router({
           signal_filter: input.signalFilter,
         };
 
-        const newSessionId = await insertScanSession({
+        const newSessionId = insertScanSession({
           scanStartTime: new Date(),
+          scanEndTime: null,
           totalScannedStocks: 0,
           recommendationCount: 0,
           scanParameters: JSON.stringify(scanParams),
@@ -47,7 +49,7 @@ export const appRouter = router({
           progress: 0,
         });
 
-        if (!newSessionId) {
+        if (!newSessionId || newSessionId <= 0) {
           throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to create scan session" });
         }
 
@@ -57,12 +59,12 @@ export const appRouter = router({
           "run_market_scan",
           scanParams,
         ], async (progress: number) => {
-          await updateScanSession(newSessionId, { progress });
-        }).then(async (pythonResult) => {
+          updateScanSession(newSessionId, { progress });
+        }).then((pythonResult) => {
           if (pythonResult.status === "success") {
             const recommendations = pythonResult.recommendations;
             for (const rec of recommendations) {
-              await insertScanResult({
+              insertScanResult({
                 sessionId: newSessionId,
                 stockId: rec.stockId,
                 stockName: rec.stockName,
@@ -73,7 +75,7 @@ export const appRouter = router({
                 scanDate: new Date(rec.scanDate),
               });
             }
-            await updateScanSession(newSessionId, {
+            updateScanSession(newSessionId, {
               scanEndTime: new Date(),
               totalScannedStocks: pythonResult.totalScannedStocks,
               recommendationCount: pythonResult.recommendationCount,
@@ -81,14 +83,14 @@ export const appRouter = router({
             });
           } else {
             console.error("Python scan script failed:", pythonResult.message);
-            await updateScanSession(newSessionId, {
+            updateScanSession(newSessionId, {
               scanEndTime: new Date(),
               progress: -1,
             });
           }
-        }).catch(async (error) => {
+        }).catch((error) => {
           console.error("Error executing Python scan script:", error);
-          await updateScanSession(newSessionId, {
+          updateScanSession(newSessionId, {
             scanEndTime: new Date(),
             progress: -1,
           });
@@ -96,44 +98,44 @@ export const appRouter = router({
 
         return { sessionId: newSessionId, message: "Scan initiated successfully. Results will be available shortly." };
       }),
-    getLatestScanResults: publicProcedure.query(async () => {
-        const latestSession = await getLatestScanSession(null);
+    getLatestScanResults: publicProcedure.query(() => {
+        const latestSession = getLatestScanSession(null);
         if (!latestSession) {
           return { session: null, results: [] };
         }
-        const results = await getScanResultsBySessionId(latestSession.id);
+        const results = getScanResultsBySessionId(latestSession.id);
         return { session: latestSession, results };
     }),
-    getScanHistory: publicProcedure.query(async () => {
-        const sessions = await getScanSessions(null);
+    getScanHistory: publicProcedure.query(() => {
+        const sessions = getScanSessions(null);
         return sessions;
     }),
     getScanSessionDetails: publicProcedure
       .input(z.object({
         sessionId: z.string(),
       }))
-      .query(async ({ input }) => {
+      .query(({ input }) => {
         const sessionIdNum = parseInt(input.sessionId, 10);
         if (isNaN(sessionIdNum)) {
           throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid sessionId" });
         }
-        const results = await getScanResultsBySessionId(sessionIdNum);
+        const results = getScanResultsBySessionId(sessionIdNum);
         return results;
       }),
     getScanSessionDetailsBySessionId: publicProcedure
       .input(z.object({
         sessionId: z.number(),
       }))
-      .query(async ({ input }) => {
-        const results = await getScanResultsBySessionId(input.sessionId);
+      .query(({ input }) => {
+        const results = getScanResultsBySessionId(input.sessionId);
         return results;
       }),
     getScanProgress: publicProcedure
       .input(z.object({
         sessionId: z.number(),
       }))
-      .query(async ({ input }) => {
-        const session = await getLatestScanSession(null);
+      .query(({ input }) => {
+        const session = getLatestScanSession(null);
         if (!session || session.id !== input.sessionId) {
           throw new TRPCError({ code: "NOT_FOUND", message: "Scan session not found" });
         }
@@ -145,7 +147,7 @@ export const appRouter = router({
           recommendationCount: session.recommendationCount,
         };
       }),
-    getScanSettings: publicProcedure.query(async () => {
+    getScanSettings: publicProcedure.query(() => {
       return {
         scanLimit: 50,
         startDate: "",
@@ -160,7 +162,7 @@ export const appRouter = router({
         endDate: z.string().optional(),
         signalFilter: z.array(z.string()).optional(),
       }))
-      .mutation(async ({ input }) => {
+      .mutation(({ input }) => {
         console.log("Updated scan settings:", input);
         return {
           success: true,
@@ -171,8 +173,8 @@ export const appRouter = router({
       .input(z.object({
         sessionId: z.number(),
       }))
-      .query(async ({ input }) => {
-        const logs = await getScanLogsBySessionId(input.sessionId);
+      .query(({ input }) => {
+        const logs = getScanLogsBySessionId(input.sessionId);
         return logs;
       }),
     getKlineData: publicProcedure
