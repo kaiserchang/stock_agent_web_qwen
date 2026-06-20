@@ -129,13 +129,16 @@ export async function insertScanResult(result: InsertScanResult) {
   await db.insert(scanResults).values(result);
 }
 
-export async function getLatestScanSession(userId: number) {
+export async function getLatestScanSession(userId: number | null) {
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot get latest scan session: database not available");
     return undefined;
   }
-  const result = await db.select().from(scanSessions).where(eq(scanSessions.userId, userId)).orderBy(desc(scanSessions.scanStartTime)).limit(1);
+  const query = userId === null 
+    ? db.select().from(scanSessions).orderBy(desc(scanSessions.scanStartTime)).limit(1)
+    : db.select().from(scanSessions).where(eq(scanSessions.userId, userId)).orderBy(desc(scanSessions.scanStartTime)).limit(1);
+  const result = await query;
   return result.length > 0 ? result[0] : undefined;
 }
 
@@ -148,13 +151,16 @@ export async function getScanResultsBySessionId(sessionId: number) {
   return await db.select().from(scanResults).where(eq(scanResults.sessionId, sessionId)).orderBy(scanResults.signalType, scanResults.stockId);
 }
 
-export async function getScanSessions(userId: number, limit: number = 10) {
+export async function getScanSessions(userId: number | null, limit: number = 10) {
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot get scan sessions: database not available");
     return [];
   }
-  return await db.select().from(scanSessions).where(eq(scanSessions.userId, userId)).orderBy(desc(scanSessions.scanStartTime)).limit(limit);
+  const query = userId === null
+    ? db.select().from(scanSessions).orderBy(desc(scanSessions.scanStartTime)).limit(limit)
+    : db.select().from(scanSessions).where(eq(scanSessions.userId, userId)).orderBy(desc(scanSessions.scanStartTime)).limit(limit);
+  return await query;
 }
 
 export async function insertScanLog(log: InsertScanLog) {
