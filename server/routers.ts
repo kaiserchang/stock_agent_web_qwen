@@ -7,7 +7,7 @@ import { executePythonScript } from "./_core/pythonExecutor";
 import { insertScanResult, insertScanSession, getLatestScanSession, getScanResultsBySessionId, getScanSessions, updateScanSession, getScanLogsBySessionId, insertScanLog } from "./fileStorage";
 import { TRPCError } from "@trpc/server";
 
-const PYTHON_SCRIPT_PATH = "/home/ubuntu/stock_agent_web/server/python_logic/scan_orchestrator.py";
+const PYTHON_SCRIPT_PATH = "server/python_logic/scan_orchestrator.py"; // 使用相對路徑
 
 
 export const appRouter = router({
@@ -55,44 +55,48 @@ export const appRouter = router({
 
         scanParams.session_id = newSessionId;
 
-        executePythonScript(PYTHON_SCRIPT_PATH, [
-          "run_market_scan",
-          scanParams,
-        ], async (progress: number) => {
-          updateScanSession(newSessionId, { progress });
-        }).then((pythonResult) => {
-          if (pythonResult.status === "success") {
-            const recommendations = pythonResult.recommendations;
-            for (const rec of recommendations) {
-              insertScanResult({
-                sessionId: newSessionId,
-                stockId: rec.stockId,
-                stockName: rec.stockName,
-                industry: rec.industry,
-                closePrice: rec.closePrice,
-                signalType: rec.signalType,
-                aboveMa60: rec.aboveMa60,
-                scanDate: new Date(rec.scanDate),
+        // 異步執行掃描，不等待完成（避免 HTTP 超時）
+        // 前端通過 getScanProgress 輪詢進度
+        setImmediate(() => {
+          executePythonScript(PYTHON_SCRIPT_PATH, [
+            "run_market_scan",
+            scanParams,
+          ], async (progress: number) => {
+            updateScanSession(newSessionId, { progress });
+          }).then((pythonResult) => {
+            if (pythonResult.status === "success") {
+              const recommendations = pythonResult.recommendations;
+              for (const rec of recommendations) {
+                insertScanResult({
+                  sessionId: newSessionId,
+                  stockId: rec.stockId,
+                  stockName: rec.stockName,
+                  industry: rec.industry,
+                  closePrice: rec.closePrice,
+                  signalType: rec.signalType,
+                  aboveMa60: rec.aboveMa60,
+                  scanDate: new Date(rec.scanDate),
+                });
+              }
+              updateScanSession(newSessionId, {
+                scanEndTime: new Date(),
+                totalScannedStocks: pythonResult.totalScannedStocks,
+                recommendationCount: pythonResult.recommendationCount,
+                progress: 100,
+              });
+            } else {
+              console.error("Python scan script failed:", pythonResult.message);
+              updateScanSession(newSessionId, {
+                scanEndTime: new Date(),
+                progress: -1,
               });
             }
-            updateScanSession(newSessionId, {
-              scanEndTime: new Date(),
-              totalScannedStocks: pythonResult.totalScannedStocks,
-              recommendationCount: pythonResult.recommendationCount,
-              progress: 100,
-            });
-          } else {
-            console.error("Python scan script failed:", pythonResult.message);
+          }).catch((error) => {
+            console.error("Error executing Python scan script:", error);
             updateScanSession(newSessionId, {
               scanEndTime: new Date(),
               progress: -1,
             });
-          }
-        }).catch((error) => {
-          console.error("Error executing Python scan script:", error);
-          updateScanSession(newSessionId, {
-            scanEndTime: new Date(),
-            progress: -1,
           });
         });
 
@@ -135,8 +139,10 @@ export const appRouter = router({
         sessionId: z.number(),
       }))
       .query(({ input }) => {
-        const session = getLatestScanSession(null);
-        if (!session || session.id !== input.sessionId) {
+        // 根據 sessionId 查找對應的掃描會話
+        const sessions = getScanSessions(null);
+        const session = sessions.find(s => s.id === input.sessionId);
+        if (!session) {
           throw new TRPCError({ code: "NOT_FOUND", message: "Scan session not found" });
         }
         return {
@@ -184,17 +190,22 @@ export const appRouter = router({
         endDate: z.string(),
       }))
       .query(async ({ input }) => {
-        const klineResult = await executePythonScript(PYTHON_SCRIPT_PATH, [
-          "get_stock_kline_data",
-          input.stockId,
-          input.startDate,
-          input.endDate,
-        ]);
+        try {
+          const klineResult = await executePythonScript(PYTHON_SCRIPT_PATH, [
+            "get_stock_kline_data",
+            input.stockId,
+            input.startDate,
+            input.endDate,
+          ]);
 
-        if (klineResult.status === "success") {
-          return klineResult;
-        } else {
-          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: klineResult.message });
+          if (klineResult.status === "success") {
+            return klineResult;
+          } else {
+            throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: klineResult.message });
+          }
+        } catch (error) {
+          console.error(`[getKlineData] Failed to fetch kline data for ${input.stockId}:`, error);
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `Failed to fetch kline data: ${error instanceof Error ? error.message : 'Unknown error'}` });
         }
       }),
   }),
