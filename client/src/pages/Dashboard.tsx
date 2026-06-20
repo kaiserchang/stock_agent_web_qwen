@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { AlertCircle, Zap, TrendingUp, AlertTriangle, Layers } from "lucide-react";
+import { AlertCircle, Zap, TrendingUp, AlertTriangle, Layers, Upload } from "lucide-react";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useState, useEffect } from "react";
@@ -37,6 +37,8 @@ export default function Dashboard() {
   const [scanResults, setScanResults] = useState<ScanResult[]>([]);
   const [scanProgress, setScanProgress] = useState(0);
   const [currentSessionId, setCurrentSessionId] = useState<number | null>(null);
+  const [csvAnalysisResult, setCsvAnalysisResult] = useState<any>(null);
+  const [isAnalyzingCsv, setIsAnalyzingCsv] = useState(false);
 
   // 查詢最新掃描結果
   const latestResultsQuery = trpc.stock.getLatestScanResults.useQuery(undefined, {
@@ -79,6 +81,34 @@ export default function Dashboard() {
       setIsScanning(false);
     },
   });
+
+  const analyzeCsvMutation = trpc.stock.analyzeCsvData.useMutation({
+    onSuccess: (data) => {
+      console.log("CSV 分析完成:", data);
+      setCsvAnalysisResult(data);
+      setIsAnalyzingCsv(false);
+    },
+    onError: (error) => {
+      console.error("CSV 分析失敗:", error);
+      setIsAnalyzingCsv(false);
+    },
+  });
+
+  const handleCsvUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const csvContent = e.target?.result as string;
+      setIsAnalyzingCsv(true);
+      analyzeCsvMutation.mutate({
+        csvContent,
+        stockId: "uploaded",
+      });
+    };
+    reader.readAsText(file);
+  };
 
   useEffect(() => {
     if (latestResultsQuery.data?.results) {
@@ -152,7 +182,7 @@ export default function Dashboard() {
         <Card className="border-0 shadow-lg bg-white">
           <CardHeader>
             <CardTitle className="text-lg">掃描控制</CardTitle>
-            <CardDescription>開始全市場技術訊號掃描</CardDescription>
+            <CardDescription>開始全市場技術訊號掃描或上傳 CSV 進行分析</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-2 md:gap-4">
@@ -163,6 +193,26 @@ export default function Dashboard() {
               >
                 {isScanning ? `掃描中... ${Math.round(scanProgress)}%` : "開始掃描"}
               </Button>
+              <label className="flex-1 sm:flex-none">
+                <Button
+                  variant="outline"
+                  className="w-full cursor-pointer"
+                  disabled={isAnalyzingCsv}
+                  asChild
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    <Upload className="w-4 h-4" />
+                    {isAnalyzingCsv ? "分析中..." : "上傳CSV"}
+                  </span>
+                </Button>
+                <input
+                  type="file"
+                  accept=".csv"
+                  onChange={handleCsvUpload}
+                  className="hidden"
+                  disabled={isAnalyzingCsv}
+                />
+              </label>
               <Link href="/settings" className="flex-1 sm:flex-none">
                 <Button variant="outline" className="w-full">
                   掃描設定
@@ -247,6 +297,47 @@ export default function Dashboard() {
         {/* 掃描進度日誌 */}
         {isScanning && currentSessionId && (
           <ScanProgressLogs sessionId={currentSessionId} isScanning={isScanning} />
+        )}
+
+        {/* CSV 分析結果 */}
+        {csvAnalysisResult && (
+          <Card className="border-0 shadow-lg bg-white border-l-4 border-l-green-500">
+            <CardHeader>
+              <CardTitle className="text-lg">CSV 分析結果</CardTitle>
+              <CardDescription>
+                股票代碼: {csvAnalysisResult.stockId} | 訊號: {csvAnalysisResult.signalType} | 收盤價: ${csvAnalysisResult.closePrice.toFixed(2)}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div>
+                    <p className="text-sm text-slate-600">訊號類型</p>
+                    <p className="text-lg font-bold text-slate-900">{csvAnalysisResult.signalType}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-600">季線之上</p>
+                    <p className="text-lg font-bold text-slate-900">{csvAnalysisResult.aboveMa60 ? "是" : "否"}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-600">收盤價</p>
+                    <p className="text-lg font-bold text-slate-900">${csvAnalysisResult.closePrice.toFixed(2)}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-600">K 線數據</p>
+                    <p className="text-lg font-bold text-slate-900">{csvAnalysisResult.klines?.length || 0} 筆</p>
+                  </div>
+                </div>
+                <Button
+                  onClick={() => setCsvAnalysisResult(null)}
+                  variant="outline"
+                  className="w-full"
+                >
+                  清除結果
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         )}
 
         {/* 投資建議名單 */}

@@ -42,5 +42,27 @@
     "progress": 100,
     "id": 4,
     "scanDate": "2026-06-20T06:45:51.800Z"
+  },
+  {
+    "scanStartTime": "2026-06-20T07:24:12.542Z",
+    "scanEndTime": "2026-06-20T07:31:01.634Z",
+    "totalScannedStocks": 20,
+    "recommendationCount": 8,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-04-20\",\"end_date_str\":\"2026-06-20\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 100,
+    "id": 5,
+    "scanDate": "2026-06-20T07:24:12.542Z"
+  },
+  {
+    "scanStartTime": "2026-06-20T07:41:38.732Z",
+    "scanEndTime": "2026-06-20T07:48:33.310Z",
+    "totalScannedStocks": 20,
+    "recommendationCount": 8,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-04-20\",\"end_date_str\":\"2026-06-20\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 100,
+    "id": 6,
+    "scanDate": "2026-06-20T07:41:38.732Z"
   }
 ]

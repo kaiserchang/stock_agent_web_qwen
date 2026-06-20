@@ -6,7 +6,7 @@ import sys
 import json
 import requests
 from datetime import datetime, timedelta
-from twstock import Stock
+import yfinance as yf
 
 # 設定日誌
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -50,44 +50,23 @@ class TaiwanStockDataFetcher:
         return pd.DataFrame(fallback_stocks)
 
     def get_stock_daily_data(self, stock_id, start_date, end_date):
-        """獲取股票日線數據，使用 twstock（台灣證券交易所官方數據）"""
+        """獲取股票日線數據，使用 yfinance（快速且穩定）"""
         try:
-            logger.info(f"Fetching data for {stock_id} from {start_date} to {end_date} using twstock")
+            logger.info(f"Fetching data for {stock_id} from {start_date} to {end_date} using yfinance")
             
-            # 使用 twstock Stock 類從證交所獲取台股數據
-            stock = Stock(stock_id)
+            # 台股代碼需要加上 .TW 後綴
+            ticker = f"{stock_id}.TW"
             
-            # 獲取整個數據集
-            if not stock.data or len(stock.data) == 0:
+            # 使用 yfinance 獲取數據
+            df = yf.download(ticker, start=start_date, end=end_date, progress=False)
+            
+            if df.empty or len(df) == 0:
                 logger.warning(f"No data fetched for {stock_id}")
                 return pd.DataFrame()
             
-            # 轉換 twstock 數據為 DataFrame
-            # stock.data 是一個 list of Data namedtuple，每個 Data 例如：
-            # Data(date=datetime, capacity=..., open=..., high=..., low=..., close=..., volume=...)
-            records = []
-            for item in stock.data:
-                try:
-                    records.append({
-                        'Date': item.date,
-                        'Open': float(item.open),
-                        'High': float(item.high),
-                        'Low': float(item.low),
-                        'Close': float(item.close),
-                        'Volume': float(item.capacity)  # twstock 使用 capacity 作為成交量
-                    })
-                except (ValueError, TypeError, AttributeError) as e:
-                    logger.debug(f"Skipping invalid row for {stock_id}: {item}")
-                    continue
-            
-            if not records:
-                logger.warning(f"No valid records for {stock_id}")
-                return pd.DataFrame()
-            
-            df = pd.DataFrame(records)
-            df['Date'] = pd.to_datetime(df['Date'])
-            df = df.sort_values('Date').reset_index(drop=True)
-            df = df.set_index('Date')
+            # 標準化列名
+            df.columns = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+            df = df.drop('Adj Close', axis=1)
             
             # 移除 NaN 值
             df = df.dropna()
@@ -96,10 +75,10 @@ class TaiwanStockDataFetcher:
                 logger.warning(f"Insufficient data for {stock_id}: {len(df)} rows (need 30)")
                 return pd.DataFrame()
             
-            logger.info(f"Successfully fetched {len(df)} days of data for {stock_id} from twstock (TWSE)")
+            logger.info(f"Successfully fetched {len(df)} days of data for {stock_id} from yfinance")
             return df
         except Exception as e:
-            logger.error(f"Failed to fetch data for {stock_id} from twstock (TWSE): {e}")
+            logger.error(f"Failed to fetch data for {stock_id} from yfinance: {e}")
             import traceback
             logger.error(traceback.format_exc())
             return pd.DataFrame()
@@ -148,6 +127,74 @@ class ScanLogWriter:
     def flush_all(self):
         """確保所有日誌都被寫入"""
         self._flush_logs()
+
+def parse_csv_data(csv_file_path, stock_id=None):
+    """從 CSV 文件解析股票數據"""
+    try:
+        logger.info(f"Parsing CSV data from {csv_file_path}")
+        
+        # 讀取 CSV 文件
+        df = pd.read_csv(csv_file_path)
+        
+        # 標準化列名（支援多種格式）
+        df.columns = df.columns.str.strip().str.lower()
+        
+        # 嘗試找到日期列
+        date_col = None
+        for col in ['date', 'time', '日期', '時間']:
+            if col in df.columns:
+                date_col = col
+                break
+        
+        if date_col is None:
+            logger.error("CSV file must contain a 'date' column")
+            return pd.DataFrame()
+        
+        # 標準化 OHLCV 列
+        required_cols = ['open', 'high', 'low', 'close', 'volume']
+        for col in required_cols:
+            if col not in df.columns:
+                # 嘗試找到相似的列名
+                for c in df.columns:
+                    if col[0] in c.lower():
+                        df[col] = df[c]
+                        break
+        
+        # 檢查是否有所有必要的列
+        if not all(col in df.columns for col in required_cols):
+            logger.error(f"CSV file must contain columns: {', '.join(required_cols)}")
+            return pd.DataFrame()
+        
+        # 選擇必要的列
+        df = df[[date_col, 'open', 'high', 'low', 'close', 'volume']]
+        df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
+        
+        # 轉換日期和數值
+        df['Date'] = pd.to_datetime(df['Date'])
+        df['Open'] = pd.to_numeric(df['Open'], errors='coerce')
+        df['High'] = pd.to_numeric(df['High'], errors='coerce')
+        df['Low'] = pd.to_numeric(df['Low'], errors='coerce')
+        df['Close'] = pd.to_numeric(df['Close'], errors='coerce')
+        df['Volume'] = pd.to_numeric(df['Volume'], errors='coerce')
+        
+        # 移除 NaN 值
+        df = df.dropna()
+        
+        # 排序並設置日期為索引
+        df = df.sort_values('Date').reset_index(drop=True)
+        df = df.set_index('Date')
+        
+        if len(df) < 30:
+            logger.warning(f"Insufficient data in CSV: {len(df)} rows (need 30)")
+            return pd.DataFrame()
+        
+        logger.info(f"Successfully parsed {len(df)} days of data from CSV")
+        return df
+    except Exception as e:
+        logger.error(f"Failed to parse CSV data: {e}")
+        import traceback
+        logger.error(traceback.format_exc())
+        return pd.DataFrame()
 
 def run_market_scan(params):
     fetcher = TaiwanStockDataFetcher()
@@ -276,6 +323,44 @@ def get_stock_kline_data(stock_id, start_date_str, end_date_str):
     
     return {"status": "success", "klines": kline_data}
 
+def analyze_csv_data(csv_file_path, stock_id=None, signal_filter=None):
+    """分析上傳的 CSV 數據"""
+    df_daily = parse_csv_data(csv_file_path, stock_id)
+    
+    if df_daily.empty:
+        return {"status": "error", "message": "Failed to parse CSV data."}
+    
+    engine = LinJiaYangEngine(df_daily)
+    analysis_result = engine.run_analysis()
+    
+    # 提取最新訊號
+    latest_signal = analysis_result.iloc[-1]
+    signal_type = latest_signal["Signal"]
+    above_ma60 = bool(latest_signal["Above_MA60"])
+    
+    # 生成 K 線數據
+    kline_data = []
+    for index, row in analysis_result.iterrows():
+        kline_data.append({
+            "Date": index.strftime('%Y-%m-%d'),
+            "Open": float(row["Open"]),
+            "High": float(row["High"]),
+            "Low": float(row["Low"]),
+            "Close": float(row["Close"]),
+            "Volume": float(row["Volume"]),
+            "Signal": row["Signal"],
+            "Above_MA60": bool(row["Above_MA60"])
+        })
+    
+    return {
+        "status": "success",
+        "stockId": stock_id or "uploaded",
+        "signalType": signal_type,
+        "aboveMa60": above_ma60,
+        "closePrice": float(latest_signal["Close"]),
+        "klines": kline_data
+    }
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print(json.dumps({"status": "error", "message": "No command provided."}), file=sys.stderr)
@@ -292,6 +377,12 @@ if __name__ == "__main__":
         start_date_str = sys.argv[3]
         end_date_str = sys.argv[4]
         result = get_stock_kline_data(stock_id, start_date_str, end_date_str)
+        print(json.dumps(result, default=str))
+    elif command == "analyze_csv":
+        csv_file_path = sys.argv[2]
+        stock_id = sys.argv[3] if len(sys.argv) > 3 else None
+        signal_filter = json.loads(sys.argv[4]) if len(sys.argv) > 4 else None
+        result = analyze_csv_data(csv_file_path, stock_id, signal_filter)
         print(json.dumps(result, default=str))
     else:
         print(json.dumps({"status": "error", "message": f"Unknown command: {command}"}), file=sys.stderr)

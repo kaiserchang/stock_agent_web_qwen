@@ -6,6 +6,9 @@ import { z } from "zod";
 import { executePythonScript } from "./_core/pythonExecutor";
 import { insertScanResult, insertScanSession, getLatestScanSession, getScanResultsBySessionId, getScanSessions, updateScanSession, getScanLogsBySessionId, insertScanLog } from "./fileStorage";
 import { TRPCError } from "@trpc/server";
+import { writeFileSync, unlinkSync } from "fs";
+import { join } from "path";
+import { randomBytes } from "crypto";
 
 const PYTHON_SCRIPT_PATH = "server/python_logic/scan_orchestrator.py"; // 使用相對路徑
 
@@ -206,6 +209,47 @@ export const appRouter = router({
         } catch (error) {
           console.error(`[getKlineData] Failed to fetch kline data for ${input.stockId}:`, error);
           throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `Failed to fetch kline data: ${error instanceof Error ? error.message : 'Unknown error'}` });
+        }
+      }),
+    analyzeCsvData: publicProcedure
+      .input(z.object({
+        csvContent: z.string(),
+        stockId: z.string().optional(),
+        signalFilter: z.array(z.string()).optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const tempFileName = `csv_${randomBytes(8).toString('hex')}.csv`;
+        const tempFilePath = join(process.cwd(), 'data', tempFileName);
+        
+        try {
+          // 寫入臨時 CSV 文件
+          writeFileSync(tempFilePath, input.csvContent, 'utf-8');
+          console.log(`[analyzeCsvData] Saved CSV file to ${tempFilePath}`);
+          
+          // 調用 Python 分析
+          const result = await executePythonScript(PYTHON_SCRIPT_PATH, [
+            "analyze_csv",
+            tempFilePath,
+            input.stockId || "uploaded",
+            JSON.stringify(input.signalFilter || []),
+          ]);
+          
+          if (result.status === "success") {
+            return result;
+          } else {
+            throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: result.message });
+          }
+        } catch (error) {
+          console.error(`[analyzeCsvData] Failed to analyze CSV data:`, error);
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `Failed to analyze CSV data: ${error instanceof Error ? error.message : 'Unknown error'}` });
+        } finally {
+          // 清理臨時文件
+          try {
+            unlinkSync(tempFilePath);
+            console.log(`[analyzeCsvData] Cleaned up temporary file ${tempFilePath}`);
+          } catch (e) {
+            console.warn(`[analyzeCsvData] Failed to clean up temporary file: ${e}`);
+          }
         }
       }),
   }),
