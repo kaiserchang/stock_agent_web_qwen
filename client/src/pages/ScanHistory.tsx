@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/_core/hooks/useAuth";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -36,13 +36,12 @@ interface ScanSession {
 }
 
 export default function ScanHistory() {
-  const { isAuthenticated } = useAuth();
   const [selectedSession, setSelectedSession] = useState<ScanSession | null>(null);
   const [sessionResults, setSessionResults] = useState<ScanResult[]>([]);
 
   // 獲取掃描歷史
   const scanHistoryQuery = trpc.stock.getScanHistory.useQuery(undefined, {
-    enabled: isAuthenticated,
+    enabled: true,
   });
 
   // 獲取特定 session 的詳細結果
@@ -58,19 +57,6 @@ export default function ScanHistory() {
   }, [sessionDetailsQuery.data]);
 
   const sessions = (scanHistoryQuery.data || []) as any[];
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md border-0 shadow-lg">
-          <CardHeader className="text-center">
-            <CardTitle>請登入</CardTitle>
-            <CardDescription>您需要登入才能查看掃描歷史</CardDescription>
-          </CardHeader>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-6">

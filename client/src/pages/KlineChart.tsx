@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "wouter";
 import { trpc } from "@/lib/trpc";
-import { useAuth } from "@/_core/hooks/useAuth";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -20,7 +20,6 @@ interface KlineData {
 }
 
 export default function KlineChart() {
-  const { isAuthenticated } = useAuth();
   const { stockId } = useParams<{ stockId: string }>();
   const [klineData, setKlineData] = useState<KlineData[]>([]);
   const [dateRange, setDateRange] = useState<{ startDate: string; endDate: string }>({
@@ -47,7 +46,7 @@ export default function KlineChart() {
       endDate: dateRange.endDate,
     },
     {
-      enabled: !!(stockId && dateRange.startDate && dateRange.endDate && isAuthenticated),
+      enabled: !!(stockId && dateRange.startDate && dateRange.endDate),
     }
   );
 
@@ -55,8 +54,10 @@ export default function KlineChart() {
   useEffect(() => {
     if (getKlineDataQuery.data) {
       const data = getKlineDataQuery.data as any;
-      if (data.status === "success" && data.klines) {
-        const formattedData = data.klines.map((kline: any) => ({
+      // 後端回傳的是 { status, data: [...] } 或 { status, klines: [...] }
+      const klines = data.klines || data.data || [];
+      if (data.status === "success" && klines && klines.length > 0) {
+        const formattedData = klines.map((kline: any) => ({
           date: kline.date,
           open: parseFloat(kline.open),
           high: parseFloat(kline.high),

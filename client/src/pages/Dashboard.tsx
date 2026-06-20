@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -44,6 +43,29 @@ export default function Dashboard() {
     enabled: true,
   });
 
+  // 查詢掃描進度
+  const getScanProgressQuery = trpc.stock.getScanProgress.useQuery(
+    { sessionId: currentSessionId || 0 },
+    {
+      enabled: isScanning && currentSessionId !== null,
+      refetchInterval: 1000, // 每秒輪詢一次
+    }
+  );
+
+  // 監聽掃描進度
+  useEffect(() => {
+    if (getScanProgressQuery.data) {
+      const progress = getScanProgressQuery.data.progress;
+      setScanProgress(progress);
+      
+      if (getScanProgressQuery.data.status === "completed" || getScanProgressQuery.data.status === "failed") {
+        setIsScanning(false);
+        // 掃描完成，重新查詢最新結果
+        latestResultsQuery.refetch();
+      }
+    }
+  }, [getScanProgressQuery.data]);
+
   // 啟動掃描
   const startScanMutation = trpc.stock.startScan.useMutation({
     onSuccess: (data) => {
@@ -51,25 +73,6 @@ export default function Dashboard() {
       setIsScanning(true);
       setScanProgress(0);
       setCurrentSessionId(data.sessionId);
-      
-      // 模擬進度更新（實際應該輪詢後端）
-      const progressInterval = setInterval(() => {
-        setScanProgress((prev) => {
-          if (prev >= 95) {
-            clearInterval(progressInterval);
-            return 95;
-          }
-          return prev + Math.random() * 15;
-        });
-      }, 500);
-
-      // 5秒後完成掃描
-      setTimeout(() => {
-        clearInterval(progressInterval);
-        setScanProgress(100);
-        setIsScanning(false);
-        latestResultsQuery.refetch();
-      }, 5000);
     },
     onError: (error) => {
       console.error("掃描失敗:", error);
@@ -83,12 +86,55 @@ export default function Dashboard() {
     }
   }, [latestResultsQuery.data]);
 
+  // 清理函式：當 isScanning 變為 false 時停止輪詢
+  useEffect(() => {
+    if (!isScanning) {
+      // 停止輪詢（通過 enabled: false）
+    }
+  }, [isScanning]);
+
   // 統計訊號數量
   const signalStats = {
     attackK: scanResults.filter((r) => r.signalType === "攻擊K線").length,
     bullishEngulfing: scanResults.filter((r) => r.signalType === "多頭吞噬").length,
     bearishEngulfing: scanResults.filter((r) => r.signalType === "黑K吞噬").length,
     harami: scanResults.filter((r) => r.signalType === "內困型態").length,
+  };
+
+  // 讀取掃描參數
+  const getScanParams = () => {
+    const stored = localStorage.getItem("scanParams");
+    if (stored) {
+      const params = JSON.parse(stored);
+      return {
+        scanLimit: params.scanLimit || 100,
+        startDate: params.startDate || getDefaultStartDate(),
+        endDate: params.endDate || new Date().toISOString().split('T')[0],
+        signalFilter: params.signalFilter || [],
+      };
+    }
+    return {
+      scanLimit: 100,
+      startDate: getDefaultStartDate(),
+      endDate: new Date().toISOString().split('T')[0],
+      signalFilter: [],
+    };
+  };
+
+  const getDefaultStartDate = () => {
+    const date = new Date();
+    date.setMonth(date.getMonth() - 2);
+    return date.toISOString().split('T')[0];
+  };
+
+  const handleStartScan = () => {
+    const params = getScanParams();
+    startScanMutation.mutate({
+      scanLimit: params.scanLimit,
+      startDate: params.startDate,
+      endDate: params.endDate,
+      signalFilter: params.signalFilter,
+    });
   };
 
   return (
@@ -111,33 +157,34 @@ export default function Dashboard() {
           <CardContent className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-2 md:gap-4">
               <Button
-                onClick={() => startScanMutation.mutate({})}
+                onClick={handleStartScan}
                 disabled={isScanning || startScanMutation.isPending}
                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex-1 sm:flex-none"
               >
-                {isScanning ? "掃描中..." : "開始掃描"}
+                {isScanning ? `掃描中... ${Math.round(scanProgress)}%` : "開始掃描"}
               </Button>
               <Link href="/settings" className="flex-1 sm:flex-none">
-                <Button variant="outline" className="border-slate-300 hover:bg-slate-50 w-full">
+                <Button variant="outline" className="w-full">
                   掃描設定
                 </Button>
               </Link>
               <Link href="/history" className="flex-1 sm:flex-none">
-                <Button variant="outline" className="border-slate-300 hover:bg-slate-50 w-full">
+                <Button variant="outline" className="w-full">
                   歷史紀錄
                 </Button>
               </Link>
             </div>
 
+            {/* 進度條 */}
             {isScanning && (
               <div className="space-y-2">
                 <div className="flex justify-between text-sm text-slate-600">
                   <span>掃描進度</span>
                   <span>{Math.round(scanProgress)}%</span>
                 </div>
-                <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                <div className="w-full bg-slate-200 rounded-full h-2">
                   <div
-                    className="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-300 rounded-full"
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-300"
                     style={{ width: `${scanProgress}%` }}
                   />
                 </div>
@@ -146,25 +193,16 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* 掃描進度日誌 */}
-        {isScanning && currentSessionId && (
-          <ScanProgressLogs sessionId={currentSessionId} isScanning={isScanning} />
-        )}
-
-        {/* 訊號統計摘要 */}
+        {/* 訊號統計摘要卡片 */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           <Card className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 text-xs md:text-sm font-medium">攻擊K線</p>
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900 mt-1">
-                    {signalStats.attackK}
-                  </p>
+                  <p className="text-sm text-slate-600">攻擊K線</p>
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900">{signalStats.attackK}</p>
                 </div>
-                <div className="bg-red-100 p-3 rounded-lg">
-                  <Zap className="w-6 h-6 text-red-600" />
-                </div>
+                <Zap className="w-8 h-8 md:w-10 md:h-10 text-red-500" />
               </div>
             </CardContent>
           </Card>
@@ -173,14 +211,10 @@ export default function Dashboard() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 text-xs md:text-sm font-medium">多頭吞噬</p>
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900 mt-1">
-                    {signalStats.bullishEngulfing}
-                  </p>
+                  <p className="text-sm text-slate-600">多頭吞噬</p>
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900">{signalStats.bullishEngulfing}</p>
                 </div>
-                <div className="bg-green-100 p-3 rounded-lg">
-                  <TrendingUp className="w-6 h-6 text-green-600" />
-                </div>
+                <TrendingUp className="w-8 h-8 md:w-10 md:h-10 text-green-500" />
               </div>
             </CardContent>
           </Card>
@@ -189,14 +223,10 @@ export default function Dashboard() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 text-xs md:text-sm font-medium">黑K吞噬</p>
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900 mt-1">
-                    {signalStats.bearishEngulfing}
-                  </p>
+                  <p className="text-sm text-slate-600">黑K吞噬</p>
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900">{signalStats.bearishEngulfing}</p>
                 </div>
-                <div className="bg-yellow-100 p-3 rounded-lg">
-                  <AlertTriangle className="w-6 h-6 text-yellow-600" />
-                </div>
+                <AlertTriangle className="w-8 h-8 md:w-10 md:h-10 text-yellow-500" />
               </div>
             </CardContent>
           </Card>
@@ -205,69 +235,80 @@ export default function Dashboard() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-600 text-xs md:text-sm font-medium">內困型態</p>
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900 mt-1">
-                    {signalStats.harami}
-                  </p>
+                  <p className="text-sm text-slate-600">內困型態</p>
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900">{signalStats.harami}</p>
                 </div>
-                <div className="bg-blue-100 p-3 rounded-lg">
-                  <Layers className="w-6 h-6 text-blue-600" />
-                </div>
+                <Layers className="w-8 h-8 md:w-10 md:h-10 text-blue-500" />
               </div>
             </CardContent>
           </Card>
         </div>
 
+        {/* 掃描進度日誌 */}
+        {isScanning && currentSessionId && (
+          <ScanProgressLogs sessionId={currentSessionId} isScanning={isScanning} />
+        )}
+
         {/* 投資建議名單 */}
         <Card className="border-0 shadow-lg bg-white">
           <CardHeader>
             <CardTitle className="text-lg">投資建議名單</CardTitle>
-            <CardDescription>今日掃描出的投資機會</CardDescription>
+            <CardDescription>
+              {scanResults.length > 0
+                ? `今日掃描出 ${scanResults.length} 檔股票`
+                : "暫無掃描結果，請點擊「開始掃描」按鈕執行掃描"}
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            {scanResults.length === 0 ? (
-              <Alert className="border-slate-200 bg-slate-50">
-                <AlertCircle className="h-4 w-4 text-slate-600" />
-                <AlertDescription className="text-slate-600">
-                  暫無掃描結果。請點擊「開始掃描」按鈕執行全市場掃描。
-                </AlertDescription>
-              </Alert>
-            ) : (
+            {scanResults.length > 0 ? (
               <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
-                    <TableRow className="border-slate-200 hover:bg-transparent">
+                    <TableRow className="border-b border-slate-200">
                       <TableHead className="text-slate-700 font-semibold">股票代號</TableHead>
-                      <TableHead className="text-slate-700 font-semibold">股票名稱</TableHead>
-                      <TableHead className="text-slate-700 font-semibold">產業</TableHead>
+                      <TableHead className="text-slate-700 font-semibold">名稱</TableHead>
+                      <TableHead className="text-slate-700 font-semibold hidden md:table-cell">產業</TableHead>
                       <TableHead className="text-slate-700 font-semibold text-right">收盤價</TableHead>
-                      <TableHead className="text-slate-700 font-semibold">技術訊號</TableHead>
-                      <TableHead className="text-slate-700 font-semibold">季線之上</TableHead>
+                      <TableHead className="text-slate-700 font-semibold">訊號類型</TableHead>
+                      <TableHead className="text-slate-700 font-semibold hidden sm:table-cell">季線之上</TableHead>
                       <TableHead className="text-slate-700 font-semibold">操作</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {scanResults.map((result) => (
-                      <TableRow key={result.id} className="border-slate-100 hover:bg-slate-50">
+                      <TableRow key={result.id} className="border-b border-slate-100 hover:bg-slate-50">
                         <TableCell className="font-semibold text-slate-900">{result.stockId}</TableCell>
                         <TableCell className="text-slate-700">{result.stockName}</TableCell>
-                        <TableCell className="text-slate-600 text-sm">{result.industry || "-"}</TableCell>
-                        <TableCell className="text-right font-medium text-slate-900">
-                          ${result.closePrice}
+                        <TableCell className="text-slate-600 hidden md:table-cell">{result.industry}</TableCell>
+                        <TableCell className="text-right font-semibold text-slate-900">
+                          ${result.closePrice.toFixed(2)}
                         </TableCell>
                         <TableCell>
-                          <Badge className="bg-blue-100 text-blue-800">{result.signalType}</Badge>
+                          <Badge
+                            variant="outline"
+                            className={`${
+                              result.signalType === "攻擊K線"
+                                ? "bg-red-100 text-red-700 border-red-300"
+                                : result.signalType === "多頭吞噬"
+                                ? "bg-green-100 text-green-700 border-green-300"
+                                : result.signalType === "黑K吞噬"
+                                ? "bg-yellow-100 text-yellow-700 border-yellow-300"
+                                : "bg-blue-100 text-blue-700 border-blue-300"
+                            }`}
+                          >
+                            {result.signalType}
+                          </Badge>
                         </TableCell>
-                        <TableCell>
-                          {result.aboveMa60 === 1 ? (
-                            <Badge className="bg-green-100 text-green-800">是</Badge>
+                        <TableCell className="hidden sm:table-cell">
+                          {result.aboveMa60 ? (
+                            <Badge className="bg-green-100 text-green-700 border-green-300">是</Badge>
                           ) : (
-                            <Badge className="bg-gray-100 text-gray-800">否</Badge>
+                            <Badge className="bg-red-100 text-red-700 border-red-300">否</Badge>
                           )}
                         </TableCell>
                         <TableCell>
                           <Link href={`/kline/${result.stockId}`}>
-                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
+                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
                               查看K線
                             </Button>
                           </Link>
@@ -277,6 +318,13 @@ export default function Dashboard() {
                   </TableBody>
                 </Table>
               </div>
+            ) : (
+              <Alert className="bg-blue-50 border-blue-200">
+                <AlertCircle className="h-4 w-4 text-blue-600" />
+                <AlertDescription className="text-blue-700">
+                  暫無掃描結果。請點擊「開始掃描」按鈕執行掃描，或前往「掃描設定」調整掃描參數。
+                </AlertDescription>
+              </Alert>
             )}
           </CardContent>
         </Card>

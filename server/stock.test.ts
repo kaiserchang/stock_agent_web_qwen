@@ -51,7 +51,7 @@ describe("stock router", () => {
       });
     });
 
-    it("should throw UNAUTHORIZED error for unauthenticated user", async () => {
+    it("should return default scan settings for unauthenticated user (public mode)", async () => {
       const ctx: TrpcContext = {
         user: null,
         req: { protocol: "https", headers: {} } as any,
@@ -59,12 +59,13 @@ describe("stock router", () => {
       };
       const caller = appRouter.createCaller(ctx);
 
-      try {
-        await caller.stock.getScanSettings();
-        expect.fail("Should have thrown an error");
-      } catch (error: any) {
-        expect(error.code).toBe("UNAUTHORIZED");
-      }
+      const result = await caller.stock.getScanSettings();
+      expect(result).toEqual({
+        scanLimit: 50,
+        startDate: "",
+        endDate: "",
+        signalFilter: ["攻擊K線", "多頭吞噬", "黑K吞噬", "內困型態"],
+      });
     });
   });
 
@@ -84,7 +85,7 @@ describe("stock router", () => {
       });
     });
 
-    it("should throw UNAUTHORIZED error for unauthenticated user", async () => {
+    it("should update scan settings for unauthenticated user (public mode)", async () => {
       const ctx: TrpcContext = {
         user: null,
         req: { protocol: "https", headers: {} } as any,
@@ -92,17 +93,16 @@ describe("stock router", () => {
       };
       const caller = appRouter.createCaller(ctx);
 
-      try {
-        await caller.stock.updateScanSettings({ scanLimit: 100 });
-        expect.fail("Should have thrown an error");
-      } catch (error: any) {
-        expect(error.code).toBe("UNAUTHORIZED");
-      }
+      const result = await caller.stock.updateScanSettings({ scanLimit: 100 });
+      expect(result).toEqual({
+        success: true,
+        message: "Scan settings updated successfully",
+      });
     });
   });
 
   describe("getScanHistory", () => {
-    it("should return empty array when no scan history exists", async () => {
+    it("should return scan history for authenticated user", async () => {
       const { ctx } = createAuthContext();
       const caller = appRouter.createCaller(ctx);
 
@@ -111,7 +111,7 @@ describe("stock router", () => {
       expect(Array.isArray(result)).toBe(true);
     });
 
-    it("should throw UNAUTHORIZED error for unauthenticated user", async () => {
+    it("should return scan history for unauthenticated user (public mode)", async () => {
       const ctx: TrpcContext = {
         user: null,
         req: { protocol: "https", headers: {} } as any,
@@ -119,12 +119,8 @@ describe("stock router", () => {
       };
       const caller = appRouter.createCaller(ctx);
 
-      try {
-        await caller.stock.getScanHistory();
-        expect.fail("Should have thrown an error");
-      } catch (error: any) {
-        expect(error.code).toBe("UNAUTHORIZED");
-      }
+      const result = await caller.stock.getScanHistory();
+      expect(Array.isArray(result)).toBe(true);
     });
   });
 
@@ -141,7 +137,15 @@ describe("stock router", () => {
       }
     });
 
-    it("should throw UNAUTHORIZED error for unauthenticated user", async () => {
+    it("should return scan session details for authenticated user", async () => {
+      const { ctx } = createAuthContext();
+      const caller = appRouter.createCaller(ctx);
+
+      const result = await caller.stock.getScanSessionDetails({ sessionId: "1" });
+      expect(Array.isArray(result)).toBe(true);
+    });
+
+    it("should return scan session details for unauthenticated user (public mode)", async () => {
       const ctx: TrpcContext = {
         user: null,
         req: { protocol: "https", headers: {} } as any,
@@ -149,41 +153,24 @@ describe("stock router", () => {
       };
       const caller = appRouter.createCaller(ctx);
 
-      try {
-        await caller.stock.getScanSessionDetails({ sessionId: "1" });
-        expect.fail("Should have thrown an error");
-      } catch (error: any) {
-        expect(error.code).toBe("UNAUTHORIZED");
-      }
-    });
-
-    it("should throw FORBIDDEN error when accessing another user's session", async () => {
-      const { ctx } = createAuthContext();
-      const caller = appRouter.createCaller(ctx);
-
-      try {
-        await caller.stock.getScanSessionDetails({ sessionId: "999" });
-        expect.fail("Should have thrown an error");
-      } catch (error: any) {
-        expect(error.code).toBe("FORBIDDEN");
-      }
+      const result = await caller.stock.getScanSessionDetails({ sessionId: "1" });
+      expect(Array.isArray(result)).toBe(true);
     });
   });
 
   describe("getLatestScanResults", () => {
-    it("should return null session when no scan results exist", async () => {
+    it("should return latest scan results for authenticated user", async () => {
       const { ctx } = createAuthContext();
       const caller = appRouter.createCaller(ctx);
 
       const result = await caller.stock.getLatestScanResults();
 
-      expect(result).toEqual({
-        session: null,
-        results: [],
-      });
+      expect(result).toHaveProperty("session");
+      expect(result).toHaveProperty("results");
+      expect(Array.isArray(result.results)).toBe(true);
     });
 
-    it("should throw UNAUTHORIZED error for unauthenticated user", async () => {
+    it("should return latest scan results for unauthenticated user (public mode)", async () => {
       const ctx: TrpcContext = {
         user: null,
         req: { protocol: "https", headers: {} } as any,
@@ -191,12 +178,10 @@ describe("stock router", () => {
       };
       const caller = appRouter.createCaller(ctx);
 
-      try {
-        await caller.stock.getLatestScanResults();
-        expect.fail("Should have thrown an error");
-      } catch (error: any) {
-        expect(error.code).toBe("UNAUTHORIZED");
-      }
+      const result = await caller.stock.getLatestScanResults();
+      expect(result).toHaveProperty("session");
+      expect(result).toHaveProperty("results");
+      expect(Array.isArray(result.results)).toBe(true);
     });
   });
 });
