@@ -6,7 +6,7 @@ import sys
 import json
 import requests
 from datetime import datetime, timedelta
-import yfinance as yf
+from twstock import Stock
 
 # 設定日誌
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -50,34 +50,44 @@ class TaiwanStockDataFetcher:
         return pd.DataFrame(fallback_stocks)
 
     def get_stock_daily_data(self, stock_id, start_date, end_date):
-        """獲取股票日線數據，使用 yfinance"""
+        """獲取股票日線數據，使用 twstock（台灣證券交易所官方數據）"""
         try:
-            # 使用 yfinance 獲取台股數據
-            # 台股代碼格式：NNNN.TW
-            ticker = f"{stock_id}.TW"
-            df = yf.download(ticker, start=start_date, end=end_date, progress=False, timeout=10)
+            logger.info(f"Fetching data for {stock_id} from {start_date} to {end_date} using twstock")
             
-            if df.empty:
-                logger.warning(f"No data downloaded for {stock_id}")
+            # 使用 twstock Stock 類從證交所獲取台股數據
+            stock = Stock(stock_id)
+            
+            # 獲取整個數據集
+            if not stock.data or len(stock.data) == 0:
+                logger.warning(f"No data fetched for {stock_id}")
                 return pd.DataFrame()
             
-            # yfinance 返回的 DataFrame 有多層索引，需要展平
-            if isinstance(df.columns, pd.MultiIndex):
-                # 如果是多層索引，取第一層
-                df.columns = df.columns.get_level_values(0)
+            # 轉換 twstock 數據為 DataFrame
+            # stock.data 是一個 list of Data namedtuple，每個 Data 例如：
+            # Data(date=datetime, capacity=..., open=..., high=..., low=..., close=..., volume=...)
+            records = []
+            for item in stock.data:
+                try:
+                    records.append({
+                        'Date': item.date,
+                        'Open': float(item.open),
+                        'High': float(item.high),
+                        'Low': float(item.low),
+                        'Close': float(item.close),
+                        'Volume': float(item.capacity)  # twstock 使用 capacity 作為成交量
+                    })
+                except (ValueError, TypeError, AttributeError) as e:
+                    logger.debug(f"Skipping invalid row for {stock_id}: {item}")
+                    continue
             
-            # 確保欄位名稱正確
-            df = df.rename(columns={
-                "Open": "Open",
-                "High": "High",
-                "Low": "Low",
-                "Close": "Close",
-                "Volume": "Volume"
-            })
+            if not records:
+                logger.warning(f"No valid records for {stock_id}")
+                return pd.DataFrame()
             
-            # 只保留需要的欄位
-            required_cols = ["Open", "High", "Low", "Close", "Volume"]
-            df = df[[col for col in required_cols if col in df.columns]]
+            df = pd.DataFrame(records)
+            df['Date'] = pd.to_datetime(df['Date'])
+            df = df.sort_values('Date').reset_index(drop=True)
+            df = df.set_index('Date')
             
             # 移除 NaN 值
             df = df.dropna()
@@ -86,10 +96,12 @@ class TaiwanStockDataFetcher:
                 logger.warning(f"Insufficient data for {stock_id}: {len(df)} rows (need 30)")
                 return pd.DataFrame()
             
-            logger.info(f"Successfully fetched {len(df)} days of data for {stock_id}")
+            logger.info(f"Successfully fetched {len(df)} days of data for {stock_id} from twstock (TWSE)")
             return df
         except Exception as e:
-            logger.error(f"Failed to fetch data for {stock_id}: {e}")
+            logger.error(f"Failed to fetch data for {stock_id} from twstock (TWSE): {e}")
+            import traceback
+            logger.error(traceback.format_exc())
             return pd.DataFrame()
 
 class ScanLogWriter:

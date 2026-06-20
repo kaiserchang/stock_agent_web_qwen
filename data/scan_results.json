@@ -86,5 +86,181 @@
     "aboveMa60": true,
     "scanDate": "2026-06-18T00:00:00.000Z",
     "id": 8
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "industry": "電子",
+    "closePrice": 268.5,
+    "signalType": "內困型態",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 9
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "industry": "水泥",
+    "closePrice": 24.5,
+    "signalType": "黑K吞噬",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 10
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1216",
+    "stockName": "統一",
+    "industry": "食品",
+    "closePrice": 74.5,
+    "signalType": "黑K吞噬",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 11
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "industry": "化工",
+    "closePrice": 51.70000076293945,
+    "signalType": "攻擊K線",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 12
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "industry": "機械",
+    "closePrice": 1380,
+    "signalType": "攻擊K線",
+    "aboveMa60": false,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 13
+  },
+  {
+    "sessionId": 2,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "industry": "電子",
+    "closePrice": 161.5,
+    "signalType": "內困型態",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 14
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "industry": "電子",
+    "closePrice": 789,
+    "signalType": "黑K吞噬",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 15
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "industry": "半導體",
+    "closePrice": 459.5,
+    "signalType": "攻擊K線",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 16
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "industry": "電子",
+    "closePrice": 268.5,
+    "signalType": "內困型態",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 17
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "industry": "水泥",
+    "closePrice": 24.5,
+    "signalType": "黑K吞噬",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 18
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1216",
+    "stockName": "統一",
+    "industry": "食品",
+    "closePrice": 74.5,
+    "signalType": "黑K吞噬",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 19
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "industry": "化工",
+    "closePrice": 51.70000076293945,
+    "signalType": "攻擊K線",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 20
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "industry": "機械",
+    "closePrice": 1380,
+    "signalType": "攻擊K線",
+    "aboveMa60": false,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 21
+  },
+  {
+    "sessionId": 3,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "industry": "電子",
+    "closePrice": 161.5,
+    "signalType": "內困型態",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 22
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "industry": "電子",
+    "closePrice": 789,
+    "signalType": "黑K吞噬",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 23
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "industry": "半導體",
+    "closePrice": 459.5,
+    "signalType": "攻擊K線",
+    "aboveMa60": true,
+    "scanDate": "2026-06-18T00:00:00.000Z",
+    "id": 24
   }
 ]

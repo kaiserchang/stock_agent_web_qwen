@@ -1,1 +1,1192 @@
-[]
+[
+  {
+    "sessionId": 2,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 1,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 2,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 3,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 4,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 5,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 6,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 7,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 8,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 9,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 10,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 11,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "completed",
+    "signalType": "內困型態",
+    "message": "發現訊號：內困型態",
+    "id": 12,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 13,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 14,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 15,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 16,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 17,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "completed",
+    "signalType": "黑K吞噬",
+    "message": "發現訊號：黑K吞噬",
+    "id": 18,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 19,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 20,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 21,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 22,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 23,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "completed",
+    "signalType": "黑K吞噬",
+    "message": "發現訊號：黑K吞噬",
+    "id": 24,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 25,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 26,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "completed",
+    "signalType": "攻擊K線",
+    "message": "發現訊號：攻擊K線",
+    "id": 27,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 28,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 29,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 30,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 31,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 32,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 33,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 34,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 35,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 36,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 37,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 38,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 39,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 40,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 41,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "completed",
+    "signalType": "攻擊K線",
+    "message": "發現訊號：攻擊K線",
+    "id": 42,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 43,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 44,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 45,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 46,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 47,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "completed",
+    "signalType": "內困型態",
+    "message": "發現訊號：內困型態",
+    "id": 48,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 49,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 50,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "completed",
+    "signalType": "黑K吞噬",
+    "message": "發現訊號：黑K吞噬",
+    "id": 51,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 52,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 53,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 54,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 55,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 56,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 57,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 58,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 59,
+    "timestamp": null
+  },
+  {
+    "sessionId": 2,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "completed",
+    "signalType": "攻擊K線",
+    "message": "發現訊號：攻擊K線",
+    "id": 60,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 61,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 62,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 63,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 64,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 65,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 66,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 67,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 68,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 69,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 70,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 71,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "completed",
+    "signalType": "內困型態",
+    "message": "發現訊號：內困型態",
+    "id": 72,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 73,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 74,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 75,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 76,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 77,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "completed",
+    "signalType": "黑K吞噬",
+    "message": "發現訊號：黑K吞噬",
+    "id": 78,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 79,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 80,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 81,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 82,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 83,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "completed",
+    "signalType": "黑K吞噬",
+    "message": "發現訊號：黑K吞噬",
+    "id": 84,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 85,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 86,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "completed",
+    "signalType": "攻擊K線",
+    "message": "發現訊號：攻擊K線",
+    "id": 87,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 88,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 89,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 90,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 91,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 92,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 93,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 94,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 95,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 96,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 97,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 98,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 99,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 100,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 101,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "completed",
+    "signalType": "攻擊K線",
+    "message": "發現訊號：攻擊K線",
+    "id": 102,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 103,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於60天）",
+    "id": 104,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 105,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 106,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "completed",
+    "signalType": "內困型態",
+    "message": "發現訊號：內困型態",
+    "id": 107,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 108,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 109,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "completed",
+    "signalType": "黑K吞噬",
+    "message": "發現訊號：黑K吞噬",
+    "id": 110,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 111,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 112,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 113,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 114,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 115,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "completed",
+    "signalType": null,
+    "message": "無技術訊號",
+    "id": 116,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "id": 117,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在分析技術訊號...",
+    "id": 118,
+    "timestamp": null
+  },
+  {
+    "sessionId": 3,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "completed",
+    "signalType": "攻擊K線",
+    "message": "發現訊號：攻擊K線",
+    "id": 119,
+    "timestamp": null
+  }
+]
