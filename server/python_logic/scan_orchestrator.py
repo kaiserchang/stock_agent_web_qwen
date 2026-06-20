@@ -4,6 +4,7 @@ import pandas_ta as ta
 import logging
 import sys
 import json
+import requests
 from datetime import datetime, timedelta
 
 # 設定日誌
@@ -50,6 +51,54 @@ class TaiwanStockDataFetcher:
             logger.error(f"Error fetching daily data for {stock_id}: {e}")
             return pd.DataFrame()
 
+class ScanLogWriter:
+    """用於寫入掃描日誌的類別"""
+    def __init__(self, session_id, api_url="http://localhost:3000/api/trpc"):
+        self.session_id = session_id
+        self.api_url = api_url
+        self.logs = []
+    
+    def write_log(self, stock_id, stock_name, status, signal_type=None, message=None):
+        """寫入單筆日誌到資料庫"""
+        try:
+            # 構建日誌數據
+            log_data = {
+                "sessionId": self.session_id,
+                "stockId": stock_id,
+                "stockName": stock_name,
+                "status": status,
+                "signalType": signal_type,
+                "message": message,
+            }
+            
+            # 本地緩存日誌（避免頻繁的 API 調用）
+            self.logs.append(log_data)
+            
+            # 每 10 筆日誌或特定狀態時才寫入 API
+            if len(self.logs) >= 10 or status in ["completed", "failed"]:
+                self._flush_logs()
+        except Exception as e:
+            logger.error(f"Error writing log for {stock_id}: {e}")
+    
+    def _flush_logs(self):
+        """批量寫入緩存的日誌"""
+        if not self.logs:
+            return
+        
+        try:
+            # 這裡可以實現批量寫入 API
+            # 暫時只是打印到 stdout，讓前端通過進度查詢 API 獲取
+            for log in self.logs:
+                print(f"LOG:{json.dumps(log)}", file=sys.stderr)
+                sys.stderr.flush()
+            self.logs = []
+        except Exception as e:
+            logger.error(f"Error flushing logs: {e}")
+    
+    def flush_all(self):
+        """確保所有日誌都被寫入"""
+        self._flush_logs()
+
 def run_market_scan(params):
     fetcher = TaiwanStockDataFetcher()
     stock_list_df = fetcher.get_taiwan_stock_list()
@@ -65,48 +114,88 @@ def run_market_scan(params):
     start_date_str = params.get("start_date_str", (today - timedelta(days=120)).strftime('%Y-%m-%d'))
     end_date_str = params.get("end_date_str", today.strftime('%Y-%m-%d'))
     signal_filter = params.get("signal_filter", [])
+    session_id = params.get("session_id")
+
+    # 初始化日誌寫入器
+    log_writer = ScanLogWriter(session_id) if session_id else None
 
     recommendations = []
     total_scanned = 0
+    failed_count = 0
 
     for i, row in stock_list_df.iterrows():
         stock_id = row["stock_id"]
         stock_name = row["stock_name"]
         industry = row["industry_category"]
 
-        df_daily = fetcher.get_stock_daily_data(stock_id, start_date_str, end_date_str)
-        if df_daily.empty or len(df_daily) < 60: # 至少需要60天數據計算季線
-            logger.info(f"Skipping {stock_id} due to insufficient data.")
-            continue
+        try:
+            # 記錄掃描開始
+            if log_writer:
+                log_writer.write_log(stock_id, stock_name, "scanning", message="正在獲取數據...")
 
-        engine = LinJiaYangEngine(df_daily)
-        analysis_result = engine.run_analysis()
+            df_daily = fetcher.get_stock_daily_data(stock_id, start_date_str, end_date_str)
+            if df_daily.empty or len(df_daily) < 60:  # 至少需要60天數據計算季線
+                logger.info(f"Skipping {stock_id} due to insufficient data.")
+                if log_writer:
+                    log_writer.write_log(stock_id, stock_name, "failed", message="數據不足（少於60天）")
+                continue
 
-        latest_signal = analysis_result.iloc[-1]
-        signal_type = latest_signal["Signal"]
-        above_ma60 = bool(latest_signal["Above_MA60"])
+            # 記錄分析開始
+            if log_writer:
+                log_writer.write_log(stock_id, stock_name, "scanning", message="正在分析技術訊號...")
 
-        if signal_type != "無":
-            if not signal_filter or signal_type in signal_filter:
-                recommendations.append({
-                    "stockId": stock_id,
-                    "stockName": stock_name,
-                    "industry": industry,
-                    "closePrice": latest_signal["Close"],
-                    "signalType": signal_type,
-                    "aboveMa60": above_ma60,
-                    "scanDate": latest_signal.name.strftime('%Y-%m-%d')
-                })
-        total_scanned += 1
+            engine = LinJiaYangEngine(df_daily)
+            analysis_result = engine.run_analysis()
+
+            latest_signal = analysis_result.iloc[-1]
+            signal_type = latest_signal["Signal"]
+            above_ma60 = bool(latest_signal["Above_MA60"])
+
+            if signal_type != "無":
+                if not signal_filter or signal_type in signal_filter:
+                    recommendations.append({
+                        "stockId": stock_id,
+                        "stockName": stock_name,
+                        "industry": industry,
+                        "closePrice": latest_signal["Close"],
+                        "signalType": signal_type,
+                        "aboveMa60": above_ma60,
+                        "scanDate": latest_signal.name.strftime('%Y-%m-%d')
+                    })
+                    
+                    # 記錄發現訊號
+                    if log_writer:
+                        log_writer.write_log(stock_id, stock_name, "completed", signal_type=signal_type, message=f"發現訊號：{signal_type}")
+                else:
+                    # 記錄訊號被過濾
+                    if log_writer:
+                        log_writer.write_log(stock_id, stock_name, "completed", signal_type=signal_type, message="訊號被過濾")
+            else:
+                # 記錄無訊號
+                if log_writer:
+                    log_writer.write_log(stock_id, stock_name, "completed", message="無技術訊號")
+
+            total_scanned += 1
+
+        except Exception as e:
+            logger.error(f"Error analyzing {stock_id}: {e}")
+            if log_writer:
+                log_writer.write_log(stock_id, stock_name, "failed", message=f"分析失敗：{str(e)}")
+            failed_count += 1
 
         progress = int(((i + 1) / len(stock_list_df)) * 100)
-        print(f"PROGRESS:{progress}") # 透過 stdout 回報進度
-        sys.stdout.flush() # 確保立即輸出
+        print(f"PROGRESS:{progress}")  # 透過 stdout 回報進度
+        sys.stdout.flush()  # 確保立即輸出
+
+    # 確保所有日誌都被寫入
+    if log_writer:
+        log_writer.flush_all()
 
     return {
         "status": "success",
         "totalScannedStocks": total_scanned,
         "recommendationCount": len(recommendations),
+        "failedCount": failed_count,
         "recommendations": recommendations
     }
 

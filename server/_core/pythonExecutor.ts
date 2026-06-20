@@ -1,5 +1,6 @@
 import { spawn } from 'child_process';
 import { resolve } from 'path';
+import { insertScanLog } from '../db';
 
 export async function executePythonScript(scriptPath: string, args: (string | object)[] = [], progressCallback?: (progress: number) => void): Promise<any> {
   return new Promise((resolvePromise, reject) => {
@@ -28,7 +29,21 @@ export async function executePythonScript(scriptPath: string, args: (string | ob
     });
 
     pythonProcess.stderr.on('data', (data) => {
-      stderr += data.toString();
+      const dataStr = data.toString();
+      stderr += dataStr;
+      // Process log lines (LOG:...)
+      const logLines = dataStr.split('\n');
+      for (const line of logLines) {
+        if (line.startsWith('LOG:')) {
+          try {
+            const logData = JSON.parse(line.substring(4));
+            // Asynchronously write log to database
+            insertScanLog(logData).catch(err => console.error('Failed to insert scan log:', err));
+          } catch (e) {
+            console.error('Failed to parse log line:', line, e);
+          }
+        }
+      }
     });
 
     pythonProcess.on('close', (code) => {
