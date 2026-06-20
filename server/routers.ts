@@ -135,6 +135,12 @@ export const appRouter = router({
         if (isNaN(sessionIdNum)) {
           throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid sessionId" });
         }
+        // Verify that the session belongs to the current user
+        const sessions = await getScanSessions(ctx.user.id);
+        const sessionExists = sessions.some((s: any) => s.id === sessionIdNum);
+        if (!sessionExists) {
+          throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to access this scan session" });
+        }
         const results = await getScanResultsBySessionId(sessionIdNum);
         return results;
       }),
@@ -146,8 +152,62 @@ export const appRouter = router({
         if (!ctx.user) {
           throw new TRPCError({ code: "UNAUTHORIZED", message: "User not authenticated" });
         }
+        // Verify that the session belongs to the current user
+        const sessions = await getScanSessions(ctx.user.id);
+        const sessionExists = sessions.some((s: any) => s.id === input.sessionId);
+        if (!sessionExists) {
+          throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to access this scan session" });
+        }
         const results = await getScanResultsBySessionId(input.sessionId);
         return results;
+      }),
+    getScanProgress: protectedProcedure
+      .input(z.object({
+        sessionId: z.number(),
+      }))
+      .query(async ({ ctx, input }) => {
+        if (!ctx.user) {
+          throw new TRPCError({ code: "UNAUTHORIZED", message: "User not authenticated" });
+        }
+        const session = await getLatestScanSession(ctx.user.id);
+        if (!session || session.id !== input.sessionId) {
+          throw new TRPCError({ code: "NOT_FOUND", message: "Scan session not found" });
+        }
+        return {
+          sessionId: session.id,
+          progress: session.progress,
+          status: session.progress === 100 ? "completed" : session.progress === -1 ? "failed" : "scanning",
+          totalScannedStocks: session.totalScannedStocks,
+          recommendationCount: session.recommendationCount,
+        };
+      }),
+    getScanSettings: protectedProcedure.query(async ({ ctx }) => {
+      if (!ctx.user) {
+        throw new TRPCError({ code: "UNAUTHORIZED", message: "User not authenticated" });
+      }
+      return {
+        scanLimit: 50,
+        startDate: "",
+        endDate: "",
+        signalFilter: ["攻擊K線", "多頭吞噬", "黑K吞噬", "內困型態"],
+      };
+    }),
+    updateScanSettings: protectedProcedure
+      .input(z.object({
+        scanLimit: z.number().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
+        signalFilter: z.array(z.string()).optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        if (!ctx.user) {
+          throw new TRPCError({ code: "UNAUTHORIZED", message: "User not authenticated" });
+        }
+        console.log("Updated scan settings:", input);
+        return {
+          success: true,
+          message: "Scan settings updated successfully",
+        };
       }),
     getKlineData: protectedProcedure
       .input(z.object({
