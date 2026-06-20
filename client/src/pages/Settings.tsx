@@ -46,8 +46,8 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="max-w-2xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-6">
+      <div className="max-w-2xl mx-auto space-y-6 md:space-y-8">
         {/* 頁面標題 */}
         <div className="space-y-2">
           <Link href="/">
@@ -159,16 +159,16 @@ export default function Settings() {
         </Card>
 
         {/* 操作按鈕 */}
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-3">
           <Button
             onClick={handleSave}
-            className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex-1 sm:flex-none"
           >
             保存設定
           </Button>
-          <Link href="/">
-            <Button variant="outline" className="flex-1 border-slate-300 hover:bg-slate-50">
-              取消
+          <Link href="/" className="flex-1 sm:flex-none">
+            <Button variant="outline" className="border-slate-300 hover:bg-slate-50 w-full">
+              返回儀表板
             </Button>
           </Link>
         </div>

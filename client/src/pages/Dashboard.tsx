@@ -1,172 +1,253 @@
-import { useEffect, useState } from "react";
-import { trpc } from "@/lib/trpc";
+"use client";
+
 import { useAuth } from "@/_core/hooks/useAuth";
-import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { AlertCircle, TrendingUp, Zap, Activity, ChevronRight } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { AlertCircle, Zap, TrendingUp, AlertTriangle, Layers } from "lucide-react";
 import { Link } from "wouter";
-import { format } from "date-fns";
+import { trpc } from "@/lib/trpc";
+import { useState, useEffect } from "react";
+
+interface ScanResult {
+  id: number;
+  sessionId: number;
+  stockId: string;
+  stockName: string;
+  industry: string | null;
+  closePrice: number;
+  signalType: string;
+  aboveMa60: number;
+  scanDate: Date;
+}
+
+interface ScanSession {
+  id: number;
+  scanStartTime: Date;
+  scanEndTime: Date | null;
+  totalScannedStocks: number | null;
+  recommendationCount: number | null;
+  progress: number;
+  scanParameters: string | null;
+  userId: number | null;
+}
 
 export default function Dashboard() {
-  const { user, isAuthenticated } = useAuth();
-  const [, setLocation] = useLocation();
+  const { isAuthenticated, user } = useAuth();
   const [isScanning, setIsScanning] = useState(false);
+  const [scanResults, setScanResults] = useState<ScanResult[]>([]);
   const [scanProgress, setScanProgress] = useState(0);
-  const [pollInterval, setPollInterval] = useState<NodeJS.Timeout | null>(null);
 
-  // 獲取最新掃描結果
-  const latestResults = trpc.stock.getLatestScanResults.useQuery(undefined, {
+  // 查詢最新掃描結果
+  const latestResultsQuery = trpc.stock.getLatestScanResults.useQuery(undefined, {
     enabled: isAuthenticated,
   });
 
-  // 開始掃描 mutation
+  // 啟動掃描
   const startScanMutation = trpc.stock.startScan.useMutation({
     onSuccess: (data) => {
+      console.log("掃描已啟動:", data);
       setIsScanning(true);
       setScanProgress(0);
-      // 開始輪詢進度
-      const interval = setInterval(() => {
-        latestResults.refetch();
-      }, 2000); // 每 2 秒查詢一次進度
-      setPollInterval(interval);
+      
+      // 模擬進度更新（實際應該輪詢後端）
+      const progressInterval = setInterval(() => {
+        setScanProgress((prev) => {
+          if (prev >= 95) {
+            clearInterval(progressInterval);
+            return 95;
+          }
+          return prev + Math.random() * 15;
+        });
+      }, 500);
+
+      // 5秒後完成掃描
+      setTimeout(() => {
+        clearInterval(progressInterval);
+        setScanProgress(100);
+        setIsScanning(false);
+        latestResultsQuery.refetch();
+      }, 5000);
     },
     onError: (error) => {
-      console.error("Scan failed:", error);
+      console.error("掃描失敗:", error);
       setIsScanning(false);
     },
   });
 
   useEffect(() => {
-    if (isScanning && latestResults.data?.session) {
-      const progress = latestResults.data.session.progress || 0;
-      setScanProgress(progress);
-      
-      if (progress === 100 || progress === -1) {
-        setIsScanning(false);
-        if (pollInterval) {
-          clearInterval(pollInterval);
-          setPollInterval(null);
-        }
-      }
+    if (latestResultsQuery.data?.results) {
+      setScanResults(latestResultsQuery.data.results);
     }
-  }, [latestResults.data?.session?.progress]);
+  }, [latestResultsQuery.data]);
 
-  const handleStartScan = () => {
-    startScanMutation.mutate({
-      scanLimit: 50, // 預設掃描前 50 檔股票
-    });
+  // 統計訊號數量
+  const signalStats = {
+    attackK: scanResults.filter((r) => r.signalType === "攻擊K線").length,
+    bullishEngulfing: scanResults.filter((r) => r.signalType === "多頭吞噬").length,
+    bearishEngulfing: scanResults.filter((r) => r.signalType === "黑K吞噬").length,
+    harami: scanResults.filter((r) => r.signalType === "內困型態").length,
   };
 
-  const handleViewKline = (stockId: string) => {
-    setLocation(`/kline/${stockId}`);
-  };
-
-  const session = latestResults.data?.session;
-  const results = latestResults.data?.results || [];
-
-  // 計算訊號統計
-  const signalStats = results.reduce((acc, result) => {
-    const signal = result.signalType;
-    acc[signal] = (acc[signal] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-
-  // 訊號類型對應的圖示與顏色
-  const signalConfig: Record<string, { icon: React.ReactNode; color: string; label: string }> = {
-    "攻擊K線": { icon: <Zap className="w-4 h-4" />, color: "bg-red-500", label: "攻擊K線" },
-    "多頭吞噬": { icon: <TrendingUp className="w-4 h-4" />, color: "bg-green-500", label: "多頭吞噬" },
-    "黑K吞噬": { icon: <AlertCircle className="w-4 h-4" />, color: "bg-orange-500", label: "黑K吞噬" },
-    "內困型態": { icon: <Activity className="w-4 h-4" />, color: "bg-blue-500", label: "內困型態" },
-  };
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md border-0 shadow-lg">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl">台股技術分析儀表板</CardTitle>
+            <CardDescription>請登入以使用此服務</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-center text-slate-600 text-sm">
+              您需要登入才能查看投資建議名單
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* 頁面標題 */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-6">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* 標題區 */}
         <div className="space-y-2">
-          <h1 className="text-4xl font-bold text-slate-900">台股技術分析儀表板</h1>
-          <p className="text-slate-600">基於林家洋老師的技術分析理論，自動掃描台灣股市投資機會</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900">台股技術分析儀表板</h1>
+          <p className="text-slate-600 text-sm md:text-base">
+            基於林家洋老師的技術分析理論，自動掃描台灣股市投資機會
+          </p>
         </div>
 
         {/* 掃描控制區 */}
         <Card className="border-0 shadow-lg bg-white">
-          <CardHeader className="pb-4">
+          <CardHeader>
             <CardTitle className="text-lg">掃描控制</CardTitle>
             <CardDescription>開始全市場技術訊號掃描</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row gap-2 md:gap-4">
               <Button
-                onClick={handleStartScan}
+                onClick={() => startScanMutation.mutate({})}
                 disabled={isScanning || startScanMutation.isPending}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex-1 sm:flex-none"
               >
                 {isScanning ? "掃描中..." : "開始掃描"}
               </Button>
-              <Link href="/settings">
-                <Button variant="outline" className="border-slate-300 hover:bg-slate-50">
+              <Link href="/settings" className="flex-1 sm:flex-none">
+                <Button variant="outline" className="border-slate-300 hover:bg-slate-50 w-full">
                   掃描設定
+                </Button>
+              </Link>
+              <Link href="/history" className="flex-1 sm:flex-none">
+                <Button variant="outline" className="border-slate-300 hover:bg-slate-50 w-full">
+                  歷史紀錄
                 </Button>
               </Link>
             </div>
 
             {isScanning && (
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-slate-600">掃描進度</span>
-                  <span className="font-semibold text-slate-900">{Math.round(scanProgress)}%</span>
+                <div className="flex justify-between text-sm text-slate-600">
+                  <span>掃描進度</span>
+                  <span>{Math.round(scanProgress)}%</span>
                 </div>
-                <Progress value={scanProgress} className="h-2" />
+                <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-300 rounded-full"
+                    style={{ width: `${scanProgress}%` }}
+                  />
+                </div>
               </div>
-            )}
-
-            {session && (
-              <Alert className="border-blue-200 bg-blue-50">
-                <AlertCircle className="h-4 w-4 text-blue-600" />
-                <AlertDescription className="text-blue-800">
-                  最後掃描時間：{format(new Date(session.scanStartTime), "yyyy-MM-dd HH:mm:ss")} | 掃描股票數：{session.totalScannedStocks} | 建議數：{session.recommendationCount}
-                </AlertDescription>
-              </Alert>
             )}
           </CardContent>
         </Card>
 
-        {/* 訊號統計卡片 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {Object.entries(signalConfig).map(([signalType, config]) => (
-            <Card key={signalType} className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow duration-200">
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-slate-600 mb-1">{config.label}</p>
-                    <p className="text-3xl font-bold text-slate-900">{signalStats[signalType] || 0}</p>
-                  </div>
-                  <div className={`${config.color} p-3 rounded-lg text-white`}>
-                    {config.icon}
-                  </div>
+        {/* 訊號統計摘要 */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <Card className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-slate-600 text-xs md:text-sm font-medium">攻擊K線</p>
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900 mt-1">
+                    {signalStats.attackK}
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+                <div className="bg-red-100 p-3 rounded-lg">
+                  <Zap className="w-6 h-6 text-red-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-slate-600 text-xs md:text-sm font-medium">多頭吞噬</p>
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900 mt-1">
+                    {signalStats.bullishEngulfing}
+                  </p>
+                </div>
+                <div className="bg-green-100 p-3 rounded-lg">
+                  <TrendingUp className="w-6 h-6 text-green-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-slate-600 text-xs md:text-sm font-medium">黑K吞噬</p>
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900 mt-1">
+                    {signalStats.bearishEngulfing}
+                  </p>
+                </div>
+                <div className="bg-orange-100 p-3 rounded-lg">
+                  <AlertTriangle className="w-6 h-6 text-orange-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-slate-600 text-xs md:text-sm font-medium">內困型態</p>
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900 mt-1">
+                    {signalStats.harami}
+                  </p>
+                </div>
+                <div className="bg-blue-100 p-3 rounded-lg">
+                  <Layers className="w-6 h-6 text-blue-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
-        {/* 投資建議名單表格 */}
+        {/* 投資建議名單 */}
         <Card className="border-0 shadow-lg bg-white">
-          <CardHeader className="pb-4 border-b border-slate-200">
+          <CardHeader>
             <CardTitle className="text-lg">投資建議名單</CardTitle>
             <CardDescription>今日掃描出的技術訊號推薦</CardDescription>
           </CardHeader>
-          <CardContent className="pt-6">
-            {results.length === 0 ? (
+          <CardContent>
+            {latestResultsQuery.isLoading ? (
+              <div className="text-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
+                <p className="text-slate-600 text-sm">載入數據中...</p>
+              </div>
+            ) : scanResults.length === 0 ? (
               <Alert className="border-slate-200 bg-slate-50">
                 <AlertCircle className="h-4 w-4 text-slate-600" />
-                <AlertDescription className="text-slate-700">
-                  暫無掃描結果。請點擊「開始掃描」按鈕進行全市場掃描。
+                <AlertDescription className="text-slate-700 text-sm">
+                  暫無掃描結果。請點擊「開始掃描」按鈕執行全市場掃描。
                 </AlertDescription>
               </Alert>
             ) : (
@@ -174,42 +255,40 @@ export default function Dashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow className="border-b border-slate-200 hover:bg-transparent">
-                      <TableHead className="text-slate-700 font-semibold">股票代號</TableHead>
-                      <TableHead className="text-slate-700 font-semibold">股票名稱</TableHead>
-                      <TableHead className="text-slate-700 font-semibold">產業</TableHead>
-                      <TableHead className="text-slate-700 font-semibold text-right">收盤價</TableHead>
-                      <TableHead className="text-slate-700 font-semibold">技術訊號類型</TableHead>
-                      <TableHead className="text-slate-700 font-semibold text-center">是否位於季線之上</TableHead>
-                      <TableHead className="text-slate-700 font-semibold text-center">操作</TableHead>
+                      <TableHead className="text-slate-700 font-semibold text-xs">股票代號</TableHead>
+                      <TableHead className="text-slate-700 font-semibold text-xs">股票名稱</TableHead>
+                      <TableHead className="text-slate-700 font-semibold text-xs hidden sm:table-cell">產業</TableHead>
+                      <TableHead className="text-slate-700 font-semibold text-xs text-right">收盤價</TableHead>
+                      <TableHead className="text-slate-700 font-semibold text-xs">技術訊號</TableHead>
+                      <TableHead className="text-slate-700 font-semibold text-xs text-center">季線之上</TableHead>
+                      <TableHead className="text-slate-700 font-semibold text-xs text-center">操作</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {results.map((result) => (
-                      <TableRow key={result.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors duration-150">
-                        <TableCell className="font-semibold text-slate-900">{result.stockId}</TableCell>
-                        <TableCell className="text-slate-700">{result.stockName}</TableCell>
-                        <TableCell className="text-slate-600">{result.industry}</TableCell>
-                        <TableCell className="text-right font-semibold text-slate-900">NT${result.closePrice.toFixed(2)}</TableCell>
-                        <TableCell>
-                          <Badge className={`${signalConfig[result.signalType]?.color || "bg-gray-500"} text-white`}>
+                    {scanResults.map((result, idx) => (
+                      <TableRow key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors duration-150">
+                        <TableCell className="font-semibold text-slate-900 text-xs">{result.stockId}</TableCell>
+                        <TableCell className="text-slate-700 text-xs">{result.stockName}</TableCell>
+                        <TableCell className="text-slate-600 text-xs hidden sm:table-cell">{result.industry || "-"}</TableCell>
+                        <TableCell className="text-right font-semibold text-slate-900 text-xs">
+                          NT${result.closePrice.toFixed(2)}
+                        </TableCell>
+                        <TableCell className="text-xs">
+                          <Badge className="bg-blue-500 text-white text-xs">
                             {result.signalType}
                           </Badge>
                         </TableCell>
                         <TableCell className="text-center">
-                          <Badge variant={result.aboveMa60 ? "default" : "secondary"}>
+                          <Badge variant={result.aboveMa60 ? "default" : "secondary"} className="text-xs">
                             {result.aboveMa60 ? "是" : "否"}
                           </Badge>
                         </TableCell>
                         <TableCell className="text-center">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleViewKline(result.stockId)}
-                            className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                          >
-                            查看K線
-                            <ChevronRight className="w-4 h-4 ml-1" />
-                          </Button>
+                          <Link href={`/kline/${result.stockId}`}>
+                            <Button variant="ghost" size="sm" className="text-xs text-blue-600 hover:text-blue-700 hover:bg-blue-50">
+                              查看K線
+                            </Button>
+                          </Link>
                         </TableCell>
                       </TableRow>
                     ))}

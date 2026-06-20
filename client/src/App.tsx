@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import KlineChart from "./pages/KlineChart";
+import ScanHistory from "./pages/ScanHistory";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -17,6 +18,7 @@ function Router() {
       <Route path={"/home"} component={Home} />
       <Route path={"/settings"} component={Settings} />
       <Route path={"/kline/:stockId"} component={KlineChart} />
+      <Route path={"/history"} component={ScanHistory} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

@@ -121,8 +121,34 @@ export const appRouter = router({
           throw new TRPCError({ code: "UNAUTHORIZED", message: "User not authenticated" });
         }
         const sessions = await getScanSessions(ctx.user.id);
-        return { sessions };
+        return sessions;
     }),
+    getScanSessionDetails: protectedProcedure
+      .input(z.object({
+        sessionId: z.string(),
+      }))
+      .query(async ({ ctx, input }) => {
+        if (!ctx.user) {
+          throw new TRPCError({ code: "UNAUTHORIZED", message: "User not authenticated" });
+        }
+        const sessionIdNum = parseInt(input.sessionId, 10);
+        if (isNaN(sessionIdNum)) {
+          throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid sessionId" });
+        }
+        const results = await getScanResultsBySessionId(sessionIdNum);
+        return results;
+      }),
+    getScanSessionDetailsBySessionId: protectedProcedure
+      .input(z.object({
+        sessionId: z.number(),
+      }))
+      .query(async ({ ctx, input }) => {
+        if (!ctx.user) {
+          throw new TRPCError({ code: "UNAUTHORIZED", message: "User not authenticated" });
+        }
+        const results = await getScanResultsBySessionId(input.sessionId);
+        return results;
+      }),
     getKlineData: protectedProcedure
       .input(z.object({
         stockId: z.string(),
