@@ -6,49 +6,90 @@ import sys
 import json
 import requests
 from datetime import datetime, timedelta
+import yfinance as yf
 
 # 設定日誌
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-
 # 假設 LinJiaYangEngine 已經在同一個目錄下
 from analysis_engine import LinJiaYangEngine
 
 class TaiwanStockDataFetcher:
     def __init__(self):
-        # FinMind API 設置
-        # self.fm = FinMindApi(token='YOUR_FINMIND_API_TOKEN') # 如果有付費帳號，可以在此設定
         pass
-
+    
     def get_taiwan_stock_list(self):
-        try:
-            df = ta.get_stock_list()
-            # 篩選上市上櫃的普通股
-            df = df[df["type"] == "上市櫃股票"]
-            return df
-        except Exception as e:
-            logger.error(f"Error fetching stock list from FinMind: {e}")
-            return pd.DataFrame()
+        """獲取台股清單，使用備用清單"""
+        return self._get_fallback_stock_list()
+    
+    def _get_fallback_stock_list(self):
+        """返回常見台股清單"""
+        fallback_stocks = [
+            {'stock_id': '2330', 'stock_name': '台積電', 'industry_category': '半導體'},
+            {'stock_id': '2454', 'stock_name': '聯發科', 'industry_category': '半導體'},
+            {'stock_id': '3008', 'stock_name': '大立光', 'industry_category': '光學'},
+            {'stock_id': '2317', 'stock_name': '鴻海', 'industry_category': '電子'},
+            {'stock_id': '2412', 'stock_name': '中華電', 'industry_category': '電信'},
+            {'stock_id': '1101', 'stock_name': '台泥', 'industry_category': '水泥'},
+            {'stock_id': '1102', 'stock_name': '亞泥', 'industry_category': '水泥'},
+            {'stock_id': '1216', 'stock_name': '統一', 'industry_category': '食品'},
+            {'stock_id': '1301', 'stock_name': '台塑', 'industry_category': '化工'},
+            {'stock_id': '1303', 'stock_name': '南亞', 'industry_category': '化工'},
+            {'stock_id': '2882', 'stock_name': '國泰金', 'industry_category': '金融'},
+            {'stock_id': '2891', 'stock_name': '中信金', 'industry_category': '金融'},
+            {'stock_id': '2886', 'stock_name': '兆豐金', 'industry_category': '金融'},
+            {'stock_id': '1590', 'stock_name': '亞德客', 'industry_category': '機械'},
+            {'stock_id': '2308', 'stock_name': '台達電', 'industry_category': '電機'},
+            {'stock_id': '3231', 'stock_name': '緯創', 'industry_category': '電子'},
+            {'stock_id': '2357', 'stock_name': '華碩', 'industry_category': '電子'},
+            {'stock_id': '2379', 'stock_name': '瑞昱', 'industry_category': '半導體'},
+            {'stock_id': '2395', 'stock_name': '力成', 'industry_category': '半導體'},
+            {'stock_id': '2408', 'stock_name': '南亞科', 'industry_category': '半導體'},
+        ]
+        logger.info(f"Using stock list with {len(fallback_stocks)} stocks")
+        return pd.DataFrame(fallback_stocks)
 
     def get_stock_daily_data(self, stock_id, start_date, end_date):
+        """獲取股票日線數據，使用 yfinance"""
         try:
-            df = ta.get_stock_price(stock_id=stock_id, start_date=start_date, end_date=end_date)
+            # 使用 yfinance 獲取台股數據
+            # 台股代碼格式：NNNN.TW
+            ticker = f"{stock_id}.TW"
+            df = yf.download(ticker, start=start_date, end=end_date, progress=False, timeout=10)
+            
             if df.empty:
+                logger.warning(f"No data downloaded for {stock_id}")
                 return pd.DataFrame()
+            
+            # yfinance 返回的 DataFrame 有多層索引，需要展平
+            if isinstance(df.columns, pd.MultiIndex):
+                # 如果是多層索引，取第一層
+                df.columns = df.columns.get_level_values(0)
+            
+            # 確保欄位名稱正確
             df = df.rename(columns={
-                "date": "Date",
-                "open": "Open",
-                "max": "High",
-                "min": "Low",
-                "close": "Close",
-                "Trading_Volume": "Volume"
+                "Open": "Open",
+                "High": "High",
+                "Low": "Low",
+                "Close": "Close",
+                "Volume": "Volume"
             })
-            df["Date"] = pd.to_datetime(df["Date"])
-            df = df.set_index("Date")
-            df = df[["Open", "High", "Low", "Close", "Volume"]]
+            
+            # 只保留需要的欄位
+            required_cols = ["Open", "High", "Low", "Close", "Volume"]
+            df = df[[col for col in required_cols if col in df.columns]]
+            
+            # 移除 NaN 值
+            df = df.dropna()
+            
+            if len(df) < 30:
+                logger.warning(f"Insufficient data for {stock_id}: {len(df)} rows (need 30)")
+                return pd.DataFrame()
+            
+            logger.info(f"Successfully fetched {len(df)} days of data for {stock_id}")
             return df
         except Exception as e:
-            logger.error(f"Error fetching daily data for {stock_id}: {e}")
+            logger.error(f"Failed to fetch data for {stock_id}: {e}")
             return pd.DataFrame()
 
 class ScanLogWriter:
@@ -70,10 +111,8 @@ class ScanLogWriter:
                 "signalType": signal_type,
                 "message": message,
             }
-            
             # 本地緩存日誌（避免頻繁的 API 調用）
             self.logs.append(log_data)
-            
             # 每 10 筆日誌或特定狀態時才寫入 API
             if len(self.logs) >= 10 or status in ["completed", "failed"]:
                 self._flush_logs()
@@ -84,7 +123,6 @@ class ScanLogWriter:
         """批量寫入緩存的日誌"""
         if not self.logs:
             return
-        
         try:
             # 這裡可以實現批量寫入 API
             # 暫時只是打印到 stdout，讓前端通過進度查詢 API 獲取
@@ -124,9 +162,9 @@ def run_market_scan(params):
     failed_count = 0
 
     for i, row in stock_list_df.iterrows():
-        stock_id = row["stock_id"]
-        stock_name = row["stock_name"]
-        industry = row["industry_category"]
+        stock_id = row.get("stock_id") or row.get("code")
+        stock_name = row.get("stock_name") or row.get("name")
+        industry = row.get("industry_category") or row.get("industry") or "未分類"
 
         try:
             # 記錄掃描開始
@@ -134,10 +172,11 @@ def run_market_scan(params):
                 log_writer.write_log(stock_id, stock_name, "scanning", message="正在獲取數據...")
 
             df_daily = fetcher.get_stock_daily_data(stock_id, start_date_str, end_date_str)
-            if df_daily.empty or len(df_daily) < 60:  # 至少需要60天數據計算季線
-                logger.info(f"Skipping {stock_id} due to insufficient data.")
+            if df_daily.empty or len(df_daily) < 30:  # 至少需要30天數據計算均線
+                logger.info(f"Skipping {stock_id} due to insufficient data (need 30 days, got {len(df_daily)}).")
                 if log_writer:
                     log_writer.write_log(stock_id, stock_name, "failed", message="數據不足（少於60天）")
+                failed_count += 1
                 continue
 
             # 記錄分析開始
@@ -157,7 +196,7 @@ def run_market_scan(params):
                         "stockId": stock_id,
                         "stockName": stock_name,
                         "industry": industry,
-                        "closePrice": latest_signal["Close"],
+                        "closePrice": float(latest_signal["Close"]),
                         "signalType": signal_type,
                         "aboveMa60": above_ma60,
                         "scanDate": latest_signal.name.strftime('%Y-%m-%d')
@@ -214,11 +253,11 @@ def get_stock_kline_data(stock_id, start_date_str, end_date_str):
     for index, row in analysis_result.iterrows():
         kline_data.append({
             "Date": index.strftime('%Y-%m-%d'),
-            "Open": row["Open"],
-            "High": row["High"],
-            "Low": row["Low"],
-            "Close": row["Close"],
-            "Volume": row["Volume"],
+            "Open": float(row["Open"]),
+            "High": float(row["High"]),
+            "Low": float(row["Low"]),
+            "Close": float(row["Close"]),
+            "Volume": float(row["Volume"]),
             "Signal": row["Signal"],
             "Above_MA60": bool(row["Above_MA60"])
         })
@@ -235,13 +274,13 @@ if __name__ == "__main__":
         params_str = sys.argv[2]
         params = json.loads(params_str)
         result = run_market_scan(params)
-        print(json.dumps(result))
+        print(json.dumps(result, default=str))
     elif command == "get_stock_kline_data":
         stock_id = sys.argv[2]
         start_date_str = sys.argv[3]
         end_date_str = sys.argv[4]
         result = get_stock_kline_data(stock_id, start_date_str, end_date_str)
-        print(json.dumps(result))
+        print(json.dumps(result, default=str))
     else:
         print(json.dumps({"status": "error", "message": f"Unknown command: {command}"}), file=sys.stderr)
         sys.exit(1)

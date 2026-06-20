@@ -9,9 +9,14 @@ import { AlertCircle } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Settings() {
+  // 計算預設日期：當日到前兩個月
+  const today = new Date();
+  const twoMonthsAgo = new Date(today.getTime() - 60 * 24 * 60 * 60 * 1000);
+  const formatDate = (date: Date) => date.toISOString().split('T')[0];
+
   const [scanLimit, setScanLimit] = useState(50);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(formatDate(twoMonthsAgo));
+  const [endDate, setEndDate] = useState(formatDate(today));
   const [selectedSignals, setSelectedSignals] = useState<string[]>([
     "攻擊K線",
     "多頭吞噬",

@@ -21,8 +21,9 @@ class LinJiaYangEngine:
 
     def _prepare_indicators(self):
         """計算基礎技術指標"""
-        # 計算季線 (60MA) 作為多空分界
-        self.df['MA60'] = ta.sma(self.df['Close'], length=60)
+        # 計算季線 (60MA) 作程多空分界
+        # 使用 min_periods=1 以便在數據不足 60 天時也能計算
+        self.df['MA60'] = self.df['Close'].rolling(window=60, min_periods=1).mean()
         # 計算實體大小與漲跌幅
         self.df['Body'] = self.df['Close'] - self.df['Open']
         self.df['Body_Abs'] = self.df['Body'].abs()
@@ -108,7 +109,8 @@ class LinJiaYangEngine:
         
         self.df['Signal'] = signals
         # 加入位置判斷：股價是否在季線之上
-        self.df['Above_MA60'] = self.df['Close'] > self.df['MA60']
+        # 處理 NaN 值，預設為 False
+        self.df['Above_MA60'] = (self.df['Close'] > self.df['MA60']).fillna(False)
         return self.df
 
 if __name__ == "__main__":
