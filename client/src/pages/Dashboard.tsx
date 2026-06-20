@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { AlertCircle, TrendingUp, Zap, Activity } from "lucide-react";
+import { AlertCircle, TrendingUp, Zap, Activity, ChevronRight } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Link } from "wouter";
 import { format } from "date-fns";
 
 export default function Dashboard() {
   const { user, isAuthenticated } = useAuth();
+  const [, setLocation] = useLocation();
   const [isScanning, setIsScanning] = useState(false);
   const [scanProgress, setScanProgress] = useState(0);
   const [pollInterval, setPollInterval] = useState<NodeJS.Timeout | null>(null);
@@ -58,6 +60,10 @@ export default function Dashboard() {
     startScanMutation.mutate({
       scanLimit: 50, // 預設掃描前 50 檔股票
     });
+  };
+
+  const handleViewKline = (stockId: string) => {
+    setLocation(`/kline/${stockId}`);
   };
 
   const session = latestResults.data?.session;
@@ -174,6 +180,7 @@ export default function Dashboard() {
                       <TableHead className="text-slate-700 font-semibold text-right">收盤價</TableHead>
                       <TableHead className="text-slate-700 font-semibold">技術訊號類型</TableHead>
                       <TableHead className="text-slate-700 font-semibold text-center">是否位於季線之上</TableHead>
+                      <TableHead className="text-slate-700 font-semibold text-center">操作</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -192,6 +199,17 @@ export default function Dashboard() {
                           <Badge variant={result.aboveMa60 ? "default" : "secondary"}>
                             {result.aboveMa60 ? "是" : "否"}
                           </Badge>
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleViewKline(result.stockId)}
+                            className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                          >
+                            查看K線
+                            <ChevronRight className="w-4 h-4 ml-1" />
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
