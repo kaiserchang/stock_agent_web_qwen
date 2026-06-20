@@ -1,4 +1,4 @@
-import { useAuth } from "@/_core/hooks/useAuth";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -34,7 +34,6 @@ interface ScanSession {
 }
 
 export default function Dashboard() {
-  const { isAuthenticated, user } = useAuth();
   const [isScanning, setIsScanning] = useState(false);
   const [scanResults, setScanResults] = useState<ScanResult[]>([]);
   const [scanProgress, setScanProgress] = useState(0);
@@ -42,7 +41,7 @@ export default function Dashboard() {
 
   // 查詢最新掃描結果
   const latestResultsQuery = trpc.stock.getLatestScanResults.useQuery(undefined, {
-    enabled: isAuthenticated,
+    enabled: true,
   });
 
   // 啟動掃描
@@ -91,24 +90,6 @@ export default function Dashboard() {
     bearishEngulfing: scanResults.filter((r) => r.signalType === "黑K吞噬").length,
     harami: scanResults.filter((r) => r.signalType === "內困型態").length,
   };
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md border-0 shadow-lg">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl">台股技術分析儀表板</CardTitle>
-            <CardDescription>請登入以使用此服務</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-center text-slate-600 text-sm">
-              您需要登入才能查看投資建議名單
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-6">
