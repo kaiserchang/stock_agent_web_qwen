@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router, protectedProcedure } from "./_core/trpc";
 import { z } from "zod";
 import { executePythonScript } from "./_core/pythonExecutor";
-import { insertScanResult, insertScanSession, getLatestScanSession, getScanResultsBySessionId, getScanSessions, updateScanSession } from "./db";
+import { insertScanResult, insertScanSession, getLatestScanSession, getScanResultsBySessionId, getScanSessions, updateScanSession, getScanLogsBySessionId } from "./db";
 import { ScanSession } from "../drizzle/schema";
 import { TRPCError } from "@trpc/server";
 
@@ -208,6 +208,23 @@ export const appRouter = router({
           success: true,
           message: "Scan settings updated successfully",
         };
+      }),
+    getScanLogs: protectedProcedure
+      .input(z.object({
+        sessionId: z.number(),
+      }))
+      .query(async ({ ctx, input }) => {
+        if (!ctx.user) {
+          throw new TRPCError({ code: "UNAUTHORIZED", message: "User not authenticated" });
+        }
+        // Verify that the session belongs to the current user
+        const sessions = await getScanSessions(ctx.user.id);
+        const sessionExists = sessions.some((s: any) => s.id === input.sessionId);
+        if (!sessionExists) {
+          throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to access this scan session" });
+        }
+        const logs = await getScanLogsBySessionId(input.sessionId);
+        return logs;
       }),
     getKlineData: protectedProcedure
       .input(z.object({

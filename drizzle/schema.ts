@@ -53,3 +53,18 @@ export const scanResults = mysqlTable("scan_results", {
 
 export type ScanResult = typeof scanResults.$inferSelect;
 export type InsertScanResult = typeof scanResults.$inferInsert;
+
+export const scanLogs = mysqlTable("scan_logs", {
+  id: int("id").autoincrement().primaryKey(),
+  sessionId: int("session_id").references(() => scanSessions.id).notNull(),
+  stockId: varchar("stock_id", { length: 10 }).notNull(),
+  stockName: varchar("stock_name", { length: 50 }).notNull(),
+  status: mysqlEnum("status", ["pending", "scanning", "completed", "failed"]).default("pending").notNull(),
+  signalType: varchar("signal_type", { length: 50 }),
+  message: text("message"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ScanLog = typeof scanLogs.$inferSelect;
+export type InsertScanLog = typeof scanLogs.$inferInsert;

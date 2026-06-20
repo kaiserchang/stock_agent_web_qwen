@@ -1,6 +1,6 @@
-import { desc, eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertScanResult, InsertScanSession, InsertUser, scanResults, scanSessions, users } from "../drizzle/schema";
+import { InsertScanResult, InsertScanSession, InsertUser, scanResults, scanSessions, users, scanLogs, InsertScanLog } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -155,6 +155,41 @@ export async function getScanSessions(userId: number, limit: number = 10) {
     return [];
   }
   return await db.select().from(scanSessions).where(eq(scanSessions.userId, userId)).orderBy(desc(scanSessions.scanStartTime)).limit(limit);
+}
+
+export async function insertScanLog(log: InsertScanLog) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot insert scan log: database not available");
+    return;
+  }
+  try {
+    await db.insert(scanLogs).values(log);
+  } catch (error) {
+    console.error("[Database] Failed to insert scan log:", error);
+  }
+}
+
+export async function updateScanLog(logId: number, updates: Partial<InsertScanLog>) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update scan log: database not available");
+    return;
+  }
+  try {
+    await db.update(scanLogs).set(updates).where(eq(scanLogs.id, logId));
+  } catch (error) {
+    console.error("[Database] Failed to update scan log:", error);
+  }
+}
+
+export async function getScanLogsBySessionId(sessionId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get scan logs: database not available");
+    return [];
+  }
+  return await db.select().from(scanLogs).where(eq(scanLogs.sessionId, sessionId)).orderBy(scanLogs.createdAt);
 }
 
 // TODO: add feature queries here as your schema grows.

@@ -1,5 +1,3 @@
-"use client";
-
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +8,7 @@ import { AlertCircle, Zap, TrendingUp, AlertTriangle, Layers } from "lucide-reac
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useState, useEffect } from "react";
+import ScanProgressLogs from "@/components/ScanProgressLogs";
 
 interface ScanResult {
   id: number;
@@ -39,6 +38,7 @@ export default function Dashboard() {
   const [isScanning, setIsScanning] = useState(false);
   const [scanResults, setScanResults] = useState<ScanResult[]>([]);
   const [scanProgress, setScanProgress] = useState(0);
+  const [currentSessionId, setCurrentSessionId] = useState<number | null>(null);
 
   // 查詢最新掃描結果
   const latestResultsQuery = trpc.stock.getLatestScanResults.useQuery(undefined, {
@@ -51,6 +51,7 @@ export default function Dashboard() {
       console.log("掃描已啟動:", data);
       setIsScanning(true);
       setScanProgress(0);
+      setCurrentSessionId(data.sessionId);
       
       // 模擬進度更新（實際應該輪詢後端）
       const progressInterval = setInterval(() => {
@@ -164,6 +165,11 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
+        {/* 掃描進度日誌 */}
+        {isScanning && currentSessionId && (
+          <ScanProgressLogs sessionId={currentSessionId} isScanning={isScanning} />
+        )}
+
         {/* 訊號統計摘要 */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           <Card className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow">
@@ -207,8 +213,8 @@ export default function Dashboard() {
                     {signalStats.bearishEngulfing}
                   </p>
                 </div>
-                <div className="bg-orange-100 p-3 rounded-lg">
-                  <AlertTriangle className="w-6 h-6 text-orange-600" />
+                <div className="bg-yellow-100 p-3 rounded-lg">
+                  <AlertTriangle className="w-6 h-6 text-yellow-600" />
                 </div>
               </div>
             </CardContent>
@@ -235,18 +241,13 @@ export default function Dashboard() {
         <Card className="border-0 shadow-lg bg-white">
           <CardHeader>
             <CardTitle className="text-lg">投資建議名單</CardTitle>
-            <CardDescription>今日掃描出的技術訊號推薦</CardDescription>
+            <CardDescription>今日掃描出的投資機會</CardDescription>
           </CardHeader>
           <CardContent>
-            {latestResultsQuery.isLoading ? (
-              <div className="text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
-                <p className="text-slate-600 text-sm">載入數據中...</p>
-              </div>
-            ) : scanResults.length === 0 ? (
+            {scanResults.length === 0 ? (
               <Alert className="border-slate-200 bg-slate-50">
                 <AlertCircle className="h-4 w-4 text-slate-600" />
-                <AlertDescription className="text-slate-700 text-sm">
+                <AlertDescription className="text-slate-600">
                   暫無掃描結果。請點擊「開始掃描」按鈕執行全市場掃描。
                 </AlertDescription>
               </Alert>
@@ -254,38 +255,38 @@ export default function Dashboard() {
               <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
-                    <TableRow className="border-b border-slate-200 hover:bg-transparent">
-                      <TableHead className="text-slate-700 font-semibold text-xs">股票代號</TableHead>
-                      <TableHead className="text-slate-700 font-semibold text-xs">股票名稱</TableHead>
-                      <TableHead className="text-slate-700 font-semibold text-xs hidden sm:table-cell">產業</TableHead>
-                      <TableHead className="text-slate-700 font-semibold text-xs text-right">收盤價</TableHead>
-                      <TableHead className="text-slate-700 font-semibold text-xs">技術訊號</TableHead>
-                      <TableHead className="text-slate-700 font-semibold text-xs text-center">季線之上</TableHead>
-                      <TableHead className="text-slate-700 font-semibold text-xs text-center">操作</TableHead>
+                    <TableRow className="border-slate-200 hover:bg-transparent">
+                      <TableHead className="text-slate-700 font-semibold">股票代號</TableHead>
+                      <TableHead className="text-slate-700 font-semibold">股票名稱</TableHead>
+                      <TableHead className="text-slate-700 font-semibold">產業</TableHead>
+                      <TableHead className="text-slate-700 font-semibold text-right">收盤價</TableHead>
+                      <TableHead className="text-slate-700 font-semibold">技術訊號</TableHead>
+                      <TableHead className="text-slate-700 font-semibold">季線之上</TableHead>
+                      <TableHead className="text-slate-700 font-semibold">操作</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {scanResults.map((result, idx) => (
-                      <TableRow key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors duration-150">
-                        <TableCell className="font-semibold text-slate-900 text-xs">{result.stockId}</TableCell>
-                        <TableCell className="text-slate-700 text-xs">{result.stockName}</TableCell>
-                        <TableCell className="text-slate-600 text-xs hidden sm:table-cell">{result.industry || "-"}</TableCell>
-                        <TableCell className="text-right font-semibold text-slate-900 text-xs">
-                          NT${result.closePrice.toFixed(2)}
+                    {scanResults.map((result) => (
+                      <TableRow key={result.id} className="border-slate-100 hover:bg-slate-50">
+                        <TableCell className="font-semibold text-slate-900">{result.stockId}</TableCell>
+                        <TableCell className="text-slate-700">{result.stockName}</TableCell>
+                        <TableCell className="text-slate-600 text-sm">{result.industry || "-"}</TableCell>
+                        <TableCell className="text-right font-medium text-slate-900">
+                          ${result.closePrice}
                         </TableCell>
-                        <TableCell className="text-xs">
-                          <Badge className="bg-blue-500 text-white text-xs">
-                            {result.signalType}
-                          </Badge>
+                        <TableCell>
+                          <Badge className="bg-blue-100 text-blue-800">{result.signalType}</Badge>
                         </TableCell>
-                        <TableCell className="text-center">
-                          <Badge variant={result.aboveMa60 ? "default" : "secondary"} className="text-xs">
-                            {result.aboveMa60 ? "是" : "否"}
-                          </Badge>
+                        <TableCell>
+                          {result.aboveMa60 === 1 ? (
+                            <Badge className="bg-green-100 text-green-800">是</Badge>
+                          ) : (
+                            <Badge className="bg-gray-100 text-gray-800">否</Badge>
+                          )}
                         </TableCell>
-                        <TableCell className="text-center">
+                        <TableCell>
                           <Link href={`/kline/${result.stockId}`}>
-                            <Button variant="ghost" size="sm" className="text-xs text-blue-600 hover:text-blue-700 hover:bg-blue-50">
+                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
                               查看K線
                             </Button>
                           </Link>
