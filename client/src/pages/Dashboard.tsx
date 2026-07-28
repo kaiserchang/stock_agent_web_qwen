@@ -321,7 +321,7 @@ export default function Dashboard() {
                   </div>
                   <div>
                     <p className="text-sm text-slate-600">收盤價</p>
-                    <p className="text-lg font-bold text-slate-900">${csvAnalysisResult.closePrice.toFixed(2)}</p>
+                    <p className="text-lg font-bold text-slate-900">${typeof csvAnalysisResult.closePrice === 'number' && !isNaN(csvAnalysisResult.closePrice) ? csvAnalysisResult.closePrice.toFixed(2) : 'N/A'}</p>
                   </div>
                   <div>
                     <p className="text-sm text-slate-600">K 線數據</p>
@@ -372,7 +372,7 @@ export default function Dashboard() {
                         <TableCell className="text-slate-700">{result.stockName}</TableCell>
                         <TableCell className="text-slate-600 hidden md:table-cell">{result.industry}</TableCell>
                         <TableCell className="text-right font-semibold text-slate-900">
-                          ${result.closePrice.toFixed(2)}
+                          ${typeof result.closePrice === 'number' && !isNaN(result.closePrice) ? result.closePrice.toFixed(2) : 'N/A'}
                         </TableCell>
                         <TableCell>
                           <Badge
