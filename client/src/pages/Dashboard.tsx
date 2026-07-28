@@ -153,7 +153,7 @@ export default function Dashboard() {
 
   const getDefaultStartDate = () => {
     const date = new Date();
-    date.setMonth(date.getMonth() - 2);
+    date.setMonth(date.getMonth() - 1);
     return date.toISOString().split('T')[0];
   };
 

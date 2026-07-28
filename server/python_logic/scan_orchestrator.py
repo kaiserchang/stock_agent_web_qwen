@@ -80,8 +80,8 @@ class TaiwanStockDataFetcher:
             # 移除 NaN 值
             df = df.dropna()
             
-            if len(df) < 30:
-                logger.warning(f"Insufficient data for {stock_id}: {len(df)} rows (need 30)")
+            if len(df) < 20:
+                logger.warning(f"Insufficient data for {stock_id}: {len(df)} rows (need 20)")
                 return pd.DataFrame()
             
             logger.info(f"Successfully fetched {len(df)} days of data for {stock_id} from yfinance")
@@ -254,10 +254,10 @@ def run_market_scan(params):
                 log_writer.write_log(stock_id, stock_name, "scanning", message="正在獲取數據...")
 
             df_daily = fetcher.get_stock_daily_data(stock_id, start_date_str, end_date_str)
-            if df_daily.empty or len(df_daily) < 60:  # 至少需要60天數據計算均線
-                logger.info(f"Skipping {stock_id} due to insufficient data (need 60 days, got {len(df_daily)})")
+            if df_daily.empty or len(df_daily) < 20:  # 至少需要20天數據
+                logger.info(f"Skipping {stock_id} due to insufficient data (need 20 days, got {len(df_daily)})")
                 if log_writer:
-                    log_writer.write_log(stock_id, stock_name, "failed", message="數據不足（少於60天）")
+                    log_writer.write_log(stock_id, stock_name, "failed", message="數據不足（少於20天）")
                 failed_count += 1
                 continue
 
