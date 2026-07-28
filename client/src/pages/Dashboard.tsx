@@ -172,12 +172,12 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-6">
+    <div className="min-h-screen p-4 md:p-6" style={{ backgroundColor: "hsl(250, 20%, 15%)" }}>
       <div className="max-w-7xl mx-auto space-y-6">
         {/* 標題區 */}
         <div className="space-y-2">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900">台股技術分析儀表板</h1>
-          <p className="text-slate-600 text-sm md:text-base">
+          <h1 className="text-3xl md:text-4xl font-bold" style={{ color: "hsl(45, 100%, 70%)" }}>台股技術分析儀表板</h1>
+          <p className="text-sm md:text-base" style={{ color: "hsl(0, 0%, 80%)" }}>
             基於林家洋老師的技術分析理論，自動掃描台灣股市投資機會
           </p>
         </div>

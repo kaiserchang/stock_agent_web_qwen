@@ -20,32 +20,32 @@ export const RecommendationBadge: React.FC<RecommendationBadgeProps> = ({
 
     if (score >= 90) {
       label = "強烈買進";
-      bgColor = "bg-amber-700";
-      textColor = "text-white";
+      bgColor = "hsl(45, 100%, 35%)";
+      textColor = "#ffffff";
       stars = "⭐⭐⭐⭐⭐";
       tooltipText = `強烈買進訊號 (${score}分)\n${signalType}\n建議立即進場`;
     } else if (score >= 75) {
       label = "建議買進";
-      bgColor = "bg-amber-600";
-      textColor = "text-white";
+      bgColor = "hsl(45, 100%, 45%)";
+      textColor = "#ffffff";
       stars = "⭐⭐⭐⭐";
       tooltipText = `建議買進訊號 (${score}分)\n${signalType}\n可考慮進場`;
     } else if (score >= 60) {
       label = "中度買進";
-      bgColor = "bg-amber-500";
-      textColor = "text-white";
+      bgColor = "hsl(45, 100%, 55%)";
+      textColor = "#ffffff";
       stars = "⭐⭐⭐";
       tooltipText = `中度買進訊號 (${score}分)\n${signalType}\n觀望後進場`;
     } else if (score >= 45) {
       label = "溫和買進";
-      bgColor = "bg-amber-400";
-      textColor = "text-gray-900";
+      bgColor = "hsl(45, 100%, 65%)";
+      textColor = "#1a1a1a";
       stars = "⭐⭐";
       tooltipText = `溫和買進訊號 (${score}分)\n${signalType}\n謹慎進場`;
     } else {
       label = "輕度買進";
-      bgColor = "bg-amber-300";
-      textColor = "text-gray-900";
+      bgColor = "hsl(45, 100%, 75%)";
+      textColor = "#1a1a1a";
       stars = "⭐";
       tooltipText = `輕度買進訊號 (${score}分)\n${signalType}\n持續觀察`;
     }
@@ -55,10 +55,10 @@ export const RecommendationBadge: React.FC<RecommendationBadgeProps> = ({
         <Tooltip>
           <TooltipTrigger asChild>
             <div className="flex flex-col gap-1 cursor-help">
-              <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-sm font-semibold text-center`}>
+              <div style={{ backgroundColor: bgColor, color: textColor }} className="px-3 py-1 rounded-md text-sm font-semibold text-center">
                 {score}
               </div>
-              <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-xs text-center`}>
+              <div style={{ backgroundColor: bgColor, color: textColor }} className="px-3 py-1 rounded-md text-xs text-center">
                 {label}
               </div>
               <div className="text-center text-sm">
@@ -84,26 +84,26 @@ export const RecommendationBadge: React.FC<RecommendationBadgeProps> = ({
 
     if (score <= -120) {
       label = "緊急脫手";
-      bgColor = "bg-red-700";
-      textColor = "text-white";
+      bgColor = "hsl(0, 100%, 45%)";
+      textColor = "#ffffff";
       bombs = "💣💣💣💣💣";
       tooltipText = `緊急脫手警告 (${score}分)\n${signalType}\n⚠️ 立即減持或止損`;
     } else if (score <= -90) {
       label = "強烈脫手";
-      bgColor = "bg-red-600";
-      textColor = "text-white";
+      bgColor = "hsl(0, 100%, 55%)";
+      textColor = "#ffffff";
       bombs = "💣💣💣💣";
       tooltipText = `強烈脫手警告 (${score}分)\n${signalType}\n⚠️ 建議減持`;
     } else if (score <= -60) {
       label = "建議脫手";
-      bgColor = "bg-orange-600";
-      textColor = "text-white";
+      bgColor = "hsl(30, 100%, 50%)";
+      textColor = "#ffffff";
       bombs = "💣💣💣";
       tooltipText = `脫手建議 (${score}分)\n${signalType}\n⚠️ 考慮減持`;
     } else {
       label = "注意風險";
-      bgColor = "bg-cyan-600";
-      textColor = "text-white";
+      bgColor = "hsl(200, 100%, 45%)";
+      textColor = "#ffffff";
       bombs = "💣💣";
       tooltipText = `風險提示 (${score}分)\n${signalType}\n⚠️ 注意風險變化`;
     }
@@ -113,10 +113,10 @@ export const RecommendationBadge: React.FC<RecommendationBadgeProps> = ({
         <Tooltip>
           <TooltipTrigger asChild>
             <div className="flex flex-col gap-1 cursor-help">
-              <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-sm font-semibold text-center`}>
+              <div style={{ backgroundColor: bgColor, color: textColor }} className="px-3 py-1 rounded-md text-sm font-semibold text-center">
                 {score}
               </div>
-              <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-xs text-center`}>
+              <div style={{ backgroundColor: bgColor, color: textColor }} className="px-3 py-1 rounded-md text-xs text-center">
                 {label}
               </div>
               <div className="text-center text-lg">
@@ -138,13 +138,13 @@ export const RecommendationBadge: React.FC<RecommendationBadgeProps> = ({
       <Tooltip>
         <TooltipTrigger asChild>
           <div className="flex flex-col gap-1 cursor-help">
-            <div className="bg-gray-400 text-white px-3 py-1 rounded-md text-sm font-semibold text-center">
+            <div style={{ backgroundColor: "hsl(200, 20%, 50%)", color: "#ffffff" }} className="px-3 py-1 rounded-md text-sm font-semibold text-center">
               0
             </div>
-            <div className="bg-gray-400 text-white px-3 py-1 rounded-md text-xs text-center">
+            <div style={{ backgroundColor: "hsl(200, 20%, 50%)", color: "#ffffff" }} className="px-3 py-1 rounded-md text-xs text-center">
               觀望
             </div>
-            <div className="text-center text-sm text-gray-600">
+            <div className="text-center text-sm" style={{ color: "hsl(200, 20%, 60%)" }}>
               -
             </div>
           </div>
