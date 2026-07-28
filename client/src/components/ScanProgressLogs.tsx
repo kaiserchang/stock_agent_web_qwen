@@ -272,9 +272,9 @@ export default function ScanProgressLogs({ sessionId, isScanning }: ScanProgress
             </div>
           ) : (
             <div className="space-y-2">
-              {filteredLogs.map((log) => (
+              {filteredLogs.map((log, index) => (
                 <div
-                  key={log.id}
+                  key={`${log.sessionId}-${log.stockId}-${log.timestamp}-${index}`}
                   className="flex items-start gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors border border-slate-100"
                 >
                   {getStatusIcon(log.status)}

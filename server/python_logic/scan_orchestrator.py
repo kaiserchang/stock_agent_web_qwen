@@ -65,8 +65,17 @@ class TaiwanStockDataFetcher:
                 return pd.DataFrame()
             
             # 標準化列名
-            df.columns = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
-            df = df.drop('Adj Close', axis=1)
+            # 况一：yfinance 返回 MultiIndex 列名
+            if isinstance(df.columns, pd.MultiIndex):
+                # 取第一層（列名）
+                df.columns = df.columns.get_level_values(0)
+            
+            # 確保有所有必需的列
+            if 'Adj Close' in df.columns:
+                df = df.drop('Adj Close', axis=1)
+            
+            # 重新排序列，確保順序正確
+            df = df[['Open', 'High', 'Low', 'Close', 'Volume']]
             
             # 移除 NaN 值
             df = df.dropna()
@@ -245,8 +254,8 @@ def run_market_scan(params):
                 log_writer.write_log(stock_id, stock_name, "scanning", message="正在獲取數據...")
 
             df_daily = fetcher.get_stock_daily_data(stock_id, start_date_str, end_date_str)
-            if df_daily.empty or len(df_daily) < 30:  # 至少需要30天數據計算均線
-                logger.info(f"Skipping {stock_id} due to insufficient data (need 30 days, got {len(df_daily)}).")
+            if df_daily.empty or len(df_daily) < 60:  # 至少需要60天數據計算均線
+                logger.info(f"Skipping {stock_id} due to insufficient data (need 60 days, got {len(df_daily)})")
                 if log_writer:
                     log_writer.write_log(stock_id, stock_name, "failed", message="數據不足（少於60天）")
                 failed_count += 1

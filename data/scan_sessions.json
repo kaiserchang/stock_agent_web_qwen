@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "scanStartTime": "2026-07-28T06:44:55.257Z",
+    "scanEndTime": null,
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-05-28\",\"end_date_str\":\"2026-07-28\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 0,
+    "id": 1,
+    "scanDate": "2026-07-28T06:44:55.257Z"
+  }
+]
