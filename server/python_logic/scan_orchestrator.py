@@ -89,9 +89,10 @@ class ScanLogWriter:
         self.session_id = session_id
         self.api_url = api_url
         self.logs = []
+        self.log_file = "data/scan_logs.json"
     
     def write_log(self, stock_id, stock_name, status, signal_type=None, message=None):
-        """寫入單筆日誌到資料庫"""
+        """寫入單筆日誌到文件"""
         try:
             # 構建日誌數據
             log_data = {
@@ -101,25 +102,38 @@ class ScanLogWriter:
                 "status": status,
                 "signalType": signal_type,
                 "message": message,
+                "timestamp": datetime.now().isoformat()
             }
-            # 本地緩存日誌（避免頻繁的 API 調用）
+            # 本地緩存日誌（避免頻繁的文件 I/O）
             self.logs.append(log_data)
-            # 每 10 筆日誌或特定狀態時才寫入 API
-            if len(self.logs) >= 10 or status in ["completed", "failed"]:
+            # 每 5 筆日誌或特定狀態時才寫入文件
+            if len(self.logs) >= 5 or status in ["completed", "failed"]:
                 self._flush_logs()
         except Exception as e:
             logger.error(f"Error writing log for {stock_id}: {e}")
     
     def _flush_logs(self):
-        """批量寫入緩存的日誌"""
+        """批量寫入緩存的日誌到文件"""
         if not self.logs:
             return
         try:
-            # 這裡可以實現批量寫入 API
-            # 暫時只是打印到 stdout，讓前端通過進度查詢 API 獲取
-            for log in self.logs:
-                print(f"LOG:{json.dumps(log)}", file=sys.stderr)
-                sys.stderr.flush()
+            # 讀取現有日誌
+            import os
+            if os.path.exists(self.log_file):
+                with open(self.log_file, 'r', encoding='utf-8') as f:
+                    existing_logs = json.load(f)
+            else:
+                existing_logs = []
+            
+            # 合併新日誌
+            existing_logs.extend(self.logs)
+            
+            # 寫入文件
+            os.makedirs(os.path.dirname(self.log_file), exist_ok=True)
+            with open(self.log_file, 'w', encoding='utf-8') as f:
+                json.dump(existing_logs, f, ensure_ascii=False, indent=2)
+            
+            logger.info(f"Flushed {len(self.logs)} logs to {self.log_file}")
             self.logs = []
         except Exception as e:
             logger.error(f"Error flushing logs: {e}")
