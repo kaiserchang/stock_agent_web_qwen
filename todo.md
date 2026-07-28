@@ -35,4 +35,10 @@
   - [x] 更新 scan_orchestrator.py 中的數據需求（30 天 → 20 天）
   - [x] 更新 Dashboard.tsx 中的日期預設範團（2 個月 → 1 個月）
   - [x] 更新 README.md 中的文檔說明
-  - [ ] 測試掃描功能確保 20 天數據足以進行技術分析
+  - [x] 測試掃描功能確保 20 天數據足以進行技術分析
+
+## 技術訊號說明文檔 (Signal Explanation Feature)
+- [x] 創建 SIGNAL_EXPLANATION.md 文檔（包含完整的訊號講解）
+- [x] 在 README.md 中添加詳細訊號講解部分
+- [x] 創建 SignalExplanation.tsx 組件（交互式對話框）
+- [x] 在 Dashboard.tsx 中添加訊號說明按鈕和組件整合

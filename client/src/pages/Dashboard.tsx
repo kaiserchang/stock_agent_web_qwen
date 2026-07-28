@@ -3,11 +3,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { AlertCircle, Zap, TrendingUp, AlertTriangle, Layers, Upload } from "lucide-react";
+import { AlertCircle, Zap, TrendingUp, AlertTriangle, Layers, Upload, HelpCircle } from "lucide-react";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useState, useEffect } from "react";
 import ScanProgressLogs from "@/components/ScanProgressLogs";
+import SignalExplanation from "@/components/SignalExplanation";
 
 interface ScanResult {
   id: number;
@@ -39,6 +40,7 @@ export default function Dashboard() {
   const [currentSessionId, setCurrentSessionId] = useState<number | null>(null);
   const [csvAnalysisResult, setCsvAnalysisResult] = useState<any>(null);
   const [isAnalyzingCsv, setIsAnalyzingCsv] = useState(false);
+  const [showSignalExplanation, setShowSignalExplanation] = useState(false);
 
   // 查詢最新掃描結果
   const latestResultsQuery = trpc.stock.getLatestScanResults.useQuery(undefined, {
@@ -223,6 +225,14 @@ export default function Dashboard() {
                   歷史紀錄
                 </Button>
               </Link>
+              <button
+                onClick={() => setShowSignalExplanation(true)}
+                className="flex-1 sm:flex-none px-4 py-2 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors flex items-center justify-center gap-2 text-sm font-medium text-slate-700"
+                title="查看技術訊號說明"
+              >
+                <HelpCircle className="w-4 h-4" />
+                <span className="hidden sm:inline">訊號說明</span>
+              </button>
             </div>
 
             {/* 進度條 */}
@@ -425,6 +435,9 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* 訊號說明對話框 */}
+      <SignalExplanation open={showSignalExplanation} onOpenChange={setShowSignalExplanation} />
     </div>
   );
 }
