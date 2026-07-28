@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { executePythonScript } from "./_core/pythonExecutor";
-import { insertScanResult, insertScanSession, getLatestScanSession, getScanResultsBySessionId, getScanSessions, updateScanSession, getScanLogsBySessionId, insertScanLog } from "./fileStorage";
+import { insertScanResult, insertScanSession, getLatestScanSession, getScanResultsBySessionId, getScanSessions, updateScanSession, getScanLogsBySessionId, insertScanLog, getScanSettings as getStoredScanSettings, updateScanSettings as updateStoredScanSettings } from "./fileStorage";
 import { TRPCError } from "@trpc/server";
 import { writeFileSync, unlinkSync } from "fs";
 import { join } from "path";
@@ -162,12 +162,7 @@ export const appRouter = router({
         };
       }),
     getScanSettings: publicProcedure.query(() => {
-      return {
-        scanLimit: 50,
-        startDate: "",
-        endDate: "",
-        signalFilter: ["攻擊K線", "多頭吞噬", "黑K吞噬", "內困型態"],
-      };
+      return getStoredScanSettings();
     }),
     updateScanSettings: publicProcedure
       .input(z.object({
@@ -175,9 +170,10 @@ export const appRouter = router({
         startDate: z.string().optional(),
         endDate: z.string().optional(),
         signalFilter: z.array(z.string()).optional(),
+        stockList: z.array(z.string()).optional(),
       }))
       .mutation(({ input }) => {
-        console.log("Updated scan settings:", input);
+        updateStoredScanSettings(input);
         return {
           success: true,
           message: "Scan settings updated successfully",

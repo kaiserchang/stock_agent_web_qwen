@@ -217,3 +217,61 @@ export function getScanLogsBySessionId(sessionId: number): ScanLog[] {
     }))
     .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 }
+
+
+// ==================== 掃描設定操作 ====================
+
+const SETTINGS_FILE = path.join(STORAGE_DIR, "scan_settings.json");
+
+export interface ScanSettings {
+  scanLimit: number;
+  startDate: string;
+  endDate: string;
+  signalFilter: string[];
+  stockList: string[];
+}
+
+function readJSONObject(filePath: string): any {
+  try {
+    if (!fs.existsSync(filePath)) {
+      return {};
+    }
+    const data = fs.readFileSync(filePath, "utf-8");
+    return JSON.parse(data) || {};
+  } catch (error) {
+    console.error(`Error reading ${filePath}:`, error);
+    return {};
+  }
+}
+
+function writeJSONObject(filePath: string, data: any) {
+  try {
+    ensureStorageDir();
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.error(`Error writing ${filePath}:`, error);
+  }
+}
+
+export function getScanSettings(): ScanSettings {
+  initializeFiles();
+  const settings = readJSONObject(SETTINGS_FILE);
+  return {
+    scanLimit: settings.scanLimit || 50,
+    startDate: settings.startDate || "",
+    endDate: settings.endDate || "",
+    signalFilter: settings.signalFilter || ["攻擊K線", "多頭吞噬", "黑K吞噬", "內困型態"],
+    stockList: settings.stockList || ["2330", "2454", "3008", "1590", "2357"],
+  };
+}
+
+export function updateScanSettings(settings: Partial<ScanSettings>): void {
+  initializeFiles();
+  const currentSettings = getScanSettings();
+  const updatedSettings = {
+    ...currentSettings,
+    ...settings,
+  };
+  writeJSONObject(SETTINGS_FILE, updatedSettings);
+  console.log("Updated scan settings:", updatedSettings);
+}

@@ -1,207 +1,315 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Plus, Trash2, Save } from "lucide-react";
 import { Link } from "wouter";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
+
+interface ScanSettings {
+  scanLimit: number;
+  startDate: string;
+  endDate: string;
+  signalFilter: string[];
+  stockList: string[];
+}
+
+const AVAILABLE_SIGNALS = [
+  "攻擊K線",
+  "多頭吞噬",
+  "黑K吞噬",
+  "內困型態",
+];
 
 export default function Settings() {
-  // 計算預設日期：當日到前兩個月
-  const today = new Date();
-  const twoMonthsAgo = new Date(today.getTime() - 60 * 24 * 60 * 60 * 1000);
-  const formatDate = (date: Date) => date.toISOString().split('T')[0];
+  const [settings, setSettings] = useState<ScanSettings>({
+    scanLimit: 50,
+    startDate: "",
+    endDate: "",
+    signalFilter: ["攻擊K線", "多頭吞噬", "黑K吞噬", "內困型態"],
+    stockList: ["2330", "2454", "3008", "1590", "2357"],
+  });
 
-  const [scanLimit, setScanLimit] = useState(50);
-  const [startDate, setStartDate] = useState(formatDate(twoMonthsAgo));
-  const [endDate, setEndDate] = useState(formatDate(today));
-  const [selectedSignals, setSelectedSignals] = useState<string[]>([
-    "攻擊K線",
-    "多頭吞噬",
-    "黑K吞噬",
-    "內困型態",
-  ]);
+  const [newStock, setNewStock] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
-  const signalOptions = [
-    { value: "攻擊K線", label: "攻擊K線" },
-    { value: "多頭吞噬", label: "多頭吞噬" },
-    { value: "黑K吞噬", label: "黑K吞噬" },
-    { value: "內困型態", label: "內困型態" },
-  ];
+  // 獲取掃描設定
+  const { data: scanSettings } = trpc.stock.getScanSettings.useQuery();
 
-  const handleSignalToggle = (signal: string) => {
-    setSelectedSignals((prev) =>
-      prev.includes(signal)
-        ? prev.filter((s) => s !== signal)
-        : [...prev, signal]
-    );
+  // 更新掃描設定
+  const updateSettingsMutation = trpc.stock.updateScanSettings.useMutation({
+    onSuccess: () => {
+      toast.success("設定已保存");
+      setIsSaving(false);
+    },
+    onError: (error) => {
+      toast.error(`保存失敗: ${error.message}`);
+      setIsSaving(false);
+    },
+  });
+
+  useEffect(() => {
+    if (scanSettings) {
+      setSettings({
+        scanLimit: scanSettings.scanLimit || 50,
+        startDate: scanSettings.startDate || "",
+        endDate: scanSettings.endDate || "",
+        signalFilter: scanSettings.signalFilter || AVAILABLE_SIGNALS,
+        stockList: settings.stockList,
+      });
+    }
+  }, [scanSettings]);
+
+  const handleScanLimitChange = (value: string) => {
+    const num = parseInt(value, 10);
+    if (!isNaN(num) && num > 0) {
+      setSettings({ ...settings, scanLimit: num });
+    }
   };
 
-  const handleSave = () => {
-    // TODO: 保存設定到本地存儲或後端
-    console.log({
-      scanLimit,
-      startDate,
-      endDate,
-      selectedSignals,
+  const handleStartDateChange = (value: string) => {
+    setSettings({ ...settings, startDate: value });
+  };
+
+  const handleEndDateChange = (value: string) => {
+    setSettings({ ...settings, endDate: value });
+  };
+
+  const handleSignalToggle = (signal: string) => {
+    setSettings({
+      ...settings,
+      signalFilter: settings.signalFilter.includes(signal)
+        ? settings.signalFilter.filter((s) => s !== signal)
+        : [...settings.signalFilter, signal],
     });
-    alert("設定已保存");
+  };
+
+  const handleAddStock = () => {
+    if (newStock.trim() && !settings.stockList.includes(newStock.trim())) {
+      setSettings({
+        ...settings,
+        stockList: [...settings.stockList, newStock.trim()],
+      });
+      setNewStock("");
+      toast.success(`已添加股票 ${newStock.trim()}`);
+    } else if (settings.stockList.includes(newStock.trim())) {
+      toast.error("該股票已在清單中");
+    }
+  };
+
+  const handleRemoveStock = (stock: string) => {
+    setSettings({
+      ...settings,
+      stockList: settings.stockList.filter((s) => s !== stock),
+    });
+    toast.success(`已移除股票 ${stock}`);
+  };
+
+  const handleSaveSettings = async () => {
+    setIsSaving(true);
+    try {
+      await updateSettingsMutation.mutateAsync({
+        scanLimit: settings.scanLimit,
+        startDate: settings.startDate,
+        endDate: settings.endDate,
+        signalFilter: settings.signalFilter,
+        stockList: settings.stockList,
+      });
+    } catch (error) {
+      console.error("Error saving settings:", error);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-6">
-      <div className="max-w-2xl mx-auto space-y-6 md:space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 sm:p-6 lg:p-8">
+      <div className="max-w-4xl mx-auto">
         {/* 頁面標題 */}
-        <div className="space-y-2">
-          <Link href="/">
-            <Button variant="ghost" className="mb-4">
-              ← 返回儀表板
-            </Button>
-          </Link>
-          <h1 className="text-3xl font-bold text-slate-900">掃描參數設定</h1>
-          <p className="text-slate-600">自訂全市場掃描的參數</p>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">掃描設定</h1>
+          <p className="text-slate-600">自定義股票清單、掃描參數和訊號篩選</p>
         </div>
 
-        {/* 掃描數量設定 */}
-        <Card className="border-0 shadow-lg bg-white">
+        {/* 警告信息 */}
+        <Alert className="mb-6 border-blue-200 bg-blue-50">
+          <AlertCircle className="h-4 w-4 text-blue-600" />
+          <AlertDescription className="text-blue-800">
+            在此頁面修改的設定將在下次掃描時應用。所有更改會自動保存。
+          </AlertDescription>
+        </Alert>
+
+        {/* 股票清單卡片 */}
+        <Card className="mb-6 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-lg">掃描股票數量</CardTitle>
-            <CardDescription>設定每次掃描要檢查的股票數量上限</CardDescription>
+            <CardTitle>股票清單管理</CardTitle>
+            <CardDescription>添加或移除要掃描的股票代號</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* 添加股票輸入框 */}
+            <div className="flex gap-2">
+              <Input
+                placeholder="輸入股票代號 (例如: 2330)"
+                value={newStock}
+                onChange={(e) => setNewStock(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    handleAddStock();
+                  }
+                }}
+                className="flex-1"
+              />
+              <Button
+                onClick={handleAddStock}
+                className="bg-blue-600 hover:bg-blue-700"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                添加
+              </Button>
+            </div>
+
+            {/* 股票清單 */}
             <div className="space-y-2">
-              <Label htmlFor="scanLimit" className="text-slate-700 font-semibold">
-                掃描數量上限（檔）
+              <Label className="text-sm font-semibold text-slate-700">
+                目前清單 ({settings.stockList.length} 個)
+              </Label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                {settings.stockList.length > 0 ? (
+                  settings.stockList.map((stock) => (
+                    <div
+                      key={stock}
+                      className="flex items-center justify-between bg-slate-100 rounded-lg px-3 py-2"
+                    >
+                      <span className="font-semibold text-slate-900">{stock}</span>
+                      <button
+                        onClick={() => handleRemoveStock(stock)}
+                        className="text-red-600 hover:text-red-700 ml-2"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-slate-500 col-span-full">未添加任何股票</p>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* 掃描參數卡片 */}
+        <Card className="mb-6 shadow-sm">
+          <CardHeader>
+            <CardTitle>掃描參數</CardTitle>
+            <CardDescription>設定掃描範圍和數量限制</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* 掃描數量限制 */}
+            <div className="space-y-2">
+              <Label htmlFor="scanLimit" className="text-sm font-semibold">
+                掃描數量上限
               </Label>
               <Input
                 id="scanLimit"
                 type="number"
                 min="1"
-                max="2000"
-                value={scanLimit}
-                onChange={(e) => setScanLimit(parseInt(e.target.value))}
-                className="border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                max="500"
+                value={settings.scanLimit}
+                onChange={(e) => handleScanLimitChange(e.target.value)}
+                className="max-w-xs"
               />
-              <p className="text-sm text-slate-600">
-                建議值：50-100。數值越大，掃描時間越長，但覆蓋範圍越廣。
+              <p className="text-xs text-slate-500">
+                每次掃描最多檢查的股票數量（1-500）
               </p>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* 日期範圍設定 */}
-        <Card className="border-0 shadow-lg bg-white">
-          <CardHeader>
-            <CardTitle className="text-lg">歷史數據範圍</CardTitle>
-            <CardDescription>設定用於技術分析的歷史數據時間範圍</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* 日期範圍 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="startDate" className="text-slate-700 font-semibold">
-                  開始日期
+                <Label htmlFor="startDate" className="text-sm font-semibold">
+                  開始日期（可選）
                 </Label>
                 <Input
                   id="startDate"
                   type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  className="border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                  value={settings.startDate}
+                  onChange={(e) => handleStartDateChange(e.target.value)}
                 />
+                <p className="text-xs text-slate-500">
+                  留空表示使用最近的數據
+                </p>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="endDate" className="text-slate-700 font-semibold">
-                  結束日期
+                <Label htmlFor="endDate" className="text-sm font-semibold">
+                  結束日期（可選）
                 </Label>
                 <Input
                   id="endDate"
                   type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  className="border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                  value={settings.endDate}
+                  onChange={(e) => handleEndDateChange(e.target.value)}
                 />
+                <p className="text-xs text-slate-500">
+                  留空表示使用今天的日期
+                </p>
               </div>
             </div>
-            <p className="text-sm text-slate-600">
-              建議至少保留 120 天的歷史數據以計算季線（60MA）。
-            </p>
           </CardContent>
         </Card>
 
-        {/* 訊號過濾設定 */}
-        <Card className="border-0 shadow-lg bg-white">
+
+
+        {/* 訊號篩選卡片 */}
+        <Card className="mb-6 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-lg">技術訊號過濾</CardTitle>
-            <CardDescription>選擇要在掃描結果中顯示的技術訊號類型</CardDescription>
+            <CardTitle>訊號篩選</CardTitle>
+            <CardDescription>選擇要檢測的技術訊號類型</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-3">
-              {signalOptions.map((signal) => (
-                <div key={signal.value} className="flex items-center space-x-2">
+              {AVAILABLE_SIGNALS.map((signal) => (
+                <div key={signal} className="flex items-center space-x-3">
                   <Checkbox
-                    id={signal.value}
-                    checked={selectedSignals.includes(signal.value)}
-                    onCheckedChange={() => handleSignalToggle(signal.value)}
+                    id={signal}
+                    checked={settings.signalFilter.includes(signal)}
+                    onCheckedChange={() => handleSignalToggle(signal)}
                   />
                   <Label
-                    htmlFor={signal.value}
-                    className="text-slate-700 font-medium cursor-pointer"
+                    htmlFor={signal}
+                    className="text-sm font-medium cursor-pointer flex-1"
                   >
-                    {signal.label}
+                    {signal}
                   </Label>
+                  <span className="text-xs text-slate-500">
+                    {signal === "攻擊K線" && "買進訊號"}
+                    {signal === "多頭吞噬" && "買進訊號"}
+                    {signal === "黑K吞噬" && "賣出訊號"}
+                    {signal === "內困型態" && "中立訊號"}
+                  </span>
                 </div>
               ))}
             </div>
-            <Alert className="border-blue-200 bg-blue-50">
-              <AlertCircle className="h-4 w-4 text-blue-600" />
-              <AlertDescription className="text-blue-800">
-                至少需要選擇一個訊號類型。未選擇的訊號將不會在掃描結果中顯示。
-              </AlertDescription>
-            </Alert>
           </CardContent>
         </Card>
 
-        {/* 操作按鈕 */}
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Button
-            onClick={handleSave}
-            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex-1 sm:flex-none"
-          >
-            保存設定
-          </Button>
-          <Link href="/" className="flex-1 sm:flex-none">
-            <Button variant="outline" className="border-slate-300 hover:bg-slate-50 w-full">
-              返回儀表板
+        {/* 保存按鈕 */}
+        <div className="flex gap-3 justify-end">
+          <Link href="/">
+            <Button variant="outline">
+              返回
             </Button>
           </Link>
+          <Button
+            onClick={handleSaveSettings}
+            disabled={isSaving}
+            className="bg-green-600 hover:bg-green-700"
+          >
+            <Save className="h-4 w-4 mr-2" />
+            {isSaving ? "保存中..." : "保存設定"}
+          </Button>
         </div>
-
-        {/* 說明區 */}
-        <Card className="border-0 shadow-md bg-slate-50">
-          <CardHeader>
-            <CardTitle className="text-base">關於林家洋技術分析理論</CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm text-slate-700 space-y-2">
-            <p>
-              <strong>攻擊K線：</strong>
-              股價在一天內大幅上漲（通常超過3%），成交量明顯放大（超過5日均量1.5倍），表示主力表態看多。
-            </p>
-            <p>
-              <strong>多頭吞噬：</strong>
-              當日K線的開盤價低於前一日收盤價，但收盤價高於前一日開盤價，表示多方力量強勁，可能是轉強訊號。
-            </p>
-            <p>
-              <strong>黑K吞噬：</strong>
-              當日K線為黑K（下跌），且完全吞噬前一日的紅K（上漲），表示空方力量強勁，是反轉訊號。
-            </p>
-            <p>
-              <strong>季線之上：</strong>
-              股價位於60日均線（季線）之上，表示股票處於多頭趨勢中。
-            </p>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );

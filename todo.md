@@ -59,3 +59,14 @@
 - [x] 在 Dashboard.tsx 中整合 RecommendationBadge 組件
 - [x] 編寫 42 項單元測試，全部通過
 - [x] 視覺化設計完成：買進（綠色 + 星級）、賣出（紅色 + 炸彈）、中立（灰色 + 觀望）
+
+
+## 設定頁面 (Settings Page)
+- [x] 創建 Settings.tsx 頁面組件
+- [x] 實現股票清單管理（添加/刪除）
+- [x] 實現日期範圍選擇器（可選）
+- [x] 實現訊號篩選選項
+- [x] 路由已配置（/settings）
+- [x] 與後端 API 整合（getScanSettings / updateScanSettings）
+- [x] 後端持久化存儲实現（fileStorage.ts）
+- [x] 設定自動保存功能完成
