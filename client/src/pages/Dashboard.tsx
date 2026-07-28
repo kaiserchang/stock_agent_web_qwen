@@ -9,6 +9,7 @@ import { trpc } from "@/lib/trpc";
 import { useState, useEffect } from "react";
 import ScanProgressLogs from "@/components/ScanProgressLogs";
 import SignalExplanation from "@/components/SignalExplanation";
+import { RecommendationBadge } from "@/components/RecommendationBadge";
 
 interface ScanResult {
   id: number;
@@ -408,19 +409,10 @@ export default function Dashboard() {
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          <div className="flex items-center gap-1">
-                            <span className="text-sm font-semibold text-slate-900">{result.recommendationScore || 0}</span>
-                            <span className="text-xs">
-                              {(() => {
-                                const score = result.recommendationScore || 0;
-                                if (score >= 90) return "⭐⭐⭐⭐⭐";
-                                if (score >= 75) return "⭐⭐⭐⭐";
-                                if (score >= 60) return "⭐⭐⭐";
-                                if (score >= 45) return "⭐⭐";
-                                return "⭐";
-                              })()}
-                            </span>
-                          </div>
+                          <RecommendationBadge 
+                            score={result.recommendationScore || 0} 
+                            signalType={result.signalType}
+                          />
                         </TableCell>
                         <TableCell className="hidden sm:table-cell">
                           {result.aboveMa60 ? (

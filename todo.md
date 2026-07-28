@@ -50,3 +50,12 @@
 - [x] 在 scan_orchestrator.py 中整合推薦指數計算
 - [x] 在前端表格中添加推薦指數列和星級計算
 - [x] 編寫 21 項單元測試，全部通過
+
+
+## 買賣訊號視覺化 (Buy/Sell Signal Visualization)
+- [x] 修改 analysis_engine.py 中的計分規則以支持負分（賣出訊號）
+- [x] 修改 routers.ts 以保存負分訊號（score !== 0）
+- [x] 創建 RecommendationBadge.tsx 組件（綠色上標 + 星級 / 紅色上標 + 炸彈 / 灰色上標 + 觀望）
+- [x] 在 Dashboard.tsx 中整合 RecommendationBadge 組件
+- [x] 編寫 42 項單元測試，全部通過
+- [x] 視覺化設計完成：買進（綠色 + 星級）、賣出（紅色 + 炸彈）、中立（灰色 + 觀望）

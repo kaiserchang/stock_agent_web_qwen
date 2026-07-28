@@ -93,16 +93,17 @@ class LinJiaYangEngine:
         計分邏輯：
         推薦指數 = 訊號強度 × 季線位置係數 × 成交量係數
         
-        訊號強度：
+        買進訊號（正分）：
         - 攻擊K線：100 分
         - 多頭吞噬：75 分
         - 內困型態：50 分
-        - 黑K吞噬：0 分
-        - 無訊號：0 分
+        
+        賣出訊號（負分）：
+        - 黑K吞噬：-60 到 -120 分
         
         季線位置係數：
-        - 股價 > MA60：1.0 倍
-        - 股價 < MA60：0.5 倍
+        - 買進：股價 > MA60 為 1.0，< MA60 為 0.5
+        - 賣出：股價 < MA60 為 1.0（更危險），> MA60 為 0.5
         
         成交量係數：
         - 成交量 > 5日均量 × 2 倍：1.2 倍
@@ -115,20 +116,31 @@ class LinJiaYangEngine:
         curr = self.df.iloc[idx]
         signal = curr.get('Signal', '無')
         
-        # 訊號強度
-        signal_strength = {
+        # 買進訊號強度
+        buy_signal_strength = {
             '攻擊K線': 100,
             '多頭吞噬': 75,
             '內困型態': 50,
-            '黑K吞噬': 0,
-            '無': 0
         }.get(signal, 0)
         
-        if signal_strength == 0:
+        # 賣出訊號強度
+        sell_signal_strength = {
+            '黑K吞噬': -60,
+        }.get(signal, 0)
+        
+        # 如果沒有訊號，返回 0
+        if buy_signal_strength == 0 and sell_signal_strength == 0:
             return 0
         
-        # 季線位置係數
-        ma60_coefficient = 1.0 if curr['Close'] > curr['MA60'] else 0.5
+        # 決定是買進還是賣出
+        if buy_signal_strength > 0:
+            signal_strength = buy_signal_strength
+            # 買進訊號：股價 > MA60 為 1.0，< MA60 為 0.5
+            ma60_coefficient = 1.0 if curr['Close'] > curr['MA60'] else 0.5
+        else:
+            signal_strength = sell_signal_strength
+            # 賣出訊號：股價 < MA60 為 1.0（更危險），> MA60 為 0.5
+            ma60_coefficient = 1.0 if curr['Close'] < curr['MA60'] else 0.5
         
         # 成交量係數
         vol_ma5 = self.df['Volume'].iloc[idx-5:idx].mean()
@@ -139,9 +151,14 @@ class LinJiaYangEngine:
         else:
             vol_coefficient = 0.8
         
-        # 計算最終分數，上限 120
+        # 計算最終分數
         score = signal_strength * ma60_coefficient * vol_coefficient
-        return min(int(score), 120)
+        
+        # 買進訊號上限 120，賣出訊號下限 -120
+        if score > 0:
+            return min(int(score), 120)
+        else:
+            return max(int(score), -120)
 
     def run_analysis(self):
         """

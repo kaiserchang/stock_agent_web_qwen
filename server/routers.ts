@@ -69,18 +69,22 @@ export const appRouter = router({
           }).then((pythonResult) => {
             if (pythonResult.status === "success") {
               const recommendations = pythonResult.recommendations;
+              // 保存推薦指數 != 0 的股票（買進訊號和賣出訊號）
               for (const rec of recommendations) {
-                insertScanResult({
-                  sessionId: newSessionId,
-                  stockId: rec.stockId,
-                  stockName: rec.stockName,
-                  industry: rec.industry,
-                  closePrice: rec.closePrice,
-                  signalType: rec.signalType,
-                  aboveMa60: rec.aboveMa60,
-                  recommendationScore: rec.recommendationScore || 0,
-                  scanDate: new Date(rec.scanDate),
-                });
+                const score = rec.recommendationScore || 0;
+                if (score !== 0) {
+                  insertScanResult({
+                    sessionId: newSessionId,
+                    stockId: rec.stockId,
+                    stockName: rec.stockName,
+                    industry: rec.industry,
+                    closePrice: rec.closePrice,
+                    signalType: rec.signalType,
+                    aboveMa60: rec.aboveMa60,
+                    recommendationScore: score,
+                    scanDate: new Date(rec.scanDate),
+                  });
+                }
               }
               updateScanSession(newSessionId, {
                 scanEndTime: new Date(),

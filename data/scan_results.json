@@ -20,5 +20,29 @@
     "aboveMa60": true,
     "scanDate": "2026-07-27T00:00:00.000Z",
     "id": 2
+  },
+  {
+    "sessionId": 5,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "industry": "機械",
+    "closePrice": 1440,
+    "signalType": "多頭吞噬",
+    "aboveMa60": true,
+    "recommendationScore": 60,
+    "scanDate": "2026-07-27T00:00:00.000Z",
+    "id": 3
+  },
+  {
+    "sessionId": 5,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "industry": "電子",
+    "closePrice": 760,
+    "signalType": "黑K吞噬",
+    "aboveMa60": true,
+    "recommendationScore": 0,
+    "scanDate": "2026-07-27T00:00:00.000Z",
+    "id": 4
   }
 ]
