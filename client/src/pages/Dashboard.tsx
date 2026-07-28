@@ -243,6 +243,11 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
+        {/* 掃描進度日誌 */}
+        {isScanning && currentSessionId && (
+          <ScanProgressLogs sessionId={currentSessionId} isScanning={isScanning} />
+        )}
+
         {/* 訊號統計摘要卡片 */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           <Card className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow">
