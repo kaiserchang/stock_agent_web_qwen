@@ -70,3 +70,18 @@
 - [x] 與後端 API 整合（getScanSettings / updateScanSettings）
 - [x] 後端持久化存儲实現（fileStorage.ts）
 - [x] 設定自動保存功能完成
+
+
+## UI/UX 改進 (UI/UX Improvements)
+- [ ] 實施高雅配色設計（金、銀、青、灰、白）
+  - [ ] 更新 index.css 中的顏色變量
+  - [ ] 修改 Dashboard 表格顏色方案
+  - [ ] 修改 Settings 頁面顏色方案
+  - [ ] 確保警示和訊息文字有足夠對比度
+- [ ] 添加 Tooltip 提示功能
+  - [ ] 在推薦指數列添加 Tooltip
+  - [ ] 在訊號類型列添加 Tooltip
+  - [ ] 顯示買進/賣出/觀望的詳細說明
+- [ ] 驗證華碩數據變化（0 → -24）
+- [ ] 更新 README 文檔
+- [ ] 推送到 GitHub

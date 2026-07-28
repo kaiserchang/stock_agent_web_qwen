@@ -1,4 +1,5 @@
 import React from "react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface RecommendationBadgeProps {
   score: number; // -120 到 +120
@@ -15,46 +16,61 @@ export const RecommendationBadge: React.FC<RecommendationBadgeProps> = ({
     let bgColor = "";
     let textColor = "";
     let stars = "";
+    let tooltipText = "";
 
     if (score >= 90) {
       label = "強烈買進";
-      bgColor = "bg-green-700";
+      bgColor = "bg-amber-700";
       textColor = "text-white";
       stars = "⭐⭐⭐⭐⭐";
+      tooltipText = `強烈買進訊號 (${score}分)\n${signalType}\n建議立即進場`;
     } else if (score >= 75) {
       label = "建議買進";
-      bgColor = "bg-green-500";
+      bgColor = "bg-amber-600";
       textColor = "text-white";
       stars = "⭐⭐⭐⭐";
+      tooltipText = `建議買進訊號 (${score}分)\n${signalType}\n可考慮進場`;
     } else if (score >= 60) {
       label = "中度買進";
-      bgColor = "bg-green-400";
-      textColor = "text-gray-900";
+      bgColor = "bg-amber-500";
+      textColor = "text-white";
       stars = "⭐⭐⭐";
+      tooltipText = `中度買進訊號 (${score}分)\n${signalType}\n觀望後進場`;
     } else if (score >= 45) {
       label = "溫和買進";
-      bgColor = "bg-green-300";
+      bgColor = "bg-amber-400";
       textColor = "text-gray-900";
       stars = "⭐⭐";
+      tooltipText = `溫和買進訊號 (${score}分)\n${signalType}\n謹慎進場`;
     } else {
       label = "輕度買進";
-      bgColor = "bg-green-200";
+      bgColor = "bg-amber-300";
       textColor = "text-gray-900";
       stars = "⭐";
+      tooltipText = `輕度買進訊號 (${score}分)\n${signalType}\n持續觀察`;
     }
 
     return (
-      <div className="flex flex-col gap-1">
-        <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-sm font-semibold text-center`}>
-          {score}
-        </div>
-        <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-xs text-center`}>
-          {label}
-        </div>
-        <div className="text-center text-sm">
-          {stars}
-        </div>
-      </div>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="flex flex-col gap-1 cursor-help">
+              <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-sm font-semibold text-center`}>
+                {score}
+              </div>
+              <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-xs text-center`}>
+                {label}
+              </div>
+              <div className="text-center text-sm">
+                {stars}
+              </div>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent className="max-w-xs">
+            <p className="whitespace-pre-wrap text-sm">{tooltipText}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     );
   }
 
@@ -64,56 +80,79 @@ export const RecommendationBadge: React.FC<RecommendationBadgeProps> = ({
     let bgColor = "";
     let textColor = "";
     let bombs = "";
+    let tooltipText = "";
 
     if (score <= -120) {
       label = "緊急脫手";
       bgColor = "bg-red-700";
       textColor = "text-white";
       bombs = "💣💣💣💣💣";
+      tooltipText = `緊急脫手警告 (${score}分)\n${signalType}\n⚠️ 立即減持或止損`;
     } else if (score <= -90) {
       label = "強烈脫手";
       bgColor = "bg-red-600";
       textColor = "text-white";
       bombs = "💣💣💣💣";
+      tooltipText = `強烈脫手警告 (${score}分)\n${signalType}\n⚠️ 建議減持`;
     } else if (score <= -60) {
       label = "建議脫手";
-      bgColor = "bg-orange-500";
+      bgColor = "bg-orange-600";
       textColor = "text-white";
       bombs = "💣💣💣";
+      tooltipText = `脫手建議 (${score}分)\n${signalType}\n⚠️ 考慮減持`;
     } else {
       label = "注意風險";
-      bgColor = "bg-yellow-500";
-      textColor = "text-gray-900";
+      bgColor = "bg-cyan-600";
+      textColor = "text-white";
       bombs = "💣💣";
+      tooltipText = `風險提示 (${score}分)\n${signalType}\n⚠️ 注意風險變化`;
     }
 
     return (
-      <div className="flex flex-col gap-1">
-        <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-sm font-semibold text-center`}>
-          {score}
-        </div>
-        <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-xs text-center`}>
-          {label}
-        </div>
-        <div className="text-center text-lg">
-          {bombs}
-        </div>
-      </div>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="flex flex-col gap-1 cursor-help">
+              <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-sm font-semibold text-center`}>
+                {score}
+              </div>
+              <div className={`${bgColor} ${textColor} px-3 py-1 rounded-md text-xs text-center`}>
+                {label}
+              </div>
+              <div className="text-center text-lg">
+                {bombs}
+              </div>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent className="max-w-xs">
+            <p className="whitespace-pre-wrap text-sm">{tooltipText}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     );
   }
 
   // 中立訊號（0 分）
   return (
-    <div className="flex flex-col gap-1">
-      <div className="bg-gray-300 text-gray-900 px-3 py-1 rounded-md text-sm font-semibold text-center">
-        0
-      </div>
-      <div className="bg-gray-300 text-gray-900 px-3 py-1 rounded-md text-xs text-center">
-        觀望
-      </div>
-      <div className="text-center text-sm text-gray-500">
-        -
-      </div>
-    </div>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className="flex flex-col gap-1 cursor-help">
+            <div className="bg-gray-400 text-white px-3 py-1 rounded-md text-sm font-semibold text-center">
+              0
+            </div>
+            <div className="bg-gray-400 text-white px-3 py-1 rounded-md text-xs text-center">
+              觀望
+            </div>
+            <div className="text-center text-sm text-gray-600">
+              -
+            </div>
+          </div>
+        </TooltipTrigger>
+        <TooltipContent className="max-w-xs">
+          <p className="text-sm">無明確訊號\n{signalType}\n繼續觀察市場動向</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
