@@ -4,7 +4,7 @@
 
 ## 📋 專案概述
 
-**台股技術分析儀表板**是一個全棧 Web 應用，結合了實時股票數據獲取、自動技術分析和互動式視覺化展示。系統使用 twstock（台灣證券交易所官方數據源）進行數據獲取，支援多種技術訊號識別，幫助投資者快速發現潛在投資機會。
+**台股技術分析儀表板**是一個全棧 Web 應用，結合了實時股票數據獲取、自動技術分析和互動式視覺化展示。系統使用 yfinance（Yahoo Finance）進行數據獲取，支援多種技術訊號識別，幫助投資者快速發現潛在投資機會。
 
 ### 核心特性
 
@@ -31,7 +31,7 @@
 - **Python 3** - 數據分析和技術指標計算
 
 ### 數據源
-- **twstock** - 台灣證券交易所官方數據（免費、穩定）
+- **yfinance** - Yahoo Finance 數據源（全球股票數據，包含台股）
 - **本地文件存儲** - JSON 格式保存掃描結果和歷史記錄
 
 ### 部署環境
@@ -112,12 +112,12 @@ npm install
 
 **安裝 Python 依賴**：
 ```bash
-pip install twstock pandas numpy
+pip install yfinance pandas numpy pandas-ta
 ```
 
 或使用 pip3：
 ```bash
-pip3 install twstock pandas numpy
+pip3 install yfinance pandas numpy pandas-ta
 ```
 
 #### 3. 啟動開發伺服器
@@ -357,7 +357,7 @@ rm data/scan_logs.json
 
 ## 🙏 致謝
 
-感謝林家洋老師提供的技術分析理論基礎，以及 twstock 社區提供的台灣股票數據接口。
+感謝林家洋老師提供的技術分析理論基礎，以及 yfinance 社區提供的股票數據接口。
 
 ---
 
