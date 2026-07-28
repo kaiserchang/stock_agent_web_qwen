@@ -86,11 +86,70 @@ class LinJiaYangEngine:
         cond3 = curr['Volume'] > vol_ma5 * 1.5 # 量增
         return cond1 and cond2 and cond3
 
+    def calculate_recommendation_score(self, idx):
+        """
+        計算推薦指數 (0-120 分)
+        
+        計分邏輯：
+        推薦指數 = 訊號強度 × 季線位置係數 × 成交量係數
+        
+        訊號強度：
+        - 攻擊K線：100 分
+        - 多頭吞噬：75 分
+        - 內困型態：50 分
+        - 黑K吞噬：0 分
+        - 無訊號：0 分
+        
+        季線位置係數：
+        - 股價 > MA60：1.0 倍
+        - 股價 < MA60：0.5 倍
+        
+        成交量係數：
+        - 成交量 > 5日均量 × 2 倍：1.2 倍
+        - 成交量 > 5日均量 × 1.5 倍：1.0 倍
+        - 成交量 < 5日均量 × 1.5 倍：0.8 倍
+        """
+        if idx < 5:
+            return 0
+        
+        curr = self.df.iloc[idx]
+        signal = curr.get('Signal', '無')
+        
+        # 訊號強度
+        signal_strength = {
+            '攻擊K線': 100,
+            '多頭吞噬': 75,
+            '內困型態': 50,
+            '黑K吞噬': 0,
+            '無': 0
+        }.get(signal, 0)
+        
+        if signal_strength == 0:
+            return 0
+        
+        # 季線位置係數
+        ma60_coefficient = 1.0 if curr['Close'] > curr['MA60'] else 0.5
+        
+        # 成交量係數
+        vol_ma5 = self.df['Volume'].iloc[idx-5:idx].mean()
+        if curr['Volume'] > vol_ma5 * 2:
+            vol_coefficient = 1.2
+        elif curr['Volume'] > vol_ma5 * 1.5:
+            vol_coefficient = 1.0
+        else:
+            vol_coefficient = 0.8
+        
+        # 計算最終分數，上限 120
+        score = signal_strength * ma60_coefficient * vol_coefficient
+        return min(int(score), 120)
+
     def run_analysis(self):
         """
         執行全量分析，回傳包含訊號的 DataFrame
         """
         signals = []
+        scores = []
+        
         for i in range(len(self.df)):
             sig = "無"
             # 優先判斷買入訊號
@@ -108,6 +167,14 @@ class LinJiaYangEngine:
             signals.append(sig)
         
         self.df['Signal'] = signals
+        
+        # 計算推薦指數
+        for i in range(len(self.df)):
+            score = self.calculate_recommendation_score(i)
+            scores.append(score)
+        
+        self.df['RecommendationScore'] = scores
+        
         # 加入位置判斷：股價是否在季線之上
         # 處理 NaN 值，預設為 False
         self.df['Above_MA60'] = (self.df['Close'] > self.df['MA60']).fillna(False)

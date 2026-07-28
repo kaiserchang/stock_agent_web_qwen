@@ -48,6 +48,7 @@ export const scanResults = mysqlTable("scan_results", {
   closePrice: int("close_price").notNull(),
   signalType: varchar("signal_type", { length: 50 }).notNull(),
   aboveMa60: int("above_ma60").notNull(), // 0 for false, 1 for true
+  recommendationScore: int("recommendation_score").default(0).notNull(), // 推薦指數 0-120
   scanDate: timestamp("scan_date").notNull(),
 });
 

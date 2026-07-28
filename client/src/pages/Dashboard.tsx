@@ -19,6 +19,7 @@ interface ScanResult {
   closePrice: number;
   signalType: string;
   aboveMa60: number;
+  recommendationScore: number;
   scanDate: Date;
 }
 
@@ -376,6 +377,7 @@ export default function Dashboard() {
                       <TableHead className="text-slate-700 font-semibold hidden md:table-cell">產業</TableHead>
                       <TableHead className="text-slate-700 font-semibold text-right">收盤價</TableHead>
                       <TableHead className="text-slate-700 font-semibold">訊號類型</TableHead>
+                      <TableHead className="text-slate-700 font-semibold">推薦指數</TableHead>
                       <TableHead className="text-slate-700 font-semibold hidden sm:table-cell">季線之上</TableHead>
                       <TableHead className="text-slate-700 font-semibold">操作</TableHead>
                     </TableRow>
@@ -404,6 +406,21 @@ export default function Dashboard() {
                           >
                             {result.signalType}
                           </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-1">
+                            <span className="text-sm font-semibold text-slate-900">{result.recommendationScore || 0}</span>
+                            <span className="text-xs">
+                              {(() => {
+                                const score = result.recommendationScore || 0;
+                                if (score >= 90) return "⭐⭐⭐⭐⭐";
+                                if (score >= 75) return "⭐⭐⭐⭐";
+                                if (score >= 60) return "⭐⭐⭐";
+                                if (score >= 45) return "⭐⭐";
+                                return "⭐";
+                              })()}
+                            </span>
+                          </div>
                         </TableCell>
                         <TableCell className="hidden sm:table-cell">
                           {result.aboveMa60 ? (

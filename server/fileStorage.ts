@@ -75,6 +75,7 @@ export interface ScanResult {
   closePrice: number;
   signalType: string;
   aboveMa60: number;
+  recommendationScore: number;
   scanDate: Date;
 }
 

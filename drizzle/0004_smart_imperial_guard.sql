@@ -1,0 +1,1 @@
+ALTER TABLE `scan_results` ADD `recommendation_score` int DEFAULT 0 NOT NULL;

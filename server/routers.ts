@@ -78,6 +78,7 @@ export const appRouter = router({
                   closePrice: rec.closePrice,
                   signalType: rec.signalType,
                   aboveMa60: rec.aboveMa60,
+                  recommendationScore: rec.recommendationScore || 0,
                   scanDate: new Date(rec.scanDate),
                 });
               }

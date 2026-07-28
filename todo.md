@@ -42,3 +42,11 @@
 - [x] 在 README.md 中添加詳細訊號講解部分
 - [x] 創建 SignalExplanation.tsx 組件（交互式對話框）
 - [x] 在 Dashboard.tsx 中添加訊號說明按鈕和組件整合
+
+
+## 推薦指數功能 (Recommendation Score Feature)
+- [x] 在數據庫 schema 中添加 recommendation_score 欄位
+- [x] 在 analysis_engine.py 中實現推薦指數計算邏輯
+- [x] 在 scan_orchestrator.py 中整合推薦指數計算
+- [x] 在前端表格中添加推薦指數列和星級計算
+- [x] 編寫 21 項單元測試，全部通過

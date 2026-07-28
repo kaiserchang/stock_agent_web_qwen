@@ -271,6 +271,7 @@ def run_market_scan(params):
             latest_signal = analysis_result.iloc[-1]
             signal_type = latest_signal["Signal"]
             above_ma60 = bool(latest_signal["Above_MA60"])
+            recommendation_score = int(latest_signal.get("RecommendationScore", 0))
 
             if signal_type != "無":
                 if not signal_filter or signal_type in signal_filter:
@@ -281,6 +282,7 @@ def run_market_scan(params):
                         "closePrice": float(latest_signal["Close"]),
                         "signalType": signal_type,
                         "aboveMa60": above_ma60,
+                        "recommendationScore": recommendation_score,
                         "scanDate": latest_signal.name.strftime('%Y-%m-%d')
                     })
                     

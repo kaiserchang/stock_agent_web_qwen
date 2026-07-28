@@ -29,6 +29,13 @@
       "when": 1781923615333,
       "tag": "0003_omniscient_the_stranger",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1785223951246,
+      "tag": "0004_smart_imperial_guard",
+      "breakpoints": true
     }
   ]
 }
