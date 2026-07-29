@@ -80,5 +80,17 @@
     "recommendationScore": 60,
     "scanDate": "2026-07-27T00:00:00.000Z",
     "id": 7
+  },
+  {
+    "sessionId": 8,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "industry": "半導體",
+    "closePrice": 392.5,
+    "signalType": "內困型態",
+    "aboveMa60": false,
+    "recommendationScore": 20,
+    "scanDate": "2026-07-28T00:00:00.000Z",
+    "id": 8
   }
 ]

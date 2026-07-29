@@ -60,17 +60,17 @@
   --radius: 0.65rem;
   /* 黑藍色底色 */
   --background: oklch(0.12 0.1 250);
-  --foreground: oklch(0.92 0.02 60);
+  --foreground: oklch(0.88 0.04 60);  /* 淺金色文字 */
   --card: oklch(0.22 0.08 250);
-  --card-foreground: oklch(0.92 0.02 60);
+  --card-foreground: oklch(0.88 0.04 60);  /* 淺金色文字 */
   --popover: oklch(0.2 0.08 250);
-  --popover-foreground: oklch(0.92 0.02 60);
+  --popover-foreground: oklch(0.88 0.04 60);  /* 淺金色文字 */
   --secondary: oklch(0.28 0.12 250);
-  --secondary-foreground: oklch(0.92 0.02 60);
+  --secondary-foreground: oklch(0.88 0.04 60);  /* 淺金色文字 */
   --muted: oklch(0.32 0.1 250);
-  --muted-foreground: oklch(0.78 0.02 0);
+  --muted-foreground: oklch(0.85 0.02 60);  /* 淺金色文字 */
   --accent: oklch(0.7 0.2 60);
-  --accent-foreground: oklch(0.92 0.02 60);
+  --accent-foreground: oklch(0.15 0.1 250);  /* 深藍文字 */
   --destructive: oklch(0.68 0.25 25);
   --destructive-foreground: oklch(0.15 0.1 250);
   --border: oklch(0.28 0.1 250);

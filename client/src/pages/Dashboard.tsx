@@ -385,11 +385,11 @@ export default function Dashboard() {
                   </TableHeader>
                   <TableBody>
                     {scanResults.map((result) => (
-                      <TableRow key={result.id} className="border-b border-slate-100 hover:bg-slate-50">
-                        <TableCell className="font-semibold text-slate-900">{result.stockId}</TableCell>
-                        <TableCell className="text-slate-700">{result.stockName}</TableCell>
-                        <TableCell className="text-slate-600 hidden md:table-cell">{result.industry}</TableCell>
-                        <TableCell className="text-right font-semibold text-slate-900">
+                      <TableRow key={result.id} className="border-b border-slate-700 hover:bg-slate-700">
+                        <TableCell className="font-semibold text-yellow-300">{result.stockId}</TableCell>
+                        <TableCell className="text-yellow-100">{result.stockName}</TableCell>
+                        <TableCell className="text-yellow-100 hidden md:table-cell">{result.industry}</TableCell>
+                        <TableCell className="text-right font-semibold text-yellow-300">
                           ${typeof result.closePrice === 'number' && !isNaN(result.closePrice) ? result.closePrice.toFixed(2) : 'N/A'}
                         </TableCell>
                         <TableCell>
@@ -414,11 +414,11 @@ export default function Dashboard() {
                             signalType={result.signalType}
                           />
                         </TableCell>
-                        <TableCell className="hidden sm:table-cell">
+                        <TableCell className="hidden sm:table-cell text-yellow-100">
                           {result.aboveMa60 ? (
-                            <Badge className="bg-green-100 text-green-700 border-green-300">是</Badge>
+                            <Badge className="bg-green-600 text-yellow-100 border-green-400">是</Badge>
                           ) : (
-                            <Badge className="bg-red-100 text-red-700 border-red-300">否</Badge>
+                            <Badge className="bg-red-600 text-yellow-100 border-red-400">否</Badge>
                           )}
                         </TableCell>
                         <TableCell>
