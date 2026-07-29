@@ -266,8 +266,8 @@ export default function Dashboard() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-slate-600">攻擊K線</p>
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900">{signalStats.attackK}</p>
+                  <p className="text-lg md:text-xl font-bold text-white">攻擊K線</p>
+                  <p className="text-3xl md:text-4xl font-bold text-yellow-300">{signalStats.attackK}</p>
                 </div>
                 <Zap className="w-8 h-8 md:w-10 md:h-10 text-red-500" />
               </div>
@@ -278,8 +278,8 @@ export default function Dashboard() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-slate-600">多頭吞噬</p>
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900">{signalStats.bullishEngulfing}</p>
+                  <p className="text-lg md:text-xl font-bold text-white">多頭吞噬</p>
+                  <p className="text-3xl md:text-4xl font-bold text-yellow-300">{signalStats.bullishEngulfing}</p>
                 </div>
                 <TrendingUp className="w-8 h-8 md:w-10 md:h-10 text-green-500" />
               </div>
@@ -290,8 +290,8 @@ export default function Dashboard() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-slate-600">黑K吞噬</p>
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900">{signalStats.bearishEngulfing}</p>
+                  <p className="text-lg md:text-xl font-bold text-white">黑K吞噬</p>
+                  <p className="text-3xl md:text-4xl font-bold text-yellow-300">{signalStats.bearishEngulfing}</p>
                 </div>
                 <AlertTriangle className="w-8 h-8 md:w-10 md:h-10 text-yellow-500" />
               </div>
@@ -302,8 +302,8 @@ export default function Dashboard() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-slate-600">內困型態</p>
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900">{signalStats.harami}</p>
+                  <p className="text-lg md:text-xl font-bold text-white">內困型態</p>
+                  <p className="text-3xl md:text-4xl font-bold text-yellow-300">{signalStats.harami}</p>
                 </div>
                 <Layers className="w-8 h-8 md:w-10 md:h-10 text-blue-500" />
               </div>
@@ -360,7 +360,7 @@ export default function Dashboard() {
         {/* 投資建議名單 */}
         <Card className="border-0 shadow-lg bg-slate-800">
           <CardHeader>
-            <CardTitle className="text-lg">投資建議名單</CardTitle>
+            <CardTitle className="text-lg text-white">投資建議名單</CardTitle>
             <CardDescription>
               {scanResults.length > 0
                 ? `今日掃描出 ${scanResults.length} 檔股票`
@@ -372,15 +372,15 @@ export default function Dashboard() {
               <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
-                    <TableRow className="border-b border-slate-200">
-                      <TableHead className="text-slate-700 font-semibold">股票代號</TableHead>
-                      <TableHead className="text-slate-700 font-semibold">名稱</TableHead>
-                      <TableHead className="text-slate-700 font-semibold hidden md:table-cell">產業</TableHead>
-                      <TableHead className="text-slate-700 font-semibold text-right">收盤價</TableHead>
-                      <TableHead className="text-slate-700 font-semibold">訊號類型</TableHead>
-                      <TableHead className="text-slate-700 font-semibold">推薦指數</TableHead>
-                      <TableHead className="text-slate-700 font-semibold hidden sm:table-cell">季線之上</TableHead>
-                      <TableHead className="text-slate-700 font-semibold">操作</TableHead>
+                    <TableRow className="border-b border-slate-700">
+                      <TableHead className="text-white font-semibold">股票代號</TableHead>
+                      <TableHead className="text-white font-semibold">名稱</TableHead>
+                      <TableHead className="text-white font-semibold hidden md:table-cell">產業</TableHead>
+                      <TableHead className="text-white font-semibold text-right">收盤價</TableHead>
+                      <TableHead className="text-white font-semibold">訊號類型</TableHead>
+                      <TableHead className="text-white font-semibold">推薦指數</TableHead>
+                      <TableHead className="text-white font-semibold hidden sm:table-cell">季線之上</TableHead>
+                      <TableHead className="text-white font-semibold">操作</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
