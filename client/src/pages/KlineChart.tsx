@@ -111,7 +111,7 @@ export default function KlineChart() {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white p-4 border border-slate-300 rounded shadow-lg">
+        <div className="bg-slate-800 p-4 border border-slate-300 rounded shadow-lg">
           <p className="text-sm font-semibold text-slate-900">{data.date}</p>
           <p className="text-xs text-slate-600">開盤: NT${data.open.toFixed(2)}</p>
           <p className="text-xs text-slate-600">最高: NT${data.high.toFixed(2)}</p>
@@ -158,7 +158,7 @@ export default function KlineChart() {
         )}
 
         {/* K 線圖表卡片 */}
-        <Card className="border-0 shadow-lg bg-white">
+        <Card className="border-0 shadow-lg bg-slate-800">
           <CardHeader>
             <CardTitle className="text-lg">K 線圖表</CardTitle>
             <CardDescription>

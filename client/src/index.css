@@ -46,9 +46,9 @@
   /* 高雅配色：金、銀、青、灰、白 + 黑藍色底色 */
   /* 金色主色調 */
   --primary: oklch(0.7 0.2 60);
-  --primary-foreground: oklch(0.98 0.001 0);
+  --primary-foreground: oklch(0.15 0.1 250);
   --sidebar-primary: oklch(0.65 0.18 60);
-  --sidebar-primary-foreground: oklch(0.98 0.001 0);
+  --sidebar-primary-foreground: oklch(0.15 0.1 250);
   
   /* 圖表顏色：金、銀、青、灰、白 */
   --chart-1: oklch(0.75 0.22 60);   /* 金色 */
@@ -60,26 +60,26 @@
   --radius: 0.65rem;
   /* 黑藍色底色 */
   --background: oklch(0.12 0.1 250);
-  --foreground: oklch(0.95 0.001 0);
+  --foreground: oklch(0.92 0.02 60);
   --card: oklch(0.22 0.08 250);
-  --card-foreground: oklch(0.95 0.001 0);
+  --card-foreground: oklch(0.92 0.02 60);
   --popover: oklch(0.2 0.08 250);
-  --popover-foreground: oklch(0.95 0.001 0);
+  --popover-foreground: oklch(0.92 0.02 60);
   --secondary: oklch(0.28 0.12 250);
-  --secondary-foreground: oklch(0.95 0.001 0);
+  --secondary-foreground: oklch(0.92 0.02 60);
   --muted: oklch(0.32 0.1 250);
   --muted-foreground: oklch(0.78 0.02 0);
   --accent: oklch(0.7 0.2 60);
-  --accent-foreground: oklch(0.12 0.1 250);
+  --accent-foreground: oklch(0.92 0.02 60);
   --destructive: oklch(0.68 0.25 25);
-  --destructive-foreground: oklch(0.98 0.001 0);
+  --destructive-foreground: oklch(0.15 0.1 250);
   --border: oklch(0.28 0.1 250);
   --input: oklch(0.22 0.1 250);
   --ring: oklch(0.7 0.2 60);
   --sidebar: oklch(0.15 0.1 250);
   --sidebar-foreground: oklch(0.95 0.001 0);
   --sidebar-accent: oklch(0.7 0.2 60);
-  --sidebar-accent-foreground: oklch(0.12 0.1 250);
+  --sidebar-accent-foreground: oklch(0.92 0.02 60);
   --sidebar-border: oklch(0.28 0.1 250);
   --sidebar-ring: oklch(0.7 0.2 60);
 }

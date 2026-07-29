@@ -78,7 +78,7 @@ export default function ScanHistory() {
         {/* 主要內容區 */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* 左側：掃描歷史列表 */}
-          <Card className="border-0 shadow-lg bg-white lg:col-span-1">
+          <Card className="border-0 shadow-lg bg-slate-800 lg:col-span-1">
             <CardHeader>
               <CardTitle className="text-lg">掃描歷史</CardTitle>
               <CardDescription>點擊查看詳細結果</CardDescription>
@@ -124,7 +124,7 @@ export default function ScanHistory() {
           {/* 右側：詳細結果 */}
           <div className="lg:col-span-2">
             {selectedSession ? (
-              <Card className="border-0 shadow-lg bg-white">
+              <Card className="border-0 shadow-lg bg-slate-800">
                 <CardHeader>
                   <CardTitle className="text-lg">
                     {format(new Date(selectedSession.scanStartTime), "yyyy-MM-dd HH:mm:ss")} 掃描結果
@@ -169,7 +169,7 @@ export default function ScanHistory() {
                                 NT${result.closePrice.toFixed(2)}
                               </TableCell>
                               <TableCell className="text-xs">
-                                <Badge className="bg-blue-500 text-white text-xs">
+                                <Badge className="bg-blue-500 text-slate-200 text-xs">
                                   {result.signalType}
                                 </Badge>
                               </TableCell>
@@ -187,7 +187,7 @@ export default function ScanHistory() {
                 </CardContent>
               </Card>
             ) : (
-              <Card className="border-0 shadow-lg bg-white h-full flex items-center justify-center">
+              <Card className="border-0 shadow-lg bg-slate-800 h-full flex items-center justify-center">
                 <CardContent className="text-center py-16">
                   <AlertCircle className="h-12 w-12 text-slate-400 mx-auto mb-4" />
                   <p className="text-slate-600 text-sm">

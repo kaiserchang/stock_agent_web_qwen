@@ -162,7 +162,7 @@ export default function SignalExplanation({ open, onOpenChange }: SignalExplanat
                   </div>
 
                   {/* 實戰建議 */}
-                  <div className="bg-white/50 p-3 rounded-lg border border-slate-200">
+                  <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-200">
                     <h4 className="font-semibold mb-2 text-sm">💼 實戰建議</h4>
                     <p className="text-sm text-slate-700">{signal.suggestion}</p>
                   </div>

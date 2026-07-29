@@ -64,5 +64,16 @@
     "progress": 100,
     "id": 6,
     "scanDate": "2026-07-28T11:02:25.818Z"
+  },
+  {
+    "scanStartTime": "2026-07-28T11:45:42.002Z",
+    "scanEndTime": "2026-07-28T11:47:31.264Z",
+    "totalScannedStocks": 19,
+    "recommendationCount": 1,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-06-28\",\"end_date_str\":\"2026-07-28\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 100,
+    "id": 7,
+    "scanDate": "2026-07-28T11:45:42.002Z"
   }
 ]

@@ -142,7 +142,7 @@ export default function ScanProgressLogs({ sessionId, isScanning }: ScanProgress
   const hasActiveFilters = searchQuery || statusFilter.length > 0 || signalTypeFilter.length > 0;
 
   return (
-    <Card className="w-full border-0 shadow-lg bg-white">
+    <Card className="w-full border-0 shadow-lg bg-slate-800">
       <CardHeader>
         <CardTitle className="text-lg">掃描進度日誌</CardTitle>
         <CardDescription>實時顯示每檔股票的掃描狀態，支援篩選與搜尋</CardDescription>
@@ -261,7 +261,7 @@ export default function ScanProgressLogs({ sessionId, isScanning }: ScanProgress
         <div className="text-sm text-slate-600 mb-2">
           顯示 {filteredLogs.length} / {logs.length} 筆日誌
         </div>
-        <ScrollArea className="h-96 w-full border border-slate-200 rounded-lg p-4 bg-white">
+        <ScrollArea className="h-96 w-full border border-slate-200 rounded-lg p-4 bg-slate-800">
           {isLoading && !logs.length ? (
             <div className="flex items-center justify-center h-full">
               <Loader2 className="h-6 w-6 animate-spin text-slate-400" />

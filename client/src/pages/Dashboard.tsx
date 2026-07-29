@@ -183,7 +183,7 @@ export default function Dashboard() {
         </div>
 
         {/* 掃描控制區 */}
-        <Card className="border-0 shadow-lg bg-white">
+        <Card className="border-0 shadow-lg bg-slate-800">
           <CardHeader>
             <CardTitle className="text-lg">掃描控制</CardTitle>
             <CardDescription>開始全市場技術訊號掃描或上傳 CSV 進行分析</CardDescription>
@@ -193,7 +193,7 @@ export default function Dashboard() {
               <Button
                 onClick={handleStartScan}
                 disabled={isScanning || startScanMutation.isPending}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex-1 sm:flex-none"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-slate-200 font-semibold px-6 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex-1 sm:flex-none"
               >
                 {isScanning ? `掃描中... ${Math.round(scanProgress)}%` : "開始掃描"}
               </Button>
@@ -229,7 +229,7 @@ export default function Dashboard() {
               </Link>
               <button
                 onClick={() => setShowSignalExplanation(true)}
-                className="flex-1 sm:flex-none px-4 py-2 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors flex items-center justify-center gap-2 text-sm font-medium text-slate-700"
+                className="flex-1 sm:flex-none px-4 py-2 bg-slate-800 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors flex items-center justify-center gap-2 text-sm font-medium text-slate-700"
                 title="查看技術訊號說明"
               >
                 <HelpCircle className="w-4 h-4" />
@@ -262,7 +262,7 @@ export default function Dashboard() {
 
         {/* 訊號統計摘要卡片 */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-          <Card className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow">
+          <Card className="border-0 shadow-md bg-slate-800 hover:shadow-lg transition-shadow">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -274,7 +274,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow">
+          <Card className="border-0 shadow-md bg-slate-800 hover:shadow-lg transition-shadow">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -286,7 +286,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow">
+          <Card className="border-0 shadow-md bg-slate-800 hover:shadow-lg transition-shadow">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -298,7 +298,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-md bg-white hover:shadow-lg transition-shadow">
+          <Card className="border-0 shadow-md bg-slate-800 hover:shadow-lg transition-shadow">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -318,7 +318,7 @@ export default function Dashboard() {
 
         {/* CSV 分析結果 */}
         {csvAnalysisResult && (
-          <Card className="border-0 shadow-lg bg-white border-l-4 border-l-green-500">
+          <Card className="border-0 shadow-lg bg-slate-800 border-l-4 border-l-green-500">
             <CardHeader>
               <CardTitle className="text-lg">CSV 分析結果</CardTitle>
               <CardDescription>
@@ -358,7 +358,7 @@ export default function Dashboard() {
         )}
 
         {/* 投資建議名單 */}
-        <Card className="border-0 shadow-lg bg-white">
+        <Card className="border-0 shadow-lg bg-slate-800">
           <CardHeader>
             <CardTitle className="text-lg">投資建議名單</CardTitle>
             <CardDescription>
