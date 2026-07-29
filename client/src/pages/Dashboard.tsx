@@ -229,7 +229,7 @@ export default function Dashboard() {
               </Link>
               <button
                 onClick={() => setShowSignalExplanation(true)}
-                className="flex-1 sm:flex-none px-4 py-2 bg-slate-800 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors flex items-center justify-center gap-2 text-sm font-medium text-slate-700"
+                className="flex-1 sm:flex-none px-4 py-2 bg-slate-800 border border-cyan-400 rounded-lg hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 text-sm font-medium text-cyan-300"
                 title="查看技術訊號說明"
               >
                 <HelpCircle className="w-4 h-4" />
@@ -423,7 +423,7 @@ export default function Dashboard() {
                         </TableCell>
                         <TableCell>
                           <Link href={`/kline/${result.stockId}`}>
-                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
+                            <Button variant="ghost" size="sm" className="text-orange-400 hover:text-orange-300">
                               查看K線
                             </Button>
                           </Link>

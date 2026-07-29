@@ -129,11 +129,11 @@ export default function KlineChart() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-slate-900 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* 返回按鈕 */}
         <Link href="/">
-          <Button variant="ghost" className="mb-4 text-slate-700 hover:text-slate-900 hover:bg-slate-200">
+          <Button variant="ghost" className="mb-4 text-cyan-300 hover:text-cyan-200 hover:bg-slate-800">
             <ArrowLeft className="w-4 h-4 mr-2" />
             返回儀表板
           </Button>
@@ -141,17 +141,17 @@ export default function KlineChart() {
 
         {/* 頁面標題 */}
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold text-slate-900">股票代號：{stockId}</h1>
-          <p className="text-slate-600">
+          <h1 className="text-3xl font-bold text-amber-400">股票代號：{stockId}</h1>
+          <p className="text-slate-300">
             {dateRange.startDate} 至 {dateRange.endDate} 技術分析 K 線圖
           </p>
         </div>
 
         {/* 錯誤提示 */}
         {getKlineDataQuery.error && (
-          <Alert className="border-red-200 bg-red-50">
-            <AlertCircle className="h-4 w-4 text-red-600" />
-            <AlertDescription className="text-red-800">
+          <Alert className="border-red-600 bg-red-900">
+            <AlertCircle className="h-4 w-4 text-red-300" />
+            <AlertDescription className="text-red-200">
               無法載入 K 線數據：{(getKlineDataQuery.error as any)?.message || "未知錯誤"}
             </AlertDescription>
           </Alert>
@@ -160,10 +160,10 @@ export default function KlineChart() {
         {/* K 線圖表卡片 */}
         <Card className="border-0 shadow-lg bg-slate-800">
           <CardHeader>
-            <CardTitle className="text-lg">K 線圖表</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-lg text-amber-400">K 線圖表</CardTitle>
+            <CardDescription className="text-slate-300">
               藍色線為收盤價，黃色為20日均線，紅色為60日均線（季線）。圖上標註了技術訊號位置。
-              {klineData.length > 0 && <span className="ml-2 text-xs text-slate-500">已加載 {klineData.length} 筆數據</span>}
+              {klineData.length > 0 && <span className="ml-2 text-xs text-slate-400">已加載 {klineData.length} 筆數據</span>}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -175,9 +175,9 @@ export default function KlineChart() {
                 </div>
               </div>
             ) : klineData.length === 0 ? (
-              <Alert className="border-slate-200 bg-slate-50">
-                <AlertCircle className="h-4 w-4 text-slate-600" />
-                <AlertDescription className="text-slate-700">
+              <Alert className="border-slate-600 bg-slate-800">
+                <AlertCircle className="h-4 w-4 text-slate-300" />
+                <AlertDescription className="text-slate-200">
                   無法取得該股票的 K 線數據。請確認股票代號是否正確。
                   {getKlineDataQuery.error && <p className="mt-2 text-xs">錯誤: {(getKlineDataQuery.error as any)?.message}</p>}
                 </AlertDescription>
@@ -186,11 +186,11 @@ export default function KlineChart() {
               <div className="space-y-6">
                 {/* 訊號統計 */}
                 {Object.keys(signalCounts).length > 0 && (
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <p className="text-sm font-semibold text-blue-900 mb-2">檢測到的技術訊號：</p>
+                  <div className="bg-slate-800 border border-cyan-400 rounded-lg p-4">
+                    <p className="text-sm font-semibold text-cyan-300 mb-2">檢測到的技術訊號：</p>
                     <div className="flex flex-wrap gap-2">
                       {Object.entries(signalCounts).map(([signal, count]) => (
-                        <span key={signal} className="bg-blue-100 text-blue-800 px-3 py-1 rounded text-sm">
+                        <span key={signal} className="bg-cyan-900 text-cyan-200 px-3 py-1 rounded text-sm">
                           {signal}: {count} 次
                         </span>
                       ))}
@@ -272,26 +272,26 @@ export default function KlineChart() {
         </Card>
 
         {/* 訊號說明卡片 */}
-        <Card className="border-0 shadow-md bg-slate-50">
+        <Card className="border-0 shadow-md bg-slate-800">
           <CardHeader>
-            <CardTitle className="text-base">技術訊號說明</CardTitle>
+            <CardTitle className="text-base text-amber-400">技術訊號說明</CardTitle>
           </CardHeader>
-          <CardContent className="text-sm text-slate-700 space-y-3">
+          <CardContent className="text-sm text-white space-y-3">
             <div className="border-l-4 border-red-500 pl-3">
-              <p className="font-semibold text-red-700">攻擊K線</p>
-              <p className="text-slate-600">股價大幅上漲（&gt;3%），成交量明顯放大（&gt;5日均量1.5倍），表示主力表態看多。</p>
+              <p className="font-semibold text-red-400">攻擊K線</p>
+              <p className="text-slate-300">股價大幅上漲（&gt;3%），成交量明顯放大（&gt;5日均量1.5倍），表示主力表態看多。</p>
             </div>
             <div className="border-l-4 border-green-500 pl-3">
-              <p className="font-semibold text-green-700">多頭吞噬</p>
-              <p className="text-slate-600">當日K線開盤價低於前一日收盤價，但收盤價高於前一日開盤價，表示多方力量強勁。</p>
+              <p className="font-semibold text-green-400">多頭吞噬</p>
+              <p className="text-slate-300">當日K線開盤價低於前一日收盤價，但收盤價高於前一日開盤價，表示多方力量強勁。</p>
             </div>
             <div className="border-l-4 border-orange-500 pl-3">
-              <p className="font-semibold text-orange-700">黑K吞噬</p>
-              <p className="text-slate-600">當日K線為黑K（下跌），且完全吞噬前一日的紅K（上漲），表示空方力量強勁。</p>
+              <p className="font-semibold text-orange-400">黑K吞噬</p>
+              <p className="text-slate-300">當日K線為黑K（下跌），且完全吞噬前一日的紅K（上漲），表示空方力量強勁。</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-3">
-              <p className="font-semibold text-blue-700">內困型態</p>
-              <p className="text-slate-600">當日K線的開盤價和收盤價都在前一日K線的範圍內，表示力量暫時受阻。</p>
+            <div className="border-l-4 border-cyan-500 pl-3">
+              <p className="font-semibold text-cyan-400">內困型態</p>
+              <p className="text-slate-300">當日K線的開盤價和收盤價都在前一日K線的範圍內，表示力量暫時受阻。</p>
             </div>
           </CardContent>
         </Card>
