@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, ArrowLeft } from "lucide-react";
-import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
 import { Link } from "wouter";
 
 interface KlineData {
@@ -96,6 +96,8 @@ export default function KlineChart() {
     ma60: ma60[index],
   }));
 
+
+
   // 統計訊號數量
   const signalCounts = klineData.reduce((acc, item) => {
     if (item.signal) {
@@ -162,7 +164,7 @@ export default function KlineChart() {
           <CardHeader>
             <CardTitle className="text-lg text-amber-400">K 線圖表</CardTitle>
             <CardDescription className="text-slate-300">
-              藍色線為收盤價，黃色為20日均線，紅色為60日均線（季線）。圖上標註了技術訊號位置。
+              藍色線為收盤價，黃色為20日均線，紅色為60日均線（季線）。灰色柱为成交量。圖上標註了技術訊號位置。
               {klineData.length > 0 && <span className="ml-2 text-xs text-slate-400">已加載 {klineData.length} 筆數據</span>}
             </CardDescription>
           </CardHeader>
@@ -228,17 +230,6 @@ export default function KlineChart() {
                       fill="#cbd5e1"
                       name="成交量"
                       opacity={0.4}
-                    />
-
-                    {/* 收盤價線圖 */}
-                    <Line
-                      yAxisId="left"
-                      type="monotone"
-                      dataKey="close"
-                      stroke="#3b82f6"
-                      dot={false}
-                      name="收盤價"
-                      strokeWidth={2}
                     />
 
                     {/* 20日均線 */}
