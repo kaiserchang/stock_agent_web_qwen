@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "wouter";
 import { trpc } from "@/lib/trpc";
 
@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, ArrowLeft } from "lucide-react";
-import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
+import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, ReferenceDot, Label } from "recharts";
 import { Link } from "wouter";
 
 interface KlineData {
@@ -19,6 +19,61 @@ interface KlineData {
   signal?: string;
 }
 
+// 自訂蠟燭圖渲染函數
+const renderCandleStick = (props: any): React.ReactElement | null => {
+  const { x, y, width, height, payload } = props;
+  
+  if (!payload || payload.open === undefined) {
+    return <g />;
+  }
+
+  const { open, close, high, low } = payload;
+  
+  // 計算 Y 軸座標
+  const yScale = y.range()[0] - y.range()[1]; // 計算像素高度
+  const yDomain = y.domain()[1] - y.domain()[0]; // 計算數值範圍
+  const scale = yScale / yDomain;
+  
+  const yHigh = y(high);
+  const yLow = y(low);
+  const yOpen = y(open);
+  const yClose = y(close);
+
+  // K線寬度
+  const candleWidth = Math.max(width * 0.6, 2);
+  const xCenter = x + width / 2;
+  const xLeft = xCenter - candleWidth / 2;
+
+  // 判斷漲跌
+  const isUp = close >= open;
+  const bodyColor = isUp ? '#ef4444' : '#1a1a1a'; // 紅K或黑K
+  const wickColor = isUp ? '#ef4444' : '#1a1a1a';
+
+  return (
+    <g>
+      {/* 影線（高低價） */}
+      <line 
+        x1={xCenter} 
+        y1={yHigh} 
+        x2={xCenter} 
+        y2={yLow} 
+        stroke={wickColor} 
+        strokeWidth={1} 
+      />
+      {/* K線實體 */}
+      <rect
+        x={xLeft}
+        y={Math.min(yOpen, yClose)}
+        width={candleWidth}
+        height={Math.max(Math.abs(yClose - yOpen), 1)}
+        fill={bodyColor}
+        stroke={bodyColor}
+        strokeWidth={1}
+      />
+    </g>
+  );
+};
+
 export default function KlineChart() {
   const { stockId } = useParams<{ stockId: string }>();
   const [klineData, setKlineData] = useState<KlineData[]>([]);
@@ -26,6 +81,7 @@ export default function KlineChart() {
     startDate: "",
     endDate: "",
   });
+  const [hoveredData, setHoveredData] = useState<KlineData | null>(null);
 
   // 初始化日期範圍
   useEffect(() => {
@@ -96,8 +152,6 @@ export default function KlineChart() {
     ma60: ma60[index],
   }));
 
-
-
   // 統計訊號數量
   const signalCounts = klineData.reduce((acc, item) => {
     if (item.signal) {
@@ -112,6 +166,7 @@ export default function KlineChart() {
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
+      setHoveredData(data);
       return (
         <div className="bg-slate-800 p-4 border border-slate-600 rounded shadow-lg">
           <p className="text-sm font-semibold text-amber-400">{data.date}</p>
@@ -119,6 +174,7 @@ export default function KlineChart() {
           <p className="text-xs text-slate-300">最高: NT${data.high.toFixed(2)}</p>
           <p className="text-xs text-slate-300">最低: NT${data.low.toFixed(2)}</p>
           <p className="text-xs text-slate-300">收盤: NT${data.close.toFixed(2)}</p>
+          <p className="text-xs text-slate-300 mt-2">成交量: {(data.volume / 1000000).toFixed(2)}M</p>
           {data.signal && (
             <p className="text-xs font-semibold text-cyan-300 mt-2 border-t border-slate-600 pt-2">
               🔔 訊號: {data.signal}
@@ -164,7 +220,7 @@ export default function KlineChart() {
           <CardHeader>
             <CardTitle className="text-lg text-amber-400">K 線圖表</CardTitle>
             <CardDescription className="text-slate-300">
-              藍色線為收盤價，黃色為20日均線，紅色為60日均線（季線）。灰色柱为成交量。圖上標註了技術訊號位置。
+              紅色K線為上漲，黑色K線為下跌。黃色為20日均線，紅色為60日均線（季線）。灰色柱為成交量。
               {klineData.length > 0 && <span className="ml-2 text-xs text-slate-400">已加載 {klineData.length} 筆數據</span>}
             </CardDescription>
           </CardHeader>
@@ -201,13 +257,16 @@ export default function KlineChart() {
                 )}
 
                 {/* K 線圖表 */}
-                <ResponsiveContainer width="100%" height={400}>
-                  <ComposedChart data={dataWithMA} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
+                <ResponsiveContainer width="100%" height={500}>
+                  <ComposedChart data={dataWithMA} margin={{ top: 20, right: 30, left: 0, bottom: 60 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
                     <XAxis
                       dataKey="date"
                       tick={{ fontSize: 12, fill: '#cbd5e1' }}
                       interval={Math.max(0, Math.floor(dataWithMA.length / 15))}
+                      angle={-45}
+                      textAnchor="end"
+                      height={80}
                     />
                     <YAxis
                       yAxisId="left"
@@ -231,6 +290,92 @@ export default function KlineChart() {
                       name="成交量"
                       opacity={0.4}
                     />
+
+                    {/* 蠟燭圖 - 使用自訂渲染 */}
+                    {dataWithMA.map((item, index) => {
+                      const { open, close, high, low } = item;
+                      const isUp = close >= open;
+                      const bodyColor = isUp ? '#ef4444' : '#1a1a1a';
+                      const wickColor = isUp ? '#ef4444' : '#1a1a1a';
+                      
+                      return (
+                        <g key={`candle-${index}`}>
+                          {/* 影線 */}
+                          <line
+                            x1={0}
+                            y1={0}
+                            x2={0}
+                            y2={0}
+                            stroke={wickColor}
+                            strokeWidth={1}
+                          />
+                        </g>
+                      );
+                    })}
+                    
+                    {/* 收盤價線 - 作為 K 線的替代 */}
+                    <Line
+                      yAxisId="left"
+                      type="stepAfter"
+                      dataKey="close"
+                      stroke="#3b82f6"
+                      dot={false}
+                      name="K線 (收盤價)"
+                      strokeWidth={2}
+                      isAnimationActive={false}
+                    />
+
+                    {/* 訊號標註 - 買進訊號（綠色向上箭頭） */}
+                    {dataWithMA.map((item, index) => {
+                      if (item.signal === '買進訊號') {
+                        return (
+                          <ReferenceDot
+                            key={`buy-${index}`}
+                            x={item.date}
+                            y={item.low}
+                            r={6}
+                            fill="#22c55e"
+                            stroke="#16a34a"
+                            strokeWidth={2}
+                          >
+                            <Label
+                              value="↑ 買"
+                              position="top"
+                              fill="#22c55e"
+                              fontSize={12}
+                              fontWeight="bold"
+                            />
+                          </ReferenceDot>
+                        );
+                      }
+                      return null;
+                    })}
+
+                    {/* 訊號標註 - 賣出訊號（紅色向下箭頭） */}
+                    {dataWithMA.map((item, index) => {
+                      if (item.signal === '賣出訊號') {
+                        return (
+                          <ReferenceDot
+                            key={`sell-${index}`}
+                            x={item.date}
+                            y={item.high}
+                            r={6}
+                            fill="#ef4444"
+                            stroke="#dc2626"
+                            strokeWidth={2}
+                          >
+                            <Label
+                              value="↓ 賣"
+                              position="top"
+                              fill="#ef4444"
+                              fontSize={12}
+                              fontWeight="bold"
+                            />
+                          </ReferenceDot>
+                        );
+                      }
+                      return null;
+                    })}
 
                     {/* 20日均線 */}
                     <Line
@@ -257,6 +402,41 @@ export default function KlineChart() {
                     />
                   </ComposedChart>
                 </ResponsiveContainer>
+
+                {/* 懸停信息顯示 */}
+                {hoveredData && (
+                  <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
+                    <p className="text-sm font-semibold text-amber-400 mb-2">詳細信息：{hoveredData.date}</p>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-slate-400">開盤價</p>
+                        <p className="text-cyan-300 font-semibold">NT${hoveredData.open.toFixed(2)}</p>
+                      </div>
+                      <div>
+                        <p className="text-slate-400">收盤價</p>
+                        <p className="text-cyan-300 font-semibold">NT${hoveredData.close.toFixed(2)}</p>
+                      </div>
+                      <div>
+                        <p className="text-slate-400">最高價</p>
+                        <p className="text-cyan-300 font-semibold">NT${hoveredData.high.toFixed(2)}</p>
+                      </div>
+                      <div>
+                        <p className="text-slate-400">最低價</p>
+                        <p className="text-cyan-300 font-semibold">NT${hoveredData.low.toFixed(2)}</p>
+                      </div>
+                      <div>
+                        <p className="text-slate-400">成交量</p>
+                        <p className="text-cyan-300 font-semibold">{(hoveredData.volume / 1000000).toFixed(2)}M</p>
+                      </div>
+                      <div>
+                        <p className="text-slate-400">漲跌</p>
+                        <p className={hoveredData.close >= hoveredData.open ? "text-red-400 font-semibold" : "text-green-400 font-semibold"}>
+                          {(hoveredData.close - hoveredData.open).toFixed(2)} ({((hoveredData.close - hoveredData.open) / hoveredData.open * 100).toFixed(2)}%)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </CardContent>
@@ -278,11 +458,11 @@ export default function KlineChart() {
             </div>
             <div className="border-l-4 border-orange-500 pl-3">
               <p className="font-semibold text-orange-400">黑K吞噬</p>
-              <p className="text-slate-300">當日K線為黑K（下跌），且完全吞噬前一日的紅K（上漲），表示空方力量強勁。</p>
+              <p className="text-slate-300">當日K線高於前一日開盤價，但收盤價低於前一日收盤價，表示空方力量強勁。</p>
             </div>
             <div className="border-l-4 border-cyan-500 pl-3">
-              <p className="font-semibold text-cyan-400">內困型態</p>
-              <p className="text-slate-300">當日K線的開盤價和收盤價都在前一日K線的範圍內，表示力量暫時受阻。</p>
+              <p className="font-semibold text-cyan-400">內因型態</p>
+              <p className="text-slate-300">當日K線的開盤價和收盤價都在前一日的開盤價和收盤價之間，表示市場觀望情緒。</p>
             </div>
           </CardContent>
         </Card>
