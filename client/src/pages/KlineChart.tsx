@@ -111,14 +111,14 @@ export default function KlineChart() {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-slate-800 p-4 border border-slate-300 rounded shadow-lg">
-          <p className="text-sm font-semibold text-slate-900">{data.date}</p>
-          <p className="text-xs text-slate-600">開盤: NT${data.open.toFixed(2)}</p>
-          <p className="text-xs text-slate-600">最高: NT${data.high.toFixed(2)}</p>
-          <p className="text-xs text-slate-600">最低: NT${data.low.toFixed(2)}</p>
-          <p className="text-xs text-slate-600">收盤: NT${data.close.toFixed(2)}</p>
+        <div className="bg-slate-800 p-4 border border-slate-600 rounded shadow-lg">
+          <p className="text-sm font-semibold text-amber-400">{data.date}</p>
+          <p className="text-xs text-slate-300">開盤: NT${data.open.toFixed(2)}</p>
+          <p className="text-xs text-slate-300">最高: NT${data.high.toFixed(2)}</p>
+          <p className="text-xs text-slate-300">最低: NT${data.low.toFixed(2)}</p>
+          <p className="text-xs text-slate-300">收盤: NT${data.close.toFixed(2)}</p>
           {data.signal && (
-            <p className="text-xs font-semibold text-blue-600 mt-2 border-t border-slate-200 pt-2">
+            <p className="text-xs font-semibold text-cyan-300 mt-2 border-t border-slate-600 pt-2">
               🔔 訊號: {data.signal}
             </p>
           )}
@@ -201,22 +201,22 @@ export default function KlineChart() {
                 {/* K 線圖表 */}
                 <ResponsiveContainer width="100%" height={400}>
                   <ComposedChart data={dataWithMA} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
                     <XAxis
                       dataKey="date"
-                      tick={{ fontSize: 12 }}
+                      tick={{ fontSize: 12, fill: '#cbd5e1' }}
                       interval={Math.max(0, Math.floor(dataWithMA.length / 15))}
                     />
                     <YAxis
                       yAxisId="left"
-                      tick={{ fontSize: 12 }}
-                      label={{ value: "股價 (NT$)", angle: -90, position: "insideLeft" }}
+                      tick={{ fontSize: 12, fill: '#cbd5e1' }}
+                      label={{ value: "股價 (NT$)", angle: -90, position: "insideLeft", fill: '#cbd5e1' }}
                     />
                     <YAxis
                       yAxisId="right"
                       orientation="right"
-                      tick={{ fontSize: 12 }}
-                      label={{ value: "成交量", angle: 90, position: "insideRight" }}
+                      tick={{ fontSize: 12, fill: '#cbd5e1' }}
+                      label={{ value: "成交量", angle: 90, position: "insideRight", fill: '#cbd5e1' }}
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />

@@ -125,27 +125,27 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-4 sm:p-6 lg:p-8">
       <div className="max-w-4xl mx-auto">
         {/* 頁面標題 */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">掃描設定</h1>
-          <p className="text-slate-600">自定義股票清單、掃描參數和訊號篩選</p>
+          <h1 className="text-3xl font-bold text-amber-400 mb-2">推描設定</h1>
+          <p className="text-slate-300">自定義股票清單、推描參數和訊號篩選</p>
         </div>
 
         {/* 警告信息 */}
-        <Alert className="mb-6 border-blue-200 bg-blue-50">
-          <AlertCircle className="h-4 w-4 text-blue-600" />
-          <AlertDescription className="text-blue-800">
-            在此頁面修改的設定將在下次掃描時應用。所有更改會自動保存。
+        <Alert className="mb-6 border-cyan-600 bg-slate-800">
+          <AlertCircle className="h-4 w-4 text-cyan-400" />
+          <AlertDescription className="text-cyan-300">
+            在此頁面修改的設定將在下次推描時應用。所有更改會自動保存。
           </AlertDescription>
         </Alert>
 
         {/* 股票清單卡片 */}
-        <Card className="mb-6 shadow-sm">
+        <Card className="mb-6 shadow-sm bg-slate-800 border-slate-700">
           <CardHeader>
-            <CardTitle>股票清單管理</CardTitle>
-            <CardDescription>添加或移除要掃描的股票代號</CardDescription>
+            <CardTitle className="text-amber-400">股票清單管理</CardTitle>
+            <CardDescription className="text-slate-400">添加或移除要推描的股票代號</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* 添加股票輸入框 */}
@@ -172,7 +172,7 @@ export default function Settings() {
 
             {/* 股票清單 */}
             <div className="space-y-2">
-              <Label className="text-sm font-semibold text-slate-700">
+              <Label className="text-sm font-semibold text-slate-300">
                 目前清單 ({settings.stockList.length} 個)
               </Label>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
@@ -180,9 +180,9 @@ export default function Settings() {
                   settings.stockList.map((stock) => (
                     <div
                       key={stock}
-                      className="flex items-center justify-between bg-slate-100 rounded-lg px-3 py-2"
+                      className="flex items-center justify-between bg-slate-700 rounded-lg px-3 py-2"
                     >
-                      <span className="font-semibold text-slate-900">{stock}</span>
+                      <span className="font-semibold text-yellow-400">{stock}</span>
                       <button
                         onClick={() => handleRemoveStock(stock)}
                         className="text-red-600 hover:text-red-700 ml-2"
@@ -192,7 +192,7 @@ export default function Settings() {
                     </div>
                   ))
                 ) : (
-                  <p className="text-slate-500 col-span-full">未添加任何股票</p>
+                  <p className="text-slate-400 col-span-full">未添加任何股票</p>
                 )}
               </div>
             </div>
@@ -200,15 +200,15 @@ export default function Settings() {
         </Card>
 
         {/* 掃描參數卡片 */}
-        <Card className="mb-6 shadow-sm">
+        <Card className="mb-6 shadow-sm bg-slate-800 border-slate-700">
           <CardHeader>
-            <CardTitle>掃描參數</CardTitle>
-            <CardDescription>設定掃描範圍和數量限制</CardDescription>
+            <CardTitle className="text-amber-400">掃描參數</CardTitle>
+            <CardDescription className="text-slate-400">設定掃描範圍和數量限制</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* 掃描數量限制 */}
             <div className="space-y-2">
-              <Label htmlFor="scanLimit" className="text-sm font-semibold">
+              <Label htmlFor="scanLimit" className="text-sm font-semibold text-slate-300">
                 掃描數量上限
               </Label>
               <Input
@@ -220,15 +220,15 @@ export default function Settings() {
                 onChange={(e) => handleScanLimitChange(e.target.value)}
                 className="max-w-xs"
               />
-              <p className="text-xs text-slate-500">
-                每次掃描最多檢查的股票數量（1-500）
+              <p className="text-xs text-slate-400">
+                每次掃描最多検查的股票數量（1-500）
               </p>
             </div>
 
             {/* 日期範圍 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="startDate" className="text-sm font-semibold">
+                <Label htmlFor="startDate" className="text-sm font-semibold text-slate-300">
                   開始日期（可選）
                 </Label>
                 <Input
@@ -237,12 +237,12 @@ export default function Settings() {
                   value={settings.startDate}
                   onChange={(e) => handleStartDateChange(e.target.value)}
                 />
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-400">
                   留空表示使用最近的數據
                 </p>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="endDate" className="text-sm font-semibold">
+                <Label htmlFor="endDate" className="text-sm font-semibold text-slate-300">
                   結束日期（可選）
                 </Label>
                 <Input
@@ -251,7 +251,7 @@ export default function Settings() {
                   value={settings.endDate}
                   onChange={(e) => handleEndDateChange(e.target.value)}
                 />
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-400">
                   留空表示使用今天的日期
                 </p>
               </div>
@@ -262,10 +262,10 @@ export default function Settings() {
 
 
         {/* 訊號篩選卡片 */}
-        <Card className="mb-6 shadow-sm">
+        <Card className="mb-6 shadow-sm bg-slate-800 border-slate-700">
           <CardHeader>
-            <CardTitle>訊號篩選</CardTitle>
-            <CardDescription>選擇要檢測的技術訊號類型</CardDescription>
+            <CardTitle className="text-amber-400">訊號篩選</CardTitle>
+            <CardDescription className="text-slate-400">選擇要検測的技術訊號類型</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-3">
@@ -278,11 +278,11 @@ export default function Settings() {
                   />
                   <Label
                     htmlFor={signal}
-                    className="text-sm font-medium cursor-pointer flex-1"
+                    className="text-sm font-medium cursor-pointer flex-1 text-slate-300"
                   >
                     {signal}
                   </Label>
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-slate-400">
                     {signal === "攻擊K線" && "買進訊號"}
                     {signal === "多頭吞噬" && "買進訊號"}
                     {signal === "黑K吞噬" && "賣出訊號"}

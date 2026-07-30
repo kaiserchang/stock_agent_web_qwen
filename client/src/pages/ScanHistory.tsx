@@ -59,11 +59,11 @@ export default function ScanHistory() {
   const sessions = (scanHistoryQuery.data || []) as any[];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-4 md:p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* 返回按鈕 */}
         <Link href="/">
-          <Button variant="ghost" className="text-slate-600 hover:text-slate-900 hover:bg-slate-200 mb-4">
+          <Button variant="ghost" className="text-cyan-300 hover:text-cyan-200 hover:bg-slate-800 mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
             返回儀表板
           </Button>
@@ -71,8 +71,8 @@ export default function ScanHistory() {
 
         {/* 標題 */}
         <div className="space-y-2">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900">掃描結果歷史紀錄</h1>
-          <p className="text-slate-600 text-sm md:text-base">查閱過去各日的投資建議名單與掃描結果</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-amber-400">推描結果歷史紀錄</h1>
+          <p className="text-slate-300 text-sm md:text-base">查閣過去各日的投資建議名單與推描結果</p>
         </div>
 
         {/* 主要內容區 */}
@@ -80,19 +80,19 @@ export default function ScanHistory() {
           {/* 左側：掃描歷史列表 */}
           <Card className="border-0 shadow-lg bg-slate-800 lg:col-span-1">
             <CardHeader>
-              <CardTitle className="text-lg">掃描歷史</CardTitle>
-              <CardDescription>點擊查看詳細結果</CardDescription>
+            <CardTitle className="text-lg text-amber-400">掃描歷史</CardTitle>
+            <CardDescription className="text-slate-400">點擊查看詳細結果</CardDescription>
             </CardHeader>
             <CardContent>
               {scanHistoryQuery.isLoading ? (
                 <div className="text-center py-8">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
-                  <p className="text-slate-600 text-sm">載入歷史紀錄中...</p>
+                  <p className="text-slate-300 text-sm">載入歷史紀錄中...</p>
                 </div>
               ) : sessions.length === 0 ? (
-                <Alert className="border-slate-200 bg-slate-50">
-                  <AlertCircle className="h-4 w-4 text-slate-600" />
-                  <AlertDescription className="text-slate-700 text-sm">
+                <Alert className="border-slate-600 bg-slate-800">
+                  <AlertCircle className="h-4 w-4 text-slate-300" />
+                  <AlertDescription className="text-slate-200 text-sm">
                     暫無掃描歷史紀錄
                   </AlertDescription>
                 </Alert>
