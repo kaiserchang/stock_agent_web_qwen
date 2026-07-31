@@ -112,6 +112,15 @@ export default function Settings() {
   const handleSaveSettings = async () => {
     setIsSaving(true);
     try {
+      // 同時保存到 localStorage 和後端
+      const scanParams = {
+        scanLimit: settings.scanLimit,
+        startDate: settings.startDate,
+        endDate: settings.endDate,
+        signalFilter: settings.signalFilter,
+      };
+      localStorage.setItem('scanParams', JSON.stringify(scanParams));
+      
       await updateSettingsMutation.mutateAsync({
         scanLimit: settings.scanLimit,
         startDate: settings.startDate,

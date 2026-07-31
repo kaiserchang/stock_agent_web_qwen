@@ -116,5 +116,53 @@
     "recommendationScore": 100,
     "scanDate": "2026-07-29T00:00:00.000Z",
     "id": 10
+  },
+  {
+    "sessionId": 10,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "industry": "電信",
+    "closePrice": 140.5,
+    "signalType": "黑K吞噬",
+    "aboveMa60": true,
+    "recommendationScore": -36,
+    "scanDate": "2026-07-29T00:00:00.000Z",
+    "id": 11
+  },
+  {
+    "sessionId": 10,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "industry": "電子",
+    "closePrice": 761,
+    "signalType": "攻擊K線",
+    "aboveMa60": true,
+    "recommendationScore": 100,
+    "scanDate": "2026-07-29T00:00:00.000Z",
+    "id": 12
+  },
+  {
+    "sessionId": 11,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "industry": "電信",
+    "closePrice": 140.5,
+    "signalType": "黑K吞噬",
+    "aboveMa60": true,
+    "recommendationScore": -36,
+    "scanDate": "2026-07-29T00:00:00.000Z",
+    "id": 13
+  },
+  {
+    "sessionId": 11,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "industry": "電子",
+    "closePrice": 761,
+    "signalType": "攻擊K線",
+    "aboveMa60": true,
+    "recommendationScore": 100,
+    "scanDate": "2026-07-29T00:00:00.000Z",
+    "id": 14
   }
 ]

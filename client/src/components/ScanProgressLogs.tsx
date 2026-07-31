@@ -150,29 +150,29 @@ export default function ScanProgressLogs({ sessionId, isScanning }: ScanProgress
       <CardContent className="space-y-4">
         {/* 統計摘要 */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          <div className="p-3 bg-gray-50 rounded-lg text-center hover:bg-gray-100 transition-colors">
-            <div className="text-xs md:text-sm text-gray-600 font-medium">待掃描</div>
-            <div className="text-xl md:text-2xl font-bold text-gray-900 mt-1">{stats.pending}</div>
+          <div className="p-3 bg-slate-700 rounded-lg text-center hover:bg-slate-600 transition-colors">
+            <div className="text-xs md:text-sm text-slate-300 font-medium">待描描</div>
+            <div className="text-xl md:text-2xl font-bold text-slate-100 mt-1">{stats.pending}</div>
           </div>
-          <div className="p-3 bg-blue-50 rounded-lg text-center hover:bg-blue-100 transition-colors">
-            <div className="text-xs md:text-sm text-blue-600 font-medium">掃描中</div>
-            <div className="text-xl md:text-2xl font-bold text-blue-700 mt-1">{stats.scanning}</div>
+          <div className="p-3 bg-slate-700 rounded-lg text-center hover:bg-slate-600 transition-colors">
+            <div className="text-xs md:text-sm text-cyan-300 font-medium">描描中</div>
+            <div className="text-xl md:text-2xl font-bold text-cyan-400 mt-1">{stats.scanning}</div>
           </div>
-          <div className="p-3 bg-green-50 rounded-lg text-center hover:bg-green-100 transition-colors">
-            <div className="text-xs md:text-sm text-green-600 font-medium">已完成</div>
-            <div className="text-xl md:text-2xl font-bold text-green-700 mt-1">{stats.completed}</div>
+          <div className="p-3 bg-slate-700 rounded-lg text-center hover:bg-slate-600 transition-colors">
+            <div className="text-xs md:text-sm text-green-300 font-medium">已完成</div>
+            <div className="text-xl md:text-2xl font-bold text-green-400 mt-1">{stats.completed}</div>
           </div>
-          <div className="p-3 bg-red-50 rounded-lg text-center hover:bg-red-100 transition-colors">
-            <div className="text-xs md:text-sm text-red-600 font-medium">失敗</div>
-            <div className="text-xl md:text-2xl font-bold text-red-700 mt-1">{stats.failed}</div>
+          <div className="p-3 bg-slate-700 rounded-lg text-center hover:bg-slate-600 transition-colors">
+            <div className="text-xs md:text-sm text-red-300 font-medium">失敗</div>
+            <div className="text-xl md:text-2xl font-bold text-red-400 mt-1">{stats.failed}</div>
           </div>
         </div>
 
         {/* 搜尋與篩選區 */}
-        <div className="space-y-3 p-4 bg-slate-50 rounded-lg">
+        <div className="space-y-3 p-4 bg-slate-700 rounded-lg">
           {/* 搜尋框 */}
           <div>
-            <label className="text-sm font-medium text-slate-700 block mb-2">搜尋股票</label>
+            <label className="text-sm font-medium text-slate-300 block mb-2">搜尋股票</label>
             <Input
               placeholder="輸入股票代號或名稱..."
               value={searchQuery}
@@ -183,7 +183,7 @@ export default function ScanProgressLogs({ sessionId, isScanning }: ScanProgress
 
           {/* 狀態篩選 */}
           <div>
-            <label className="text-sm font-medium text-slate-700 block mb-2">按狀態篩選</label>
+            <label className="text-sm font-medium text-slate-300 block mb-2">按狀態篩選</label>
             <div className="flex flex-wrap gap-2">
               {["pending", "scanning", "completed", "failed"].map((status) => (
                 <Button
@@ -217,7 +217,7 @@ export default function ScanProgressLogs({ sessionId, isScanning }: ScanProgress
 
           {/* 訊號類型篩選 */}
           <div>
-            <label className="text-sm font-medium text-slate-700 block mb-2">按訊號類型篩選</label>
+            <label className="text-sm font-medium text-slate-300 block mb-2">按訊號類型篩選</label>
             <div className="flex flex-wrap gap-2">
               {["攻擊K線", "多頭吞噬", "黑K吞噬", "內困型態"].map((signalType) => (
                 <Button

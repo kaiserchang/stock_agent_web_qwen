@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams } from "wouter";
 import { trpc } from "@/lib/trpc";
 
@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, ArrowLeft } from "lucide-react";
-import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, ReferenceDot, Label } from "recharts";
+import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceDot, Label } from "recharts";
 import { Link } from "wouter";
 
 interface KlineData {
@@ -19,59 +19,113 @@ interface KlineData {
   signal?: string;
 }
 
-// 自訂蠟燭圖渲染函數
-const renderCandleStick = (props: any): React.ReactElement | null => {
-  const { x, y, width, height, payload } = props;
+interface EnhancedKlineData extends KlineData {
+  ma20?: number;
+  ma60?: number;
+  rsi?: number;
+  macd?: number;
+  macdSignal?: number;
+  macdHistogram?: number;
+  bbUpper?: number;
+  bbMiddle?: number;
+  bbLower?: number;
+}
+
+// 技術指標計算函數
+const calculateRSI = (data: KlineData[], period: number = 14): (number | undefined)[] => {
+  const rsi: (number | undefined)[] = [];
   
-  if (!payload || payload.open === undefined) {
-    return <g />;
+  for (let i = 0; i < data.length; i++) {
+    if (i < period) {
+      rsi.push(undefined);
+      continue;
+    }
+    
+    let gains = 0;
+    let losses = 0;
+    
+    for (let j = i - period + 1; j <= i; j++) {
+      const change = data[j].close - data[j - 1].close;
+      if (change > 0) gains += change;
+      else losses += Math.abs(change);
+    }
+    
+    const avgGain = gains / period;
+    const avgLoss = losses / period;
+    const rs = avgGain / avgLoss;
+    const rsiValue = 100 - (100 / (1 + rs));
+    rsi.push(rsiValue);
   }
-
-  const { open, close, high, low } = payload;
   
-  // 計算 Y 軸座標
-  const yScale = y.range()[0] - y.range()[1]; // 計算像素高度
-  const yDomain = y.domain()[1] - y.domain()[0]; // 計算數值範圍
-  const scale = yScale / yDomain;
+  return rsi;
+};
+
+const calculateMACD = (data: KlineData[]): { macd: (number | undefined)[]; signal: (number | undefined)[]; histogram: (number | undefined)[] } => {
+  const ema12 = calculateEMA(data.map(d => d.close), 12);
+  const ema26 = calculateEMA(data.map(d => d.close), 26);
   
-  const yHigh = y(high);
-  const yLow = y(low);
-  const yOpen = y(open);
-  const yClose = y(close);
+  const macd = ema12.map((v, i) => v !== undefined && ema26[i] !== undefined ? v - ema26[i] : undefined);
+  const signal = calculateEMA(macd.filter(v => v !== undefined) as number[], 9);
+  
+  const histogram = macd.map((v, i) => {
+    if (v === undefined || signal[i] === undefined) return undefined;
+    return v - signal[i];
+  });
+  
+  return { macd, signal, histogram };
+};
 
-  // K線寬度
-  const candleWidth = Math.max(width * 0.6, 2);
-  const xCenter = x + width / 2;
-  const xLeft = xCenter - candleWidth / 2;
+const calculateEMA = (data: number[], period: number): (number | undefined)[] => {
+  const ema: (number | undefined)[] = [];
+  const multiplier = 2 / (period + 1);
+  
+  let sum = 0;
+  for (let i = 0; i < Math.min(period, data.length); i++) {
+    sum += data[i];
+  }
+  
+  const sma = sum / Math.min(period, data.length);
+  ema[period - 1] = sma;
+  
+  for (let i = period; i < data.length; i++) {
+    const emaValue = (data[i] - (ema[i - 1] || 0)) * multiplier + (ema[i - 1] || 0);
+    ema[i] = emaValue;
+  }
+  
+  return ema;
+};
 
-  // 判斷漲跌
-  const isUp = close >= open;
-  const bodyColor = isUp ? '#ef4444' : '#1a1a1a'; // 紅K或黑K
-  const wickColor = isUp ? '#ef4444' : '#1a1a1a';
+const calculateBollingerBands = (data: KlineData[], period: number = 20, stdDev: number = 2): { upper: (number | undefined)[]; middle: (number | undefined)[]; lower: (number | undefined)[] } => {
+  const middle = calculateMA(data, period);
+  const upper: (number | undefined)[] = [];
+  const lower: (number | undefined)[] = [];
+  
+  for (let i = 0; i < data.length; i++) {
+    if (i < period - 1 || middle[i] === undefined) {
+      upper.push(undefined);
+      lower.push(undefined);
+      continue;
+    }
+    
+    let variance = 0;
+    for (let j = i - period + 1; j <= i; j++) {
+      variance += Math.pow(data[j].close - (middle[i] || 0), 2);
+    }
+    
+    const std = Math.sqrt(variance / period);
+    upper.push((middle[i] || 0) + stdDev * std);
+    lower.push((middle[i] || 0) - stdDev * std);
+  }
+  
+  return { upper, middle, lower };
+};
 
-  return (
-    <g>
-      {/* 影線（高低價） */}
-      <line 
-        x1={xCenter} 
-        y1={yHigh} 
-        x2={xCenter} 
-        y2={yLow} 
-        stroke={wickColor} 
-        strokeWidth={1} 
-      />
-      {/* K線實體 */}
-      <rect
-        x={xLeft}
-        y={Math.min(yOpen, yClose)}
-        width={candleWidth}
-        height={Math.max(Math.abs(yClose - yOpen), 1)}
-        fill={bodyColor}
-        stroke={bodyColor}
-        strokeWidth={1}
-      />
-    </g>
-  );
+const calculateMA = (data: KlineData[], period: number): (number | undefined)[] => {
+  return data.map((item, index) => {
+    if (index < period - 1) return undefined;
+    const sum = data.slice(index - period + 1, index + 1).reduce((acc, d) => acc + d.close, 0);
+    return sum / period;
+  });
 };
 
 export default function KlineChart() {
@@ -81,20 +135,35 @@ export default function KlineChart() {
     startDate: "",
     endDate: "",
   });
-  const [hoveredData, setHoveredData] = useState<KlineData | null>(null);
+  const [hoveredData, setHoveredData] = useState<EnhancedKlineData | null>(null);
+  const [period, setPeriod] = useState<"1d" | "1w" | "1m">("1d"); // 週期切換
+  const [showRSI, setShowRSI] = useState(true);
+  const [showMACD, setShowMACD] = useState(true);
+  const [showBB, setShowBB] = useState(true);
 
   // 初始化日期範圍
   useEffect(() => {
     const today = new Date();
-    const ninetyDaysAgo = new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000);
+    let startDate: Date;
     
-    const startDate = ninetyDaysAgo.toISOString().split("T")[0];
-    const endDate = today.toISOString().split("T")[0];
+    switch (period) {
+      case "1w":
+        startDate = new Date(today.getTime() - 365 * 24 * 60 * 60 * 1000); // 1年
+        break;
+      case "1m":
+        startDate = new Date(today.getTime() - 3 * 365 * 24 * 60 * 60 * 1000); // 3年
+        break;
+      default:
+        startDate = new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000); // 90天
+    }
     
-    setDateRange({ startDate, endDate });
-  }, []);
+    const startDateStr = startDate.toISOString().split("T")[0];
+    const endDateStr = today.toISOString().split("T")[0];
+    
+    setDateRange({ startDate: startDateStr, endDate: endDateStr });
+  }, [period]);
 
-  // 獲取 K 線數據 - 使用 useQuery
+  // 獲取 K 線數據
   const getKlineDataQuery = trpc.stock.getKlineData.useQuery(
     {
       stockId: stockId || "",
@@ -106,12 +175,9 @@ export default function KlineChart() {
     }
   );
 
-  // 監聽查詢結果
   useEffect(() => {
     if (getKlineDataQuery.data) {
       const data = getKlineDataQuery.data as any;
-      console.log('[KlineChart] Received data from API:', data);
-      // 後端回傳的是 { status, klines: [...] }
       const klines = data.klines || data.data || [];
       if (data.status === "success" && klines && klines.length > 0) {
         const formattedData = klines.map((kline: any) => ({
@@ -124,35 +190,35 @@ export default function KlineChart() {
           signal: kline.Signal || kline.signal || null,
         }));
         setKlineData(formattedData);
-        console.log('[KlineChart] Successfully loaded', formattedData.length, 'klines');
-      } else {
-        console.log('[KlineChart] No valid kline data:', { status: data.status, klinesCount: klines.length });
       }
-    } else {
-      console.log('[KlineChart] No data from query');
     }
   }, [getKlineDataQuery.data]);
 
-  // 計算均線（20日、60日）
-  const calculateMA = (data: KlineData[], period: number) => {
-    return data.map((item, index) => {
-      if (index < period - 1) return null;
-      const sum = data.slice(index - period + 1, index + 1).reduce((acc, d) => acc + d.close, 0);
-      return sum / period;
-    });
-  };
+  // 計算技術指標
+  const enhancedData = useMemo(() => {
+    if (klineData.length === 0) return [];
+    
+    const ma20 = calculateMA(klineData, 20);
+    const ma60 = calculateMA(klineData, 60);
+    const rsi = calculateRSI(klineData, 14);
+    const { macd, signal, histogram } = calculateMACD(klineData);
+    const { upper, middle, lower } = calculateBollingerBands(klineData, 20, 2);
+    
+    return klineData.map((item, index) => ({
+      ...item,
+      ma20: ma20[index],
+      ma60: ma60[index],
+      rsi: rsi[index],
+      macd: macd[index],
+      macdSignal: signal[index],
+      macdHistogram: histogram[index],
+      bbUpper: upper[index],
+      bbMiddle: middle[index],
+      bbLower: lower[index],
+    }));
+  }, [klineData]);
 
-  const ma20 = calculateMA(klineData, 20);
-  const ma60 = calculateMA(klineData, 60);
-
-  // 為數據添加均線
-  const dataWithMA = klineData.map((item, index) => ({
-    ...item,
-    ma20: ma20[index],
-    ma60: ma60[index],
-  }));
-
-  // 統計訊號數量
+  // 統計訊號
   const signalCounts = klineData.reduce((acc, item) => {
     if (item.signal) {
       acc[item.signal] = (acc[item.signal] || 0) + 1;
@@ -160,9 +226,7 @@ export default function KlineChart() {
     return acc;
   }, {} as Record<string, number>);
 
-  console.log('[KlineChart] Current state:', { klineDataLength: klineData.length, signalCounts, isLoading: getKlineDataQuery.isLoading, error: getKlineDataQuery.error });
-
-  // 自訂 Tooltip 以顯示 K 線詳細信息
+  // 自訂 Tooltip
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
@@ -175,6 +239,8 @@ export default function KlineChart() {
           <p className="text-xs text-slate-300">最低: NT${data.low.toFixed(2)}</p>
           <p className="text-xs text-slate-300">收盤: NT${data.close.toFixed(2)}</p>
           <p className="text-xs text-slate-300 mt-2">成交量: {(data.volume / 1000000).toFixed(2)}M</p>
+          {data.rsi && <p className="text-xs text-cyan-300">RSI: {data.rsi.toFixed(2)}</p>}
+          {data.macd && <p className="text-xs text-cyan-300">MACD: {data.macd.toFixed(4)}</p>}
           {data.signal && (
             <p className="text-xs font-semibold text-cyan-300 mt-2 border-t border-slate-600 pt-2">
               🔔 訊號: {data.signal}
@@ -205,31 +271,54 @@ export default function KlineChart() {
           </p>
         </div>
 
-        {/* 錯誤提示 */}
-        {getKlineDataQuery.error && (
-          <Alert className="border-red-600 bg-red-900">
-            <AlertCircle className="h-4 w-4 text-red-300" />
-            <AlertDescription className="text-red-200">
-              無法載入 K 線數據：{(getKlineDataQuery.error as any)?.message || "未知錯誤"}
-            </AlertDescription>
-          </Alert>
-        )}
-
         {/* K 線圖表卡片 */}
         <Card className="border-0 shadow-lg bg-slate-800">
           <CardHeader>
-            <CardTitle className="text-lg text-amber-400">K 線圖表</CardTitle>
-            <CardDescription className="text-slate-300">
-              紅色K線為上漲，黑色K線為下跌。黃色為20日均線，紅色為60日均線（季線）。灰色柱為成交量。
-              {klineData.length > 0 && <span className="ml-2 text-xs text-slate-400">已加載 {klineData.length} 筆數據</span>}
-            </CardDescription>
+            <div className="flex justify-between items-start">
+              <div>
+                <CardTitle className="text-lg text-amber-400">K 線圖表</CardTitle>
+                <CardDescription className="text-slate-300">
+                  紅色K線為上漲，黑色K線為下跌。黃色為20日均線，紅色為60日均線（季線）。
+                  {klineData.length > 0 && <span className="ml-2 text-xs text-slate-400">已加載 {klineData.length} 筆數據</span>}
+                </CardDescription>
+              </div>
+              
+              {/* 週期切換按鈕 */}
+              <div className="flex gap-2">
+                <Button
+                  variant={period === "1d" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setPeriod("1d")}
+                  className={period === "1d" ? "bg-blue-600" : ""}
+                >
+                  日線
+                </Button>
+                <Button
+                  variant={period === "1w" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setPeriod("1w")}
+                  className={period === "1w" ? "bg-blue-600" : ""}
+                >
+                  週線
+                </Button>
+                <Button
+                  variant={period === "1m" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setPeriod("1m")}
+                  className={period === "1m" ? "bg-blue-600" : ""}
+                >
+                  月線
+                </Button>
+              </div>
+            </div>
           </CardHeader>
-          <CardContent>
+
+          <CardContent className="space-y-6">
             {getKlineDataQuery.isLoading ? (
               <div className="flex items-center justify-center h-96">
                 <div className="text-center">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                  <p className="text-slate-600">載入中...</p>
+                  <p className="text-slate-400">載入中...</p>
                 </div>
               </div>
             ) : klineData.length === 0 ? (
@@ -237,11 +326,10 @@ export default function KlineChart() {
                 <AlertCircle className="h-4 w-4 text-slate-300" />
                 <AlertDescription className="text-slate-200">
                   無法取得該股票的 K 線數據。請確認股票代號是否正確。
-                  {getKlineDataQuery.error && <p className="mt-2 text-xs">錯誤: {(getKlineDataQuery.error as any)?.message}</p>}
                 </AlertDescription>
               </Alert>
             ) : (
-              <div className="space-y-6">
+              <>
                 {/* 訊號統計 */}
                 {Object.keys(signalCounts).length > 0 && (
                   <div className="bg-slate-800 border border-cyan-400 rounded-lg p-4">
@@ -256,14 +344,42 @@ export default function KlineChart() {
                   </div>
                 )}
 
+                {/* 技術指標切換 */}
+                <div className="flex gap-2 flex-wrap">
+                  <Button
+                    variant={showRSI ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setShowRSI(!showRSI)}
+                    className={showRSI ? "bg-purple-600" : ""}
+                  >
+                    RSI
+                  </Button>
+                  <Button
+                    variant={showMACD ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setShowMACD(!showMACD)}
+                    className={showMACD ? "bg-orange-600" : ""}
+                  >
+                    MACD
+                  </Button>
+                  <Button
+                    variant={showBB ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setShowBB(!showBB)}
+                    className={showBB ? "bg-green-600" : ""}
+                  >
+                    布林帶
+                  </Button>
+                </div>
+
                 {/* K 線圖表 */}
                 <ResponsiveContainer width="100%" height={500}>
-                  <ComposedChart data={dataWithMA} margin={{ top: 20, right: 30, left: 0, bottom: 60 }}>
+                  <ComposedChart data={enhancedData} margin={{ top: 20, right: 30, left: 0, bottom: 60 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
                     <XAxis
                       dataKey="date"
                       tick={{ fontSize: 12, fill: '#cbd5e1' }}
-                      interval={Math.max(0, Math.floor(dataWithMA.length / 15))}
+                      interval={Math.max(0, Math.floor(enhancedData.length / 15))}
                       angle={-45}
                       textAnchor="end"
                       height={80}
@@ -282,7 +398,7 @@ export default function KlineChart() {
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
 
-                    {/* 成交量柱狀圖 */}
+                    {/* 成交量 */}
                     <Bar
                       yAxisId="right"
                       dataKey="volume"
@@ -291,91 +407,17 @@ export default function KlineChart() {
                       opacity={0.4}
                     />
 
-                    {/* 蠟燭圖 - 使用自訂渲染 */}
-                    {dataWithMA.map((item, index) => {
-                      const { open, close, high, low } = item;
-                      const isUp = close >= open;
-                      const bodyColor = isUp ? '#ef4444' : '#1a1a1a';
-                      const wickColor = isUp ? '#ef4444' : '#1a1a1a';
-                      
-                      return (
-                        <g key={`candle-${index}`}>
-                          {/* 影線 */}
-                          <line
-                            x1={0}
-                            y1={0}
-                            x2={0}
-                            y2={0}
-                            stroke={wickColor}
-                            strokeWidth={1}
-                          />
-                        </g>
-                      );
-                    })}
-                    
-                    {/* 收盤價線 - 作為 K 線的替代 */}
+                    {/* 收盤價線（K線表示） */}
                     <Line
                       yAxisId="left"
-                      type="stepAfter"
+                      type="monotone"
                       dataKey="close"
                       stroke="#3b82f6"
                       dot={false}
-                      name="K線 (收盤價)"
+                      name="收盤價"
                       strokeWidth={2}
                       isAnimationActive={false}
                     />
-
-                    {/* 訊號標註 - 買進訊號（綠色向上箭頭） */}
-                    {dataWithMA.map((item, index) => {
-                      if (item.signal === '買進訊號') {
-                        return (
-                          <ReferenceDot
-                            key={`buy-${index}`}
-                            x={item.date}
-                            y={item.low}
-                            r={6}
-                            fill="#22c55e"
-                            stroke="#16a34a"
-                            strokeWidth={2}
-                          >
-                            <Label
-                              value="↑ 買"
-                              position="top"
-                              fill="#22c55e"
-                              fontSize={12}
-                              fontWeight="bold"
-                            />
-                          </ReferenceDot>
-                        );
-                      }
-                      return null;
-                    })}
-
-                    {/* 訊號標註 - 賣出訊號（紅色向下箭頭） */}
-                    {dataWithMA.map((item, index) => {
-                      if (item.signal === '賣出訊號') {
-                        return (
-                          <ReferenceDot
-                            key={`sell-${index}`}
-                            x={item.date}
-                            y={item.high}
-                            r={6}
-                            fill="#ef4444"
-                            stroke="#dc2626"
-                            strokeWidth={2}
-                          >
-                            <Label
-                              value="↓ 賣"
-                              position="top"
-                              fill="#ef4444"
-                              fontSize={12}
-                              fontWeight="bold"
-                            />
-                          </ReferenceDot>
-                        );
-                      }
-                      return null;
-                    })}
 
                     {/* 20日均線 */}
                     <Line
@@ -389,21 +431,100 @@ export default function KlineChart() {
                       strokeDasharray="5 5"
                     />
 
-                    {/* 60日均線（季線） */}
+                    {/* 60日均線 */}
                     <Line
                       yAxisId="left"
                       type="monotone"
                       dataKey="ma60"
                       stroke="#ef4444"
                       dot={false}
-                      name="60日均線（季線）"
+                      name="60日均線"
                       strokeWidth={1.5}
                       strokeDasharray="5 5"
                     />
+
+                    {/* 布林帶 */}
+                    {showBB && (
+                      <>
+                        <Line
+                          yAxisId="left"
+                          type="monotone"
+                          dataKey="bbUpper"
+                          stroke="#10b981"
+                          dot={false}
+                          name="布林帶上軌"
+                          strokeWidth={1}
+                          strokeDasharray="2 2"
+                          isAnimationActive={false}
+                        />
+                        <Line
+                          yAxisId="left"
+                          type="monotone"
+                          dataKey="bbMiddle"
+                          stroke="#06b6d4"
+                          dot={false}
+                          name="布林帶中軌"
+                          strokeWidth={1}
+                          strokeDasharray="2 2"
+                          isAnimationActive={false}
+                        />
+                        <Line
+                          yAxisId="left"
+                          type="monotone"
+                          dataKey="bbLower"
+                          stroke="#f59e0b"
+                          dot={false}
+                          name="布林帶下軌"
+                          strokeWidth={1}
+                          strokeDasharray="2 2"
+                          isAnimationActive={false}
+                        />
+                      </>
+                    )}
+
+                    {/* 買進訊號 */}
+                    {enhancedData.map((item, index) => {
+                      if (item.signal === '買進訊號') {
+                        return (
+                          <ReferenceDot
+                            key={`buy-${index}`}
+                            x={item.date}
+                            y={item.low}
+                            r={6}
+                            fill="#22c55e"
+                            stroke="#16a34a"
+                            strokeWidth={2}
+                          >
+                            <Label value="↑ 買" position="top" fill="#22c55e" fontSize={12} fontWeight="bold" />
+                          </ReferenceDot>
+                        );
+                      }
+                      return null;
+                    })}
+
+                    {/* 賣出訊號 */}
+                    {enhancedData.map((item, index) => {
+                      if (item.signal === '賣出訊號') {
+                        return (
+                          <ReferenceDot
+                            key={`sell-${index}`}
+                            x={item.date}
+                            y={item.high}
+                            r={6}
+                            fill="#ef4444"
+                            stroke="#dc2626"
+                            strokeWidth={2}
+                          >
+                            <Label value="↓ 賣" position="top" fill="#ef4444" fontSize={12} fontWeight="bold" />
+                          </ReferenceDot>
+                        );
+                      }
+                      return null;
+                    })}
                   </ComposedChart>
                 </ResponsiveContainer>
 
-                {/* 懸停信息顯示 */}
+                {/* 懸停信息 */}
                 {hoveredData && (
                   <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
                     <p className="text-sm font-semibold text-amber-400 mb-2">詳細信息：{hoveredData.date}</p>
@@ -434,35 +555,43 @@ export default function KlineChart() {
                           {(hoveredData.close - hoveredData.open).toFixed(2)} ({((hoveredData.close - hoveredData.open) / hoveredData.open * 100).toFixed(2)}%)
                         </p>
                       </div>
+                      {hoveredData.rsi && (
+                        <div>
+                          <p className="text-slate-400">RSI(14)</p>
+                          <p className="text-purple-300 font-semibold">{hoveredData.rsi.toFixed(2)}</p>
+                        </div>
+                      )}
+                      {hoveredData.macd && (
+                        <div>
+                          <p className="text-slate-400">MACD</p>
+                          <p className="text-orange-300 font-semibold">{hoveredData.macd.toFixed(4)}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
-              </div>
+              </>
             )}
           </CardContent>
         </Card>
 
-        {/* 訊號說明卡片 */}
+        {/* 技術指標說明 */}
         <Card className="border-0 shadow-md bg-slate-800">
           <CardHeader>
-            <CardTitle className="text-base text-amber-400">技術訊號說明</CardTitle>
+            <CardTitle className="text-base text-amber-400">技術指標說明</CardTitle>
           </CardHeader>
-          <CardContent className="text-sm text-white space-y-3">
-            <div className="border-l-4 border-red-500 pl-3">
-              <p className="font-semibold text-red-400">攻擊K線</p>
-              <p className="text-slate-300">股價大幅上漲（&gt;3%），成交量明顯放大（&gt;5日均量1.5倍），表示主力表態看多。</p>
+          <CardContent className="text-sm text-slate-300 space-y-3">
+            <div>
+              <p className="font-semibold text-cyan-300">RSI（相對強度指數）</p>
+              <p>衡量股票超買超賣情況。RSI &gt; 70 表示超買，RSI &lt; 30 表示超賣。</p>
             </div>
-            <div className="border-l-4 border-green-500 pl-3">
-              <p className="font-semibold text-green-400">多頭吞噬</p>
-              <p className="text-slate-300">當日K線開盤價低於前一日收盤價，但收盤價高於前一日開盤價，表示多方力量強勁。</p>
+            <div>
+              <p className="font-semibold text-orange-300">MACD（指數平滑異同移動平均線）</p>
+              <p>由快速 EMA(12) 和慢速 EMA(26) 的差值組成。MACD 穿過信號線時產生交易訊號。</p>
             </div>
-            <div className="border-l-4 border-orange-500 pl-3">
-              <p className="font-semibold text-orange-400">黑K吞噬</p>
-              <p className="text-slate-300">當日K線高於前一日開盤價，但收盤價低於前一日收盤價，表示空方力量強勁。</p>
-            </div>
-            <div className="border-l-4 border-cyan-500 pl-3">
-              <p className="font-semibold text-cyan-400">內因型態</p>
-              <p className="text-slate-300">當日K線的開盤價和收盤價都在前一日的開盤價和收盤價之間，表示市場觀望情緒。</p>
+            <div>
+              <p className="font-semibold text-green-300">布林帶（Bollinger Bands）</p>
+              <p>由中軌（20日均線）和上下軌（±2個標準差）組成。股價觸及上下軌時可能出現反轉。</p>
             </div>
           </CardContent>
         </Card>
