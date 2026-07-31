@@ -164,5 +164,77 @@
     "recommendationScore": 100,
     "scanDate": "2026-07-29T00:00:00.000Z",
     "id": 14
+  },
+  {
+    "sessionId": 12,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "industry": "半導體",
+    "closePrice": 2205,
+    "signalType": "內困型態",
+    "aboveMa60": false,
+    "recommendationScore": 20,
+    "scanDate": "2026-07-30T00:00:00.000Z",
+    "id": 15
+  },
+  {
+    "sessionId": 12,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "industry": "金融",
+    "closePrice": 95.19999694824219,
+    "signalType": "內困型態",
+    "aboveMa60": false,
+    "recommendationScore": 20,
+    "scanDate": "2026-07-30T00:00:00.000Z",
+    "id": 16
+  },
+  {
+    "sessionId": 12,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "industry": "金融",
+    "closePrice": 63.099998474121094,
+    "signalType": "內困型態",
+    "aboveMa60": false,
+    "recommendationScore": 20,
+    "scanDate": "2026-07-30T00:00:00.000Z",
+    "id": 17
+  },
+  {
+    "sessionId": 12,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "industry": "機械",
+    "closePrice": 1340,
+    "signalType": "內困型態",
+    "aboveMa60": true,
+    "recommendationScore": 40,
+    "scanDate": "2026-07-30T00:00:00.000Z",
+    "id": 18
+  },
+  {
+    "sessionId": 12,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "industry": "電子",
+    "closePrice": 737,
+    "signalType": "黑K吞噬",
+    "aboveMa60": true,
+    "recommendationScore": -24,
+    "scanDate": "2026-07-30T00:00:00.000Z",
+    "id": 19
+  },
+  {
+    "sessionId": 12,
+    "stockId": "2395",
+    "stockName": "力成",
+    "industry": "半導體",
+    "closePrice": 547,
+    "signalType": "黑K吞噬",
+    "aboveMa60": true,
+    "recommendationScore": -24,
+    "scanDate": "2026-07-30T00:00:00.000Z",
+    "id": 20
   }
 ]

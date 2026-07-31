@@ -230,7 +230,6 @@ export default function KlineChart() {
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
-      setHoveredData(data);
       return (
         <div className="bg-slate-800 p-4 border border-slate-600 rounded shadow-lg">
           <p className="text-sm font-semibold text-amber-400">{data.date}</p>
@@ -374,7 +373,17 @@ export default function KlineChart() {
 
                 {/* K 線圖表 */}
                 <ResponsiveContainer width="100%" height={500}>
-                  <ComposedChart data={enhancedData} margin={{ top: 20, right: 30, left: 0, bottom: 60 }}>
+                  <ComposedChart 
+                    data={enhancedData} 
+                    margin={{ top: 20, right: 30, left: 0, bottom: 60 }}
+                    onMouseMove={(state: any) => {
+                      if (state && state.isTooltipActive && state.activeTooltipIndex !== undefined) {
+                        const data = enhancedData[state.activeTooltipIndex];
+                        if (data) setHoveredData(data);
+                      }
+                    }}
+                    onMouseLeave={() => setHoveredData(null)}
+                  >
                     <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
                     <XAxis
                       dataKey="date"
@@ -395,7 +404,10 @@ export default function KlineChart() {
                       tick={{ fontSize: 12, fill: '#cbd5e1' }}
                       label={{ value: "成交量", angle: 90, position: "insideRight", fill: '#cbd5e1' }}
                     />
-                    <Tooltip content={<CustomTooltip />} />
+                    <Tooltip 
+                      content={<CustomTooltip />}
+                      cursor={{ fill: 'rgba(59, 130, 246, 0.1)' }}
+                    />
                     <Legend />
 
                     {/* 成交量 */}
