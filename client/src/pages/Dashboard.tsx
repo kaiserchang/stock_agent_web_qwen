@@ -139,13 +139,18 @@ export default function Dashboard() {
   const getScanParams = () => {
     const stored = localStorage.getItem("scanParams");
     if (stored) {
-      const params = JSON.parse(stored);
-      return {
-        scanLimit: params.scanLimit || 100,
-        startDate: params.startDate || getDefaultStartDate(),
-        endDate: params.endDate || new Date().toISOString().split('T')[0],
-        signalFilter: params.signalFilter || [],
-      };
+      try {
+        const params = JSON.parse(stored);
+        console.log("侞 localStorage 讀取掃描參數:", params);
+        return {
+          scanLimit: params.scanLimit && params.scanLimit > 0 ? params.scanLimit : 100,
+          startDate: params.startDate || getDefaultStartDate(),
+          endDate: params.endDate || new Date().toISOString().split('T')[0],
+          signalFilter: params.signalFilter || [],
+        };
+      } catch (e) {
+        console.error("解析 scanParams 失敗:", e);
+      }
     }
     return {
       scanLimit: 100,
