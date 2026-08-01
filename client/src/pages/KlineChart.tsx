@@ -9,6 +9,7 @@ import { AlertCircle, ArrowLeft } from "lucide-react";
 import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceDot, Label } from "recharts";
 import { Link } from "wouter";
 import TechnicalIndicatorPanel from "@/components/TechnicalIndicatorPanel";
+import CandleStickRenderer from "@/components/CandleStickRenderer";
 
 interface KlineData {
   date: string;
@@ -376,6 +377,19 @@ export default function KlineChart() {
                 {showRSI && <TechnicalIndicatorPanel data={enhancedData} showRSI={true} />}
                 {showMACD && <TechnicalIndicatorPanel data={enhancedData} showMACD={true} />}
                 {showBB && <TechnicalIndicatorPanel data={enhancedData} showBB={true} />}
+
+                {/* 蠟燭圖 */}
+                <div className="bg-slate-800 rounded-lg border border-slate-700 p-4">
+                  <h3 className="text-sm font-semibold text-amber-400 mb-4">OHLC 蠟燭圖</h3>
+                  <div className="w-full overflow-x-auto">
+                    <CandleStickRenderer 
+                      data={klineData} 
+                      width={Math.max(800, klineData.length * 15)} 
+                      height={400}
+                    />
+                  </div>
+                  <p className="text-xs text-slate-400 mt-2">紅色表示上漲（收盤 &gt; 開盤），綠色表示下跌（收盤 &lt; 開盤）</p>
+                </div>
 
                 {/* K 線圖表 */}
                 <ResponsiveContainer width="100%" height={500}>
