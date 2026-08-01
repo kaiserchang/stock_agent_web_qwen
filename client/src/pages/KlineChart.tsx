@@ -8,6 +8,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, ArrowLeft } from "lucide-react";
 import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceDot, Label } from "recharts";
 import { Link } from "wouter";
+import TechnicalIndicatorPanel from "@/components/TechnicalIndicatorPanel";
 
 interface KlineData {
   date: string;
@@ -370,6 +371,11 @@ export default function KlineChart() {
                     布林帶
                   </Button>
                 </div>
+
+                {/* 技術指標面板 */}
+                {showRSI && <TechnicalIndicatorPanel data={enhancedData} showRSI={true} />}
+                {showMACD && <TechnicalIndicatorPanel data={enhancedData} showMACD={true} />}
+                {showBB && <TechnicalIndicatorPanel data={enhancedData} showBB={true} />}
 
                 {/* K 線圖表 */}
                 <ResponsiveContainer width="100%" height={500}>
