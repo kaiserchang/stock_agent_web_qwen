@@ -141,5 +141,60 @@
     "progress": 100,
     "id": 13,
     "scanDate": "2026-08-01T05:42:41.720Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T09:14:50.371Z",
+    "scanEndTime": "2026-08-03T09:14:50.464Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": -1,
+    "id": 14,
+    "scanDate": "2026-08-03T09:14:50.371Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T09:14:50.375Z",
+    "scanEndTime": "2026-08-03T09:14:50.463Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": -1,
+    "id": 15,
+    "scanDate": "2026-08-03T09:14:50.375Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T09:14:57.892Z",
+    "scanEndTime": "2026-08-03T09:14:57.940Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": -1,
+    "id": 16,
+    "scanDate": "2026-08-03T09:14:57.892Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T09:32:17.768Z",
+    "scanEndTime": "2026-08-03T09:32:40.389Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 100,
+    "id": 17,
+    "scanDate": "2026-08-03T09:32:17.768Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T09:32:52.213Z",
+    "scanEndTime": "2026-08-03T09:33:13.283Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 100,
+    "id": 18,
+    "scanDate": "2026-08-03T09:32:52.213Z"
   }
 ]

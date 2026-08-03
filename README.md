@@ -105,6 +105,18 @@ cd stock_agent_web
 
 #### 2. 安裝依賴
 
+**安裝 Node.js 和 pnpm**：
+```bash
+# 使用 Homebrew 安裝 Node.js
+brew install node
+
+# 啟用 corepack（若未安裝 pnpm）
+corepack enable
+
+# 若 pnpm 尚未安裝，可使用 npm 安裝
+npm install -g pnpm
+```
+
 **安裝 Node.js 依賴**：
 ```bash
 pnpm install
@@ -125,11 +137,16 @@ pip install -r requirements.txt
 pip3 install -r requirements.txt
 ```
 
+若使用專案 Python 3.12 虛擬環境，請先啟用：
+```bash
+source .venv312/bin/activate
+```
+
 依賴清單包括：
 - `yfinance==0.2.32` - Yahoo Finance 數據源
-- `pandas==2.0.3` - 數據處理
-- `pandas-ta==0.3.14b0` - 技術指標計算
-- `numpy==1.24.3` - 數值計算
+- `pandas==2.3.3` - 數據處理
+- `pandas-ta==0.4.71b0` - 技術指標計算
+- `numpy==2.2.6` - 數值計算
 
 #### 3. 啟動開發伺服器
 

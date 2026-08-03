@@ -86,6 +86,7 @@ venv/
 env/
 ENV/
 .venv/
+.venv312/
 .env/
 
 # Compressed files
