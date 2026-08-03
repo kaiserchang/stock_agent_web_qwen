@@ -1,5 +1,6 @@
 import { spawn } from 'child_process';
 import { resolve, join } from 'path';
+import fs from 'fs';
 import { insertScanLog } from '../fileStorage';
 
 export async function executePythonScript(scriptPath: string, args: (string | object)[] = [], progressCallback?: (progress: number) => void): Promise<any> {
@@ -16,7 +17,10 @@ export async function executePythonScript(scriptPath: string, args: (string | ob
     const resolvedScriptPath = scriptPath.startsWith('/') ? scriptPath : join(process.cwd(), scriptPath);
     console.log(`[pythonExecutor] Executing Python script: ${resolvedScriptPath}`);
 
-    const pythonProcess = spawn('python3', [resolvedScriptPath, ...processedArgs]);
+    const venvPythonPath = join(process.cwd(), '.venv', 'bin', 'python3');
+    const pythonExecutable = fs.existsSync(venvPythonPath) ? venvPythonPath : 'python3';
+
+    const pythonProcess = spawn(pythonExecutable, [resolvedScriptPath, ...processedArgs]);
 
     let stdout = '';
     let stderr = '';

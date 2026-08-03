@@ -4,6 +4,7 @@ import pandas_ta as ta
 import logging
 import sys
 import json
+import time
 import requests
 from datetime import datetime, timedelta
 import yfinance as yf
@@ -22,6 +23,81 @@ class TaiwanStockDataFetcher:
         """獲取台股清單，使用備用清單"""
         return self._get_fallback_stock_list()
     
+    def get_stock_daily_data_twse(self, stock_id, start_date, end_date):
+        """使用台灣證交所 API 取得台股日線數據，作為 yfinance 的備援"""
+        try:
+            def parse_roc_date(date_str):
+                year, month, day = date_str.strip().split('/')
+                year = int(year) + 1911
+                return datetime(year, int(month), int(day))
+
+            start_dt = datetime.strptime(start_date, '%Y-%m-%d')
+            end_dt = datetime.strptime(end_date, '%Y-%m-%d')
+            session = requests.Session()
+            session.trust_env = False
+            session.headers.update({
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+            })
+
+            records = []
+            current = datetime(start_dt.year, start_dt.month, 1)
+            while current <= end_dt:
+                roc_year = current.year - 1911
+                query_date = f'{roc_year}{current.month:02d}01'
+                url = f'https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date={query_date}&stockNo={stock_id}'
+                response = session.get(url, timeout=15)
+                logger.info(f'TWSE fallback URL={url} status={response.status_code}')
+                if response.status_code != 200:
+                    logger.warning(f'TWSE request failed for {stock_id} {query_date}: {response.status_code}')
+                    current = (current + timedelta(days=32)).replace(day=1)
+                    continue
+
+                data = response.json()
+                logger.info(f'TWSE data stat={data.get("stat")} rows={len(data.get("data", []))} for {stock_id} {query_date}')
+                if data.get('stat') != 'OK':
+                    logger.warning(f'TWSE returned stat={data.get("stat")} for {stock_id} {query_date}')
+                    current = (current + timedelta(days=32)).replace(day=1)
+                    continue
+
+                for row in data.get('data', []):
+                    logger.debug(f'TWSE row for {stock_id}: {row}')
+                    try:
+                        row_date = parse_roc_date(row[0].replace(' ', ''))
+                    except Exception:
+                        continue
+                    if row_date < start_dt or row_date > end_dt:
+                        continue
+                    records.append({
+                        'Date': row_date,
+                        'Open': pd.to_numeric(str(row[3]).replace(',', ''), errors='coerce'),
+                        'High': pd.to_numeric(str(row[4]).replace(',', ''), errors='coerce'),
+                        'Low': pd.to_numeric(str(row[5]).replace(',', ''), errors='coerce'),
+                        'Close': pd.to_numeric(str(row[6]).replace(',', ''), errors='coerce'),
+                        'Volume': pd.to_numeric(str(row[1]).replace(',', ''), errors='coerce'),
+                    })
+
+                current = (current + timedelta(days=32)).replace(day=1)
+
+            if not records:
+                logger.warning(f'No TWSE data fetched for {stock_id}')
+                return pd.DataFrame()
+
+            df = pd.DataFrame(records).dropna()
+            if df.empty or len(df) < 20:
+                logger.warning(f'Insufficient TWSE data for {stock_id}: {len(df)} rows (need 20)')
+                return pd.DataFrame()
+
+            df = df.sort_values('Date').set_index('Date')
+            logger.info(f'Successfully fetched {len(df)} days of data for {stock_id} from TWSE')
+            return df[['Open', 'High', 'Low', 'Close', 'Volume']]
+        except Exception as e:
+            logger.error(f'Failed to fetch data for {stock_id} from TWSE: {e}')
+            import traceback
+            logger.error(traceback.format_exc())
+            return pd.DataFrame()
+
     def _get_fallback_stock_list(self):
         """返回常見台股清單"""
         fallback_stocks = [
@@ -77,12 +153,39 @@ class TaiwanStockDataFetcher:
             # 台股代碼需要加上 .TW 後綴
             ticker = f"{stock_id}.TW"
             
-            # 使用 yfinance 獲取數據
-            df = yf.download(ticker, start=start_date, end=end_date, progress=False)
+            # 建立自訂 session，避免 yfinance 被 Yahoo 封鎖
+            session = requests.Session()
+            session.trust_env = False
+            session.headers.update({
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            })
+            
+            # 使用 yfinance 獲取數據，包含重試機制
+            df = pd.DataFrame()
+            for attempt in range(1, 5):
+                try:
+                    df = yf.download(
+                        ticker,
+                        start=start_date,
+                        end=end_date,
+                        progress=False,
+                        threads=False,
+                        session=session,
+                    )
+                    if not df.empty and len(df) > 0:
+                        break
+                except Exception as e:
+                    logger.warning(f"Attempt {attempt} failed for {ticker}: {e}")
+                    time.sleep(2 * attempt)
             
             if df.empty or len(df) == 0:
-                logger.warning(f"No data fetched for {stock_id}")
-                return pd.DataFrame()
+                logger.warning(f"No data fetched for {stock_id} from Yahoo, switching to TWSE fallback")
+                df = self.get_stock_daily_data_twse(stock_id, start_date, end_date)
+                if df.empty or len(df) == 0:
+                    logger.warning(f"No fallback data fetched for {stock_id}")
+                    return pd.DataFrame()
             
             # 標準化列名
             # 况一：yfinance 返回 MultiIndex 列名

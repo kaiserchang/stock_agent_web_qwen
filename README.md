@@ -31,12 +31,14 @@
 
 ### 後端技術棧
 - **Express 4** - Web 服務器框架
+- **cors** - Express CORS middleware，解決瀏覽器跨域請求問題
 - **tRPC 11** - 類型安全的 API 層
 - **Node.js** - 運行時環境
 - **Python 3** - 數據分析和技術指標計算
 
 ### 數據源
 - **yfinance** - Yahoo Finance 數據源（全球股票數據，包含台股）
+- **TWSE API** - 台灣證交所日線資料備援
 - **本地文件存儲** - JSON 格式保存掃描結果和歷史記錄
 
 ### 部署環境
@@ -125,6 +127,12 @@ pnpm install
 或使用 npm：
 ```bash
 npm install
+```
+
+如果你剛新增 `cors` 或 `@types/cors`，也可以使用：
+```bash
+pnpm add cors
+pnpm add -D @types/cors
 ```
 
 **安裝 Python 依賴**：

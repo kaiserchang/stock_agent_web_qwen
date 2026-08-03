@@ -8971,5 +8971,5495 @@
     "signalType": null,
     "message": "數據不足（少於20天）",
     "timestamp": "2026-08-03T17:33:13.125823"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:37.125244"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:38.229583"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:38.246234"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:38.718235"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:38.737299"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:39.150499"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:39.168215"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:39.662840"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:39.682436"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:40.159271"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:40.177477"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:40.633420"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:40.651187"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:41.144273"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:41.162668"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:41.620578"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:41.636625"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:42.155132"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:42.173410"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:42.677935"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:42.697585"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:43.162892"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:43.181179"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:43.636749"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:43.655266"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:44.156831"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:44.175532"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:44.678282"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:44.697526"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:45.183095"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:45.202346"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:45.836964"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:45.855759"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:46.408078"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:46.424847"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:46.920182"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:46.938721"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:47.454126"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:47.473210"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:47.995069"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:48.011902"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:48.529384"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:48.546423"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:49.015920"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:49.030628"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:49.586187"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:49.598063"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:50.036185"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:50.051987"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:50.543151"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:50.557436"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:51.037447"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:30:51.054043"
+  },
+  {
+    "sessionId": 19,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:30:51.523656"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:24.713585"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:25.466689"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:25.484391"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:26.494464"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:26.513483"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:26.954110"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:26.972251"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:27.438831"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:27.455671"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:27.879869"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:27.901111"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:28.365250"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:28.378831"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:28.841357"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:28.860188"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:29.421826"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:29.440848"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:29.913448"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:29.934018"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:30.399731"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:30.418940"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:30.926593"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:30.946630"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:31.424575"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:31.443241"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:31.922200"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:31.941730"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:32.405881"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:32.426314"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:32.910313"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:32.931184"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:33.321775"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:33.340565"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:33.842826"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:33.854808"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:34.312557"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:34.331616"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:34.799852"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:34.819485"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:35.279010"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:35.290754"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:35.874558"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:35.893411"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:36.749667"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:36.757373"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:37.192319"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:37.205331"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:37.625777"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:37.635766"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:38.079357"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:38.093235"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:38.559072"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:38.578851"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:39.075633"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:39.117999"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:39.587640"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:39.606198"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:40.055097"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:40.066634"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:40.554552"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:40.569673"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:40.993675"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:41.012535"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:41.440589"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:41.457467"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:41.916786"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:41.935976"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:42.434764"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:42.455042"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:42.938558"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:42.958401"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:43.436602"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:43.458456"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:43.915476"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "9945",
+    "stockName": "潤泰全",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:43.937045"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "9945",
+    "stockName": "潤泰全",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:44.403523"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "0050",
+    "stockName": "元大台灣50",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:44.423937"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "0050",
+    "stockName": "元大台灣50",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:44.878029"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "0056",
+    "stockName": "元大高股息",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:32:44.899191"
+  },
+  {
+    "sessionId": 20,
+    "stockId": "0056",
+    "stockName": "元大高股息",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:32:45.606665"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:23.581237"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:24.240497"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:24.259982"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:24.727942"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:24.750578"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:25.274196"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:25.292627"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:25.752601"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:25.774444"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:26.240572"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:26.260436"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:26.754775"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:26.775357"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:27.220089"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:27.236250"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:27.680602"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:27.695338"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:28.152890"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:28.182667"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:28.717719"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:28.737261"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:29.165265"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:29.185521"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:29.615712"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:29.635424"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:30.069832"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:30.089676"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:30.530300"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:30.551099"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:30.969043"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:30.987989"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:31.463317"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:31.483757"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:31.958556"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:31.975538"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:32.394025"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:32.410796"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:32.838318"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:32.858746"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:33.326587"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:33.343930"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:33.798183"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:33.816591"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:34.279982"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:34.299186"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:34.747813"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:34.767147"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:35.199235"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:35.219748"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:35.702556"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:35.729891"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:36.190636"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:36.210769"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:36.676578"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:36.722110"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:37.244434"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:37.264424"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:37.738307"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:37.755537"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:38.224211"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:38.244862"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:38.680838"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:38.700483"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:39.175040"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:39.194878"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:39.615505"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:39.630197"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:40.110553"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:40.125574"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:40.614942"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:40.627686"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:41.072847"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:41.087101"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:41.556442"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "9945",
+    "stockName": "潤泰全",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:41.576835"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "9945",
+    "stockName": "潤泰全",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:42.042241"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "0050",
+    "stockName": "元大台灣50",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:42.055331"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "0050",
+    "stockName": "元大台灣50",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:42.503625"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "0056",
+    "stockName": "元大高股息",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:38:42.521750"
+  },
+  {
+    "sessionId": 21,
+    "stockId": "0056",
+    "stockName": "元大高股息",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:38:42.997301"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:10.577664"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:11.313968"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:11.336180"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:11.835875"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:11.854124"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:12.295763"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:12.308720"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:12.737997"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:12.759080"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:13.238546"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:13.252712"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:13.729666"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:13.751794"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:14.157781"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:14.177731"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:14.614292"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:14.628995"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:15.190443"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:15.212258"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:15.659556"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:15.680408"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:16.088260"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:16.102675"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:16.599499"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:16.621483"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:17.041791"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:17.054469"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:17.441433"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:17.457706"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:17.922616"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:17.934773"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:18.420755"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:18.439043"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:18.911348"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:18.928551"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:19.388910"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:19.412296"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:19.838409"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:19.860191"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:20.358273"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:20.380475"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:20.830267"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:20.848321"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:21.289704"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:21.312934"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:21.744721"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:21.764930"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:22.242467"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:22.251689"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:22.711776"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:22.725663"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:23.112582"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:23.122354"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:23.562409"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:23.611441"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:24.039636"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:24.051170"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:24.483561"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:24.493710"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:24.932330"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:24.951378"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:25.355186"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:25.375390"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:25.835816"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:25.848347"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:26.310146"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:26.330986"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:26.721404"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:26.742129"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:27.194653"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:27.204213"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:27.603407"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:27.624171"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:28.061047"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "9945",
+    "stockName": "潤泰全",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:28.069636"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "9945",
+    "stockName": "潤泰全",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:28.522555"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "0050",
+    "stockName": "元大台灣50",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:28.545049"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "0050",
+    "stockName": "元大台灣50",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:29.043025"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "0056",
+    "stockName": "元大高股息",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:44:29.057764"
+  },
+  {
+    "sessionId": 22,
+    "stockId": "0056",
+    "stockName": "元大高股息",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:44:29.456483"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:48.020605"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:48.670738"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:48.693779"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:49.144161"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:49.169270"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:49.636267"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:49.657966"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:50.160344"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:50.181831"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:50.614053"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:50.630139"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:51.062438"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:51.084303"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:51.592862"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:51.605155"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:52.027869"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:52.046815"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:52.515879"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:52.537335"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:53.002256"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:53.024575"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:53.459376"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:53.472523"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:53.879186"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:53.897991"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:54.316376"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:54.328275"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:54.749423"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:54.769879"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:55.282355"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:55.296802"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:55.679201"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:55.699951"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:56.115612"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:56.124000"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:56.560001"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:56.572717"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:57.001015"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:57.025153"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:57.505926"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:57.522011"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:57.972125"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:57.995051"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:58.434950"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:58.447376"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:58.916456"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:58.938113"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:59.395012"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:59.404708"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:46:59.851404"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:46:59.866888"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:00.351739"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:00.366220"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:00.812441"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:00.856794"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:01.324584"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:01.343785"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:01.781108"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:01.800562"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:02.238399"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:02.260961"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:02.677083"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:02.698674"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:03.126437"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:03.148364"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:03.658170"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:03.679153"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:04.106244"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:04.118696"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:04.572450"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:04.585980"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:05.389403"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:05.403680"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:05.872875"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "9945",
+    "stockName": "潤泰全",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:05.893782"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "9945",
+    "stockName": "潤泰全",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:06.343680"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "0050",
+    "stockName": "元大台灣50",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:06.367834"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "0050",
+    "stockName": "元大台灣50",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:06.809683"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "0056",
+    "stockName": "元大高股息",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:47:06.831284"
+  },
+  {
+    "sessionId": 27,
+    "stockId": "0056",
+    "stockName": "元大高股息",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:47:07.321775"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:50:20.169680"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:50:20.888196"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:50:20.907220"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:50:21.510077"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:50:21.535649"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:50:22.314581"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:19.662627"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:21.134745"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:21.154302"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:21.724691"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:21.748213"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:22.288854"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:22.310089"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:22.942817"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:22.956801"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:23.477931"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:23.498447"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:24.092580"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:24.107763"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:24.826542"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:24.847272"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:25.322417"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:25.347128"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:26.063103"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:26.074366"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:26.570954"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:26.592167"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:27.184159"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:27.199861"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:27.807733"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:27.828485"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:28.369442"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:28.389651"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:28.922877"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:28.943517"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:29.626600"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:29.646789"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:30.195282"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:30.206382"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:30.855303"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:30.876472"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:31.507856"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:31.525472"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:32.006433"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:32.023611"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:32.604778"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:32.625174"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:33.486744"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:33.507089"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:34.076287"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:34.086492"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:34.645016"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:34.659586"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:35.264223"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:35.274917"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:35.851497"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:35.871986"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:36.596749"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:36.616144"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:37.260318"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:37.296841"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:37.810291"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:37.831331"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:38.343827"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:38.356390"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:39.068853"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:39.089350"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:39.726249"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:39.747499"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:40.382620"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:40.394049"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:40.877860"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:40.893479"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:41.464914"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:41.483076"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:42.187555"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:42.197325"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:42.766941"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:52:42.787430"
+  },
+  {
+    "sessionId": 28,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:52:43.523335"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:26.935811"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:29.635107"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:29.653074"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:30.958566"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:30.983821"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:33.682757"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:33.704218"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:34.732551"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:34.753302"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:36.130028"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:36.154262"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:37.958237"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:37.979227"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:40.096469"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:40.119605"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:42.200345"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:42.223018"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:43.516894"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:43.534871"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:46.579705"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:46.598074"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:47.821046"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:47.844316"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:49.272779"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:49.287645"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:50.648650"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:50.668071"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:52.323895"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:52.343455"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:54.251267"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:54.268422"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:55.297190"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:55.319825"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:56.839193"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T18:58:56.861775"
+  },
+  {
+    "sessionId": 29,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T18:58:58.330778"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:17:18.381374"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:17:19.664046"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:17:19.675691"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:17:20.406314"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:17:20.423363"
+  },
+  {
+    "sessionId": 1,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:17:21.338325"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:38.764663"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:40.147318"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:40.170550"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:41.022462"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:41.040550"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:42.175885"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:42.197703"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:43.399055"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:43.421087"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:44.354965"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:44.379187"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:45.141932"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:45.164049"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:45.972443"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:45.981630"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:46.814840"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:46.832160"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:47.717056"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:47.740214"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:49.696787"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:49.720876"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2882",
+    "stockName": "國泰金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:50.427380"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:50.445433"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2891",
+    "stockName": "中信金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:51.776079"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:51.799255"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2886",
+    "stockName": "兆豐金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:52.476329"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:52.496899"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "1590",
+    "stockName": "亞德客",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:53.237332"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:53.261312"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2308",
+    "stockName": "台達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:53.990708"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:54.009661"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3231",
+    "stockName": "緯創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:54.835943"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:54.859784"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2357",
+    "stockName": "華碩",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:55.786250"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:55.809231"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2379",
+    "stockName": "瑞昱",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:56.758910"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:56.781789"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2395",
+    "stockName": "力成",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:57.590888"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:57.615070"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2408",
+    "stockName": "南亞科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:47:58.351258"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:47:58.373627"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2409",
+    "stockName": "友達",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:00.120066"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:00.132653"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2448",
+    "stockName": "晶電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:00.866403"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:00.890628"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2498",
+    "stockName": "宏達電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:02.642559"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:02.665488"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2618",
+    "stockName": "浩鼎",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:03.977675"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:04.001557"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2633",
+    "stockName": "台灣高鐵",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:04.718203"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:04.737642"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2801",
+    "stockName": "彰銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:05.562481"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:05.586129"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2809",
+    "stockName": "京城銀",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:06.379585"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:06.426600"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "2880",
+    "stockName": "華南金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:07.237863"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:07.251924"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3034",
+    "stockName": "聯詠",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:08.859357"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:08.883283"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3045",
+    "stockName": "普萊德",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:09.913691"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:09.937171"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3481",
+    "stockName": "群創",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:10.666311"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:10.678992"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "3711",
+    "stockName": "日月光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:11.412179"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:11.427417"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "4904",
+    "stockName": "遠傳",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:12.214500"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:12.238037"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "5880",
+    "stockName": "合庫金",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:13.239718"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:13.259450"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "6505",
+    "stockName": "台塑化",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:14.906712"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:14.929842"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "8046",
+    "stockName": "南電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:15.632066"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:15.644295"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "9910",
+    "stockName": "豐泰",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:16.410154"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "9945",
+    "stockName": "潤泰全",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:16.421427"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "9945",
+    "stockName": "潤泰全",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:17.192763"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "0050",
+    "stockName": "元大台灣50",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:17.215808"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "0050",
+    "stockName": "元大台灣50",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:18.138441"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "0056",
+    "stockName": "元大高股息",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T19:48:18.161782"
+  },
+  {
+    "sessionId": 30,
+    "stockId": "0056",
+    "stockName": "元大高股息",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T19:48:20.080751"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:12:53.187704"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:12:54.463615"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:12:54.487090"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:12:55.278073"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:12:55.292875"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:12:56.136522"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:12:56.160870"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:12:56.914395"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:12:56.939240"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:12:58.694514"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:12:58.719526"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:12:59.458314"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:12:59.483685"
+  },
+  {
+    "sessionId": 31,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:13:02.437752"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:13:50.661594"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "2330",
+    "stockName": "台積電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:13:51.547784"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:13:51.559899"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "2454",
+    "stockName": "聯發科",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:13:52.252647"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:13:52.280406"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "3008",
+    "stockName": "大立光",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:13:52.895590"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:13:52.910772"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "2317",
+    "stockName": "鴻海",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:13:53.568928"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:13:53.589795"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "2412",
+    "stockName": "中華電",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:13:54.254405"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:13:54.278345"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "1101",
+    "stockName": "台泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:13:54.938438"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:13:54.960257"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "1102",
+    "stockName": "亞泥",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:13:55.630030"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:13:55.651274"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "1216",
+    "stockName": "統一",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:13:56.369838"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:13:56.391559"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "1301",
+    "stockName": "台塑",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:13:57.231964"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "scanning",
+    "signalType": null,
+    "message": "正在獲取數據...",
+    "timestamp": "2026-08-03T20:13:57.255784"
+  },
+  {
+    "sessionId": 32,
+    "stockId": "1303",
+    "stockName": "南亞",
+    "status": "failed",
+    "signalType": null,
+    "message": "數據不足（少於20天）",
+    "timestamp": "2026-08-03T20:13:58.132631"
   }
 ]

@@ -196,5 +196,159 @@
     "progress": 100,
     "id": 18,
     "scanDate": "2026-08-03T09:32:52.213Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T10:30:25.170Z",
+    "scanEndTime": null,
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 0,
+    "id": 19,
+    "scanDate": "2026-08-03T10:30:25.170Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T10:32:23.855Z",
+    "scanEndTime": "2026-08-03T10:32:45.751Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 100,
+    "id": 20,
+    "scanDate": "2026-08-03T10:32:23.855Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T10:38:22.742Z",
+    "scanEndTime": "2026-08-03T10:38:43.130Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 100,
+    "id": 21,
+    "scanDate": "2026-08-03T10:38:22.742Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T10:44:09.756Z",
+    "scanEndTime": "2026-08-03T10:44:29.611Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 100,
+    "id": 22,
+    "scanDate": "2026-08-03T10:44:09.756Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T10:45:44.972Z",
+    "scanEndTime": "2026-08-03T10:45:44.979Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": -1,
+    "id": 23,
+    "scanDate": "2026-08-03T10:45:44.972Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T10:45:48.943Z",
+    "scanEndTime": "2026-08-03T10:45:48.946Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": -1,
+    "id": 24,
+    "scanDate": "2026-08-03T10:45:48.943Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T10:45:50.019Z",
+    "scanEndTime": "2026-08-03T10:45:50.020Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": -1,
+    "id": 25,
+    "scanDate": "2026-08-03T10:45:50.019Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T10:45:50.841Z",
+    "scanEndTime": "2026-08-03T10:45:50.844Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": -1,
+    "id": 26,
+    "scanDate": "2026-08-03T10:45:50.841Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T10:46:47.143Z",
+    "scanEndTime": "2026-08-03T10:47:07.479Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 100,
+    "id": 27,
+    "scanDate": "2026-08-03T10:46:47.143Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T10:52:18.800Z",
+    "scanEndTime": null,
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 0,
+    "id": 28,
+    "scanDate": "2026-08-03T10:52:18.800Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T10:58:26.095Z",
+    "scanEndTime": null,
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 0,
+    "id": 29,
+    "scanDate": "2026-08-03T10:58:26.095Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T11:47:37.797Z",
+    "scanEndTime": "2026-08-03T11:48:20.253Z",
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 100,
+    "id": 30,
+    "scanDate": "2026-08-03T11:47:37.797Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T12:12:52.130Z",
+    "scanEndTime": null,
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 0,
+    "id": 31,
+    "scanDate": "2026-08-03T12:12:52.130Z"
+  },
+  {
+    "scanStartTime": "2026-08-03T12:13:49.809Z",
+    "scanEndTime": null,
+    "totalScannedStocks": 0,
+    "recommendationCount": 0,
+    "scanParameters": "{\"scan_limit\":100,\"start_date_str\":\"2026-07-03\",\"end_date_str\":\"2026-08-03\",\"signal_filter\":[]}",
+    "userId": null,
+    "progress": 0,
+    "id": 32,
+    "scanDate": "2026-08-03T12:13:49.809Z"
   }
 ]
