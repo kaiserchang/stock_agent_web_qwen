@@ -167,6 +167,7 @@ class TaiwanStockDataFetcher:
             
             # 使用 yfinance 獲取數據，包含重試機制
             df = pd.DataFrame()
+            yfinance_error = None
             for attempt in range(1, 5):
                 try:
                     df = yf.download(
@@ -179,17 +180,27 @@ class TaiwanStockDataFetcher:
                     )
                     if not df.empty and len(df) > 0:
                         break
+                    logger.warning(f"Attempt {attempt} returned empty DataFrame for {ticker}")
                 except Exception as e:
+                    yfinance_error = e
                     logger.warning(f"Attempt {attempt} failed for {ticker}: {e}")
                     time.sleep(2 * attempt)
-            
+
             if df.empty or len(df) == 0:
-                logger.warning(f"No data fetched for {stock_id} from Yahoo, switching to TWSE fallback")
+                if yfinance_error is not None:
+                    logger.warning(
+                        f"No data fetched for {stock_id} from Yahoo, switching to TWSE fallback; "
+                        f"last yfinance exception: {type(yfinance_error).__name__}: {yfinance_error}"
+                    )
+                else:
+                    logger.warning(
+                        f"No data fetched for {stock_id} from Yahoo (empty result), switching to TWSE fallback"
+                    )
                 df = self.get_stock_daily_data_twse(stock_id, start_date, end_date)
                 if df.empty or len(df) == 0:
                     logger.warning(f"No fallback data fetched for {stock_id}")
                     return pd.DataFrame()
-            
+
             # 標準化列名
             # 况一：yfinance 返回 MultiIndex 列名
             if isinstance(df.columns, pd.MultiIndex):
