@@ -44,8 +44,7 @@ class TaiwanStockDataFetcher:
             records = []
             current = datetime(start_dt.year, start_dt.month, 1)
             while current <= end_dt:
-                roc_year = current.year - 1911
-                query_date = f'{roc_year}{current.month:02d}01'
+                query_date = current.strftime('%Y%m%d')
                 url = f'https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date={query_date}&stockNo={stock_id}'
                 response = session.get(url, timeout=15)
                 logger.info(f'TWSE fallback URL={url} status={response.status_code}')
@@ -69,24 +68,28 @@ class TaiwanStockDataFetcher:
                         continue
                     if row_date < start_dt or row_date > end_dt:
                         continue
+
+                    open_price = pd.to_numeric(str(row[3]).replace(',', ''), errors='coerce')
+                    high_price = pd.to_numeric(str(row[4]).replace(',', ''), errors='coerce')
+                    low_price = pd.to_numeric(str(row[5]).replace(',', ''), errors='coerce')
+                    close_price = pd.to_numeric(str(row[6]).replace(',', ''), errors='coerce')
+                    volume = pd.to_numeric(str(row[1]).replace(',', ''), errors='coerce')
+                    if any(pd.isna(val) for val in [open_price, high_price, low_price, close_price, volume]):
+                        continue
                     records.append({
                         'Date': row_date,
-                        'Open': pd.to_numeric(str(row[3]).replace(',', ''), errors='coerce'),
-                        'High': pd.to_numeric(str(row[4]).replace(',', ''), errors='coerce'),
-                        'Low': pd.to_numeric(str(row[5]).replace(',', ''), errors='coerce'),
-                        'Close': pd.to_numeric(str(row[6]).replace(',', ''), errors='coerce'),
-                        'Volume': pd.to_numeric(str(row[1]).replace(',', ''), errors='coerce'),
+                        'Open': open_price,
+                        'High': high_price,
+                        'Low': low_price,
+                        'Close': close_price,
+                        'Volume': volume,
                     })
 
                 current = (current + timedelta(days=32)).replace(day=1)
-
-            if not records:
-                logger.warning(f'No TWSE data fetched for {stock_id}')
-                return pd.DataFrame()
-
-            df = pd.DataFrame(records).dropna()
-            if df.empty or len(df) < 20:
-                logger.warning(f'Insufficient TWSE data for {stock_id}: {len(df)} rows (need 20)')
+            df = pd.DataFrame(records)
+            df = df.dropna(subset=['Open', 'High', 'Low', 'Close', 'Volume'])
+            if df.empty:
+                logger.warning(f'All TWSE data rows for {stock_id} contained invalid OHLCV values')
                 return pd.DataFrame()
 
             df = df.sort_values('Date').set_index('Date')

@@ -32,8 +32,9 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
-  // Enable CORS for all routes
-  app.use(cors());
+  // Enable CORS for all routes and allow credentialed requests from the browser.
+  // If frontend and backend are served from different origins, this is required for cookies.
+  app.use(cors({ origin: true, credentials: true }));
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
