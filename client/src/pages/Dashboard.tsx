@@ -63,7 +63,7 @@ export default function Dashboard() {
     if (getScanProgressQuery.data) {
       const progress = getScanProgressQuery.data.progress;
       setScanProgress(progress);
-      
+
       if (getScanProgressQuery.data.status === "completed" || getScanProgressQuery.data.status === "failed") {
         setIsScanning(false);
         // 掃描完成，重新查詢最新結果
@@ -143,7 +143,7 @@ export default function Dashboard() {
         const params = JSON.parse(stored);
         console.log("侞 localStorage 讀取掃描參數:", params);
         return {
-          scanLimit: params.scanLimit && params.scanLimit > 0 ? params.scanLimit : 100,
+          scanLimit: params.scanLimit && params.scanLimit > 0 ? params.scanLimit : 500,
           startDate: params.startDate || getDefaultStartDate(),
           endDate: params.endDate || new Date().toISOString().split('T')[0],
           signalFilter: params.signalFilter || [],
@@ -153,7 +153,7 @@ export default function Dashboard() {
       }
     }
     return {
-      scanLimit: 100,
+      scanLimit: 500,
       startDate: getDefaultStartDate(),
       endDate: new Date().toISOString().split('T')[0],
       signalFilter: [],
@@ -400,22 +400,21 @@ export default function Dashboard() {
                         <TableCell>
                           <Badge
                             variant="outline"
-                            className={`${
-                              result.signalType === "攻擊K線"
+                            className={`${result.signalType === "攻擊K線"
                                 ? "bg-red-100 text-red-700 border-red-300"
                                 : result.signalType === "多頭吞噬"
-                                ? "bg-green-100 text-green-700 border-green-300"
-                                : result.signalType === "黑K吞噬"
-                                ? "bg-yellow-100 text-yellow-700 border-yellow-300"
-                                : "bg-blue-100 text-blue-700 border-blue-300"
-                            }`}
+                                  ? "bg-green-100 text-green-700 border-green-300"
+                                  : result.signalType === "黑K吞噬"
+                                    ? "bg-yellow-100 text-yellow-700 border-yellow-300"
+                                    : "bg-blue-100 text-blue-700 border-blue-300"
+                              }`}
                           >
                             {result.signalType}
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          <RecommendationBadge 
-                            score={result.recommendationScore || 0} 
+                          <RecommendationBadge
+                            score={result.recommendationScore || 0}
                             signalType={result.signalType}
                           />
                         </TableCell>

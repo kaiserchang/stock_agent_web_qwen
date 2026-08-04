@@ -142,12 +142,12 @@ export function getScanSessions(userId: number | null): ScanSession[] {
 export function insertScanResult(result: Omit<ScanResult, "id">): number {
   initializeFiles();
   const results = readJSON(RESULTS_FILE) as any[];
-  
+
   // 保留最新 120 筆
   if (results.length >= 120) {
     results.shift();
   }
-  
+
   const newId = results.length > 0 ? Math.max(...results.map(r => r.id)) + 1 : 1;
   const newResult = {
     ...result,
@@ -175,12 +175,12 @@ export function getScanResultsBySessionId(sessionId: number): ScanResult[] {
 export function insertScanLog(log: Omit<ScanLog, "id">): number {
   initializeFiles();
   const logs = readJSON(LOGS_FILE) as any[];
-  
+
   // 保留最新 1000 筆日誌
   if (logs.length >= 1000) {
     logs.shift();
   }
-  
+
   const newId = logs.length > 0 ? Math.max(...logs.map(l => l.id)) + 1 : 1;
   const newLog = {
     ...log,
@@ -256,8 +256,9 @@ function writeJSONObject(filePath: string, data: any) {
 export function getScanSettings(): ScanSettings {
   initializeFiles();
   const settings = readJSONObject(SETTINGS_FILE);
+  const normalizedScanLimit = settings.scanLimit && settings.scanLimit > 0 ? Math.min(settings.scanLimit, 500) : 500;
   return {
-    scanLimit: settings.scanLimit || 50,
+    scanLimit: normalizedScanLimit,
     startDate: settings.startDate || "",
     endDate: settings.endDate || "",
     signalFilter: settings.signalFilter || ["攻擊K線", "多頭吞噬", "黑K吞噬", "內困型態"],

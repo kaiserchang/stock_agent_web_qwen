@@ -36,64 +36,64 @@ interface EnhancedKlineData extends KlineData {
 // 技術指標計算函數
 const calculateRSI = (data: KlineData[], period: number = 14): (number | undefined)[] => {
   const rsi: (number | undefined)[] = [];
-  
+
   for (let i = 0; i < data.length; i++) {
     if (i < period) {
       rsi.push(undefined);
       continue;
     }
-    
+
     let gains = 0;
     let losses = 0;
-    
+
     for (let j = i - period + 1; j <= i; j++) {
       const change = data[j].close - data[j - 1].close;
       if (change > 0) gains += change;
       else losses += Math.abs(change);
     }
-    
+
     const avgGain = gains / period;
     const avgLoss = losses / period;
     const rs = avgGain / avgLoss;
     const rsiValue = 100 - (100 / (1 + rs));
     rsi.push(rsiValue);
   }
-  
+
   return rsi;
 };
 
 const calculateMACD = (data: KlineData[]): { macd: (number | undefined)[]; signal: (number | undefined)[]; histogram: (number | undefined)[] } => {
   const ema12 = calculateEMA(data.map(d => d.close), 12);
   const ema26 = calculateEMA(data.map(d => d.close), 26);
-  
+
   const macd = ema12.map((v, i) => v !== undefined && ema26[i] !== undefined ? v - ema26[i] : undefined);
   const signal = calculateEMA(macd.filter(v => v !== undefined) as number[], 9);
-  
+
   const histogram = macd.map((v, i) => {
     if (v === undefined || signal[i] === undefined) return undefined;
     return v - signal[i];
   });
-  
+
   return { macd, signal, histogram };
 };
 
 const calculateEMA = (data: number[], period: number): (number | undefined)[] => {
   const ema: (number | undefined)[] = [];
   const multiplier = 2 / (period + 1);
-  
+
   let sum = 0;
   for (let i = 0; i < Math.min(period, data.length); i++) {
     sum += data[i];
   }
-  
+
   const sma = sum / Math.min(period, data.length);
   ema[period - 1] = sma;
-  
+
   for (let i = period; i < data.length; i++) {
     const emaValue = (data[i] - (ema[i - 1] || 0)) * multiplier + (ema[i - 1] || 0);
     ema[i] = emaValue;
   }
-  
+
   return ema;
 };
 
@@ -101,24 +101,24 @@ const calculateBollingerBands = (data: KlineData[], period: number = 20, stdDev:
   const middle = calculateMA(data, period);
   const upper: (number | undefined)[] = [];
   const lower: (number | undefined)[] = [];
-  
+
   for (let i = 0; i < data.length; i++) {
     if (i < period - 1 || middle[i] === undefined) {
       upper.push(undefined);
       lower.push(undefined);
       continue;
     }
-    
+
     let variance = 0;
     for (let j = i - period + 1; j <= i; j++) {
       variance += Math.pow(data[j].close - (middle[i] || 0), 2);
     }
-    
+
     const std = Math.sqrt(variance / period);
     upper.push((middle[i] || 0) + stdDev * std);
     lower.push((middle[i] || 0) - stdDev * std);
   }
-  
+
   return { upper, middle, lower };
 };
 
@@ -138,7 +138,12 @@ export default function KlineChart() {
     endDate: "",
   });
   const [hoveredData, setHoveredData] = useState<EnhancedKlineData | null>(null);
+  const [hoveredCandle, setHoveredCandle] = useState<KlineData | null>(null);
   const [period, setPeriod] = useState<"1d" | "1w" | "1m">("1d"); // 週期切換
+
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
   const [showRSI, setShowRSI] = useState(true);
   const [showMACD, setShowMACD] = useState(true);
   const [showBB, setShowBB] = useState(true);
@@ -147,7 +152,7 @@ export default function KlineChart() {
   useEffect(() => {
     const today = new Date();
     let startDate: Date;
-    
+
     switch (period) {
       case "1w":
         startDate = new Date(today.getTime() - 365 * 24 * 60 * 60 * 1000); // 1年
@@ -158,10 +163,10 @@ export default function KlineChart() {
       default:
         startDate = new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000); // 90天
     }
-    
+
     const startDateStr = startDate.toISOString().split("T")[0];
     const endDateStr = today.toISOString().split("T")[0];
-    
+
     setDateRange({ startDate: startDateStr, endDate: endDateStr });
   }, [period]);
 
@@ -192,20 +197,27 @@ export default function KlineChart() {
           signal: kline.Signal || kline.signal || null,
         }));
         setKlineData(formattedData);
+        setHoveredCandle(formattedData[formattedData.length - 1] || null);
       }
     }
   }, [getKlineDataQuery.data]);
 
+  useEffect(() => {
+    if (klineData.length > 0) {
+      setHoveredCandle(klineData[klineData.length - 1]);
+    }
+  }, [klineData]);
+
   // 計算技術指標
   const enhancedData = useMemo(() => {
     if (klineData.length === 0) return [];
-    
+
     const ma20 = calculateMA(klineData, 20);
     const ma60 = calculateMA(klineData, 60);
     const rsi = calculateRSI(klineData, 14);
     const { macd, signal, histogram } = calculateMACD(klineData);
     const { upper, middle, lower } = calculateBollingerBands(klineData, 20, 2);
-    
+
     return klineData.map((item, index) => ({
       ...item,
       ma20: ma20[index],
@@ -283,7 +295,7 @@ export default function KlineChart() {
                   {klineData.length > 0 && <span className="ml-2 text-xs text-slate-400">已加載 {klineData.length} 筆數據</span>}
                 </CardDescription>
               </div>
-              
+
               {/* 週期切換按鈕 */}
               <div className="flex gap-2">
                 <Button
@@ -345,12 +357,18 @@ export default function KlineChart() {
                   </div>
                 )}
 
-                {/* 技術指標切換 */}
+                {/* 區塊導覽 */}
                 <div className="flex gap-2 flex-wrap">
+                  <Button variant="outline" size="sm" onClick={() => scrollToSection("candle-chart-section")}>K 線蠟燭圖</Button>
+                  <Button variant="outline" size="sm" onClick={() => scrollToSection("hover-info-section")}>懸停資訊</Button>
+                  <Button variant="outline" size="sm" onClick={() => scrollToSection("volume-chart-section")}>成交量圖</Button>
                   <Button
                     variant={showRSI ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setShowRSI(!showRSI)}
+                    onClick={() => {
+                      setShowRSI(!showRSI);
+                      scrollToSection("rsi-section");
+                    }}
                     className={showRSI ? "bg-purple-600" : ""}
                   >
                     RSI
@@ -358,7 +376,10 @@ export default function KlineChart() {
                   <Button
                     variant={showMACD ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setShowMACD(!showMACD)}
+                    onClick={() => {
+                      setShowMACD(!showMACD);
+                      scrollToSection("macd-section");
+                    }}
                     className={showMACD ? "bg-orange-600" : ""}
                   >
                     MACD
@@ -366,242 +387,256 @@ export default function KlineChart() {
                   <Button
                     variant={showBB ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setShowBB(!showBB)}
+                    onClick={() => {
+                      setShowBB(!showBB);
+                      scrollToSection("bb-section");
+                    }}
                     className={showBB ? "bg-green-600" : ""}
                   >
                     布林帶
                   </Button>
                 </div>
 
-                {/* 技術指標面板 */}
-                {showRSI && <TechnicalIndicatorPanel data={enhancedData} showRSI={true} />}
-                {showMACD && <TechnicalIndicatorPanel data={enhancedData} showMACD={true} />}
-                {showBB && <TechnicalIndicatorPanel data={enhancedData} showBB={true} />}
-
                 {/* 蠟燭圖 */}
-                <div className="bg-slate-800 rounded-lg border border-slate-700 p-4">
+                <div id="candle-chart-section" className="bg-slate-800 rounded-lg border border-slate-700 p-4">
                   <h3 className="text-sm font-semibold text-amber-400 mb-4">OHLC 蠟燭圖</h3>
                   <div className="w-full overflow-x-auto">
-                    <CandleStickRenderer 
-                      data={klineData} 
-                      width={Math.max(800, klineData.length * 15)} 
+                    <CandleStickRenderer
+                      data={klineData}
+                      width={Math.max(800, klineData.length * 15)}
                       height={400}
+                      onHover={(candle) => setHoveredCandle(candle)}
                     />
                   </div>
                   <p className="text-xs text-slate-400 mt-2">紅色表示上漲（收盤 &gt; 開盤），綠色表示下跌（收盤 &lt; 開盤）</p>
                 </div>
 
-                {/* K 線圖表 */}
-                <ResponsiveContainer width="100%" height={500}>
-                  <ComposedChart 
-                    data={enhancedData} 
-                    margin={{ top: 20, right: 30, left: 0, bottom: 60 }}
-                    onMouseMove={(state: any) => {
-                      if (state && state.isTooltipActive && state.activeTooltipIndex !== undefined) {
-                        const data = enhancedData[state.activeTooltipIndex];
-                        if (data) setHoveredData(data);
-                      }
-                    }}
-                    onMouseLeave={() => setHoveredData(null)}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
-                    <XAxis
-                      dataKey="date"
-                      tick={{ fontSize: 12, fill: '#cbd5e1' }}
-                      interval={Math.max(0, Math.floor(enhancedData.length / 15))}
-                      angle={-45}
-                      textAnchor="end"
-                      height={80}
-                    />
-                    <YAxis
-                      yAxisId="left"
-                      tick={{ fontSize: 12, fill: '#cbd5e1' }}
-                      label={{ value: "股價 (NT$)", angle: -90, position: "insideLeft", fill: '#cbd5e1' }}
-                    />
-                    <YAxis
-                      yAxisId="right"
-                      orientation="right"
-                      tick={{ fontSize: 12, fill: '#cbd5e1' }}
-                      label={{ value: "成交量", angle: 90, position: "insideRight", fill: '#cbd5e1' }}
-                    />
-                    <Tooltip 
-                      content={<CustomTooltip />}
-                      cursor={{ fill: 'rgba(59, 130, 246, 0.1)' }}
-                    />
-                    <Legend />
-
-                    {/* 成交量 */}
-                    <Bar
-                      yAxisId="right"
-                      dataKey="volume"
-                      fill="#cbd5e1"
-                      name="成交量"
-                      opacity={0.4}
-                    />
-
-                    {/* 收盤價線（K線表示） */}
-                    <Line
-                      yAxisId="left"
-                      type="monotone"
-                      dataKey="close"
-                      stroke="#3b82f6"
-                      dot={false}
-                      name="收盤價"
-                      strokeWidth={2}
-                      isAnimationActive={false}
-                    />
-
-                    {/* 20日均線 */}
-                    <Line
-                      yAxisId="left"
-                      type="monotone"
-                      dataKey="ma20"
-                      stroke="#eab308"
-                      dot={false}
-                      name="20日均線"
-                      strokeWidth={1.5}
-                      strokeDasharray="5 5"
-                    />
-
-                    {/* 60日均線 */}
-                    <Line
-                      yAxisId="left"
-                      type="monotone"
-                      dataKey="ma60"
-                      stroke="#ef4444"
-                      dot={false}
-                      name="60日均線"
-                      strokeWidth={1.5}
-                      strokeDasharray="5 5"
-                    />
-
-                    {/* 布林帶 */}
-                    {showBB && (
-                      <>
-                        <Line
-                          yAxisId="left"
-                          type="monotone"
-                          dataKey="bbUpper"
-                          stroke="#10b981"
-                          dot={false}
-                          name="布林帶上軌"
-                          strokeWidth={1}
-                          strokeDasharray="2 2"
-                          isAnimationActive={false}
-                        />
-                        <Line
-                          yAxisId="left"
-                          type="monotone"
-                          dataKey="bbMiddle"
-                          stroke="#06b6d4"
-                          dot={false}
-                          name="布林帶中軌"
-                          strokeWidth={1}
-                          strokeDasharray="2 2"
-                          isAnimationActive={false}
-                        />
-                        <Line
-                          yAxisId="left"
-                          type="monotone"
-                          dataKey="bbLower"
-                          stroke="#f59e0b"
-                          dot={false}
-                          name="布林帶下軌"
-                          strokeWidth={1}
-                          strokeDasharray="2 2"
-                          isAnimationActive={false}
-                        />
-                      </>
-                    )}
-
-                    {/* 買進訊號 */}
-                    {enhancedData.map((item, index) => {
-                      if (item.signal === '買進訊號') {
-                        return (
-                          <ReferenceDot
-                            key={`buy-${index}`}
-                            x={item.date}
-                            y={item.low}
-                            r={6}
-                            fill="#22c55e"
-                            stroke="#16a34a"
-                            strokeWidth={2}
-                          >
-                            <Label value="↑ 買" position="top" fill="#22c55e" fontSize={12} fontWeight="bold" />
-                          </ReferenceDot>
-                        );
-                      }
-                      return null;
-                    })}
-
-                    {/* 賣出訊號 */}
-                    {enhancedData.map((item, index) => {
-                      if (item.signal === '賣出訊號') {
-                        return (
-                          <ReferenceDot
-                            key={`sell-${index}`}
-                            x={item.date}
-                            y={item.high}
-                            r={6}
-                            fill="#ef4444"
-                            stroke="#dc2626"
-                            strokeWidth={2}
-                          >
-                            <Label value="↓ 賣" position="top" fill="#ef4444" fontSize={12} fontWeight="bold" />
-                          </ReferenceDot>
-                        );
-                      }
-                      return null;
-                    })}
-                  </ComposedChart>
-                </ResponsiveContainer>
-
-                {/* 懸停信息 */}
-                {hoveredData && (
-                  <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
-                    <p className="text-sm font-semibold text-amber-400 mb-2">詳細信息：{hoveredData.date}</p>
+                {hoveredCandle && (
+                  <div id="hover-info-section" className="bg-slate-700 border border-slate-600 rounded-lg p-4">
+                    <p className="text-sm font-semibold text-amber-400 mb-2">蠟燭圖懸停資訊</p>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
+                        <p className="text-slate-400">日期</p>
+                        <p className="text-cyan-300 font-semibold">{hoveredCandle.date}</p>
+                      </div>
+                      <div>
                         <p className="text-slate-400">開盤價</p>
-                        <p className="text-cyan-300 font-semibold">NT${hoveredData.open.toFixed(2)}</p>
+                        <p className="text-cyan-300 font-semibold">NT${hoveredCandle.open.toFixed(2)}</p>
                       </div>
                       <div>
                         <p className="text-slate-400">收盤價</p>
-                        <p className="text-cyan-300 font-semibold">NT${hoveredData.close.toFixed(2)}</p>
+                        <p className="text-cyan-300 font-semibold">NT${hoveredCandle.close.toFixed(2)}</p>
                       </div>
                       <div>
                         <p className="text-slate-400">最高價</p>
-                        <p className="text-cyan-300 font-semibold">NT${hoveredData.high.toFixed(2)}</p>
+                        <p className="text-cyan-300 font-semibold">NT${hoveredCandle.high.toFixed(2)}</p>
                       </div>
                       <div>
                         <p className="text-slate-400">最低價</p>
-                        <p className="text-cyan-300 font-semibold">NT${hoveredData.low.toFixed(2)}</p>
+                        <p className="text-cyan-300 font-semibold">NT${hoveredCandle.low.toFixed(2)}</p>
                       </div>
                       <div>
                         <p className="text-slate-400">成交量</p>
-                        <p className="text-cyan-300 font-semibold">{(hoveredData.volume / 1000000).toFixed(2)}M</p>
+                        <p className="text-cyan-300 font-semibold">{(hoveredCandle.volume / 1000000).toFixed(2)}M</p>
                       </div>
                       <div>
-                        <p className="text-slate-400">漲跌</p>
-                        <p className={hoveredData.close >= hoveredData.open ? "text-red-400 font-semibold" : "text-green-400 font-semibold"}>
-                          {(hoveredData.close - hoveredData.open).toFixed(2)} ({((hoveredData.close - hoveredData.open) / hoveredData.open * 100).toFixed(2)}%)
+                        <p className="text-slate-400">漲跌幅</p>
+                        <p className={hoveredCandle.close >= hoveredCandle.open ? "text-red-400 font-semibold" : "text-green-400 font-semibold"}>
+                          {((hoveredCandle.close - hoveredCandle.open) / hoveredCandle.open * 100).toFixed(2)}%
                         </p>
                       </div>
-                      {hoveredData.rsi && (
-                        <div>
-                          <p className="text-slate-400">RSI(14)</p>
-                          <p className="text-purple-300 font-semibold">{hoveredData.rsi.toFixed(2)}</p>
-                        </div>
-                      )}
-                      {hoveredData.macd && (
-                        <div>
-                          <p className="text-slate-400">MACD</p>
-                          <p className="text-orange-300 font-semibold">{hoveredData.macd.toFixed(4)}</p>
-                        </div>
-                      )}
+                      <div>
+                        <p className="text-slate-400">技術訊號</p>
+                        <p className="text-cyan-300 font-semibold">{hoveredCandle.signal || "無"}</p>
+                      </div>
                     </div>
                   </div>
                 )}
+
+                {/* 成交量圖 */}
+                <div id="volume-chart-section" className="bg-slate-800 rounded-lg border border-slate-700 p-4">
+                  <h3 className="text-sm font-semibold text-amber-400 mb-4">成交量圖</h3>
+                  <ResponsiveContainer width="100%" height={500}>
+                    <ComposedChart
+                      data={enhancedData}
+                      margin={{ top: 20, right: 30, left: 0, bottom: 60 }}
+                      onMouseMove={(state: any) => {
+                        if (state && state.isTooltipActive && state.activeTooltipIndex !== undefined) {
+                          const data = enhancedData[state.activeTooltipIndex];
+                          if (data) setHoveredData(data);
+                        }
+                      }}
+                      onMouseLeave={() => setHoveredData(null)}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
+                      <XAxis
+                        dataKey="date"
+                        tick={{ fontSize: 12, fill: '#cbd5e1' }}
+                        interval={Math.max(0, Math.floor(enhancedData.length / 15))}
+                        angle={-45}
+                        textAnchor="end"
+                        height={80}
+                      />
+                      <YAxis
+                        yAxisId="left"
+                        tick={{ fontSize: 12, fill: '#cbd5e1' }}
+                        label={{ value: "股價 (NT$)", angle: -90, position: "insideLeft", fill: '#cbd5e1' }}
+                      />
+                      <YAxis
+                        yAxisId="right"
+                        orientation="right"
+                        tick={{ fontSize: 12, fill: '#cbd5e1' }}
+                        label={{ value: "成交量", angle: 90, position: "insideRight", fill: '#cbd5e1' }}
+                      />
+                      <Tooltip
+                        content={<CustomTooltip />}
+                        cursor={{ fill: 'rgba(59, 130, 246, 0.1)' }}
+                      />
+                      <Legend />
+
+                      {/* 成交量 */}
+                      <Bar
+                        yAxisId="right"
+                        dataKey="volume"
+                        fill="#cbd5e1"
+                        name="成交量"
+                        opacity={0.4}
+                      />
+
+                      {/* 收盤價線（K線表示） */}
+                      <Line
+                        yAxisId="left"
+                        type="monotone"
+                        dataKey="close"
+                        stroke="#3b82f6"
+                        dot={false}
+                        name="收盤價"
+                        strokeWidth={2}
+                        isAnimationActive={false}
+                      />
+
+                      {/* 20日均線 */}
+                      <Line
+                        yAxisId="left"
+                        type="monotone"
+                        dataKey="ma20"
+                        stroke="#eab308"
+                        dot={false}
+                        name="20日均線"
+                        strokeWidth={1.5}
+                        strokeDasharray="5 5"
+                      />
+
+                      {/* 60日均線 */}
+                      <Line
+                        yAxisId="left"
+                        type="monotone"
+                        dataKey="ma60"
+                        stroke="#ef4444"
+                        dot={false}
+                        name="60日均線"
+                        strokeWidth={1.5}
+                        strokeDasharray="5 5"
+                      />
+
+                      {/* 布林帶 */}
+                      {showBB && (
+                        <>
+                          <Line
+                            yAxisId="left"
+                            type="monotone"
+                            dataKey="bbUpper"
+                            stroke="#10b981"
+                            dot={false}
+                            name="布林帶上軌"
+                            strokeWidth={1}
+                            strokeDasharray="2 2"
+                            isAnimationActive={false}
+                          />
+                          <Line
+                            yAxisId="left"
+                            type="monotone"
+                            dataKey="bbMiddle"
+                            stroke="#06b6d4"
+                            dot={false}
+                            name="布林帶中軌"
+                            strokeWidth={1}
+                            strokeDasharray="2 2"
+                            isAnimationActive={false}
+                          />
+                          <Line
+                            yAxisId="left"
+                            type="monotone"
+                            dataKey="bbLower"
+                            stroke="#f59e0b"
+                            dot={false}
+                            name="布林帶下軌"
+                            strokeWidth={1}
+                            strokeDasharray="2 2"
+                            isAnimationActive={false}
+                          />
+                        </>
+                      )}
+
+                      {/* 買進訊號 */}
+                      {enhancedData.map((item, index) => {
+                        if (item.signal === '買進訊號') {
+                          return (
+                            <ReferenceDot
+                              key={`buy-${index}`}
+                              x={item.date}
+                              y={item.low}
+                              r={6}
+                              fill="#22c55e"
+                              stroke="#16a34a"
+                              strokeWidth={2}
+                            >
+                              <Label value="↑ 買" position="top" fill="#22c55e" fontSize={12} fontWeight="bold" />
+                            </ReferenceDot>
+                          );
+                        }
+                        return null;
+                      })}
+
+                      {/* 賣出訊號 */}
+                      {enhancedData.map((item, index) => {
+                        if (item.signal === '賣出訊號') {
+                          return (
+                            <ReferenceDot
+                              key={`sell-${index}`}
+                              x={item.date}
+                              y={item.high}
+                              r={6}
+                              fill="#ef4444"
+                              stroke="#dc2626"
+                              strokeWidth={2}
+                            >
+                              <Label value="↓ 賣" position="top" fill="#ef4444" fontSize={12} fontWeight="bold" />
+                            </ReferenceDot>
+                          );
+                        }
+                        return null;
+                      })}
+                    </ComposedChart>
+                  </ResponsiveContainer>
+
+                  {/* 技術指標面板 */}
+                  {showRSI && (
+                    <div id="rsi-section" className="space-y-3">
+                      <TechnicalIndicatorPanel data={enhancedData} showRSI={true} />
+                    </div>
+                  )}
+                  {showMACD && (
+                    <div id="macd-section" className="space-y-3">
+                      <TechnicalIndicatorPanel data={enhancedData} showMACD={true} />
+                    </div>
+                  )}
+                  {showBB && (
+                    <div id="bb-section" className="space-y-3">
+                      <TechnicalIndicatorPanel data={enhancedData} showBB={true} />
+                    </div>
+                  )}
+                </div>
               </>
             )}
           </CardContent>

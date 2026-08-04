@@ -14,6 +14,7 @@ interface CandleStickRendererProps {
   width: number;
   height: number;
   margin?: { top: number; right: number; bottom: number; left: number };
+  onHover?: (candle: CandleData | null, index: number | null) => void;
 }
 
 /**
@@ -26,6 +27,7 @@ export const CandleStickRenderer: React.FC<CandleStickRendererProps> = ({
   width,
   height,
   margin = { top: 20, right: 30, bottom: 60, left: 60 },
+  onHover,
 }) => {
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;
@@ -66,7 +68,13 @@ export const CandleStickRenderer: React.FC<CandleStickRendererProps> = ({
     const bodyHeight = Math.abs(yClose - yOpen) || 1;
 
     return (
-      <g key={`candle-${index}`}>
+      <g
+        key={`candle-${index}`}
+        onMouseEnter={() => onHover?.(candle, index)}
+        onMouseMove={() => onHover?.(candle, index)}
+        onMouseLeave={() => onHover?.(null, null)}
+        style={{ cursor: 'crosshair' }}
+      >
         {/* 上下影線 */}
         <line
           x1={x}

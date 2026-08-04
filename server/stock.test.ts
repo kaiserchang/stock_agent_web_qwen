@@ -1,4 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
+import { existsSync, unlinkSync } from "fs";
+import { join } from "path";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
 
@@ -36,6 +38,12 @@ function createAuthContext(): { ctx: TrpcContext; clearedCookies: any[] } {
 }
 
 describe("stock router", () => {
+  beforeEach(() => {
+    const settingsFile = join(process.cwd(), "data", "scan_settings.json");
+    if (existsSync(settingsFile)) {
+      unlinkSync(settingsFile);
+    }
+  });
   describe("getScanSettings", () => {
     it("should return default scan settings for authenticated user", async () => {
       const { ctx } = createAuthContext();
@@ -44,10 +52,11 @@ describe("stock router", () => {
       const result = await caller.stock.getScanSettings();
 
       expect(result).toEqual({
-        scanLimit: 50,
+        scanLimit: 500,
         startDate: "",
         endDate: "",
         signalFilter: ["攻擊K線", "多頭吞噬", "黑K吞噬", "內困型態"],
+        stockList: ["2330", "2454", "3008", "1590", "2357"],
       });
     });
 
@@ -61,10 +70,11 @@ describe("stock router", () => {
 
       const result = await caller.stock.getScanSettings();
       expect(result).toEqual({
-        scanLimit: 50,
+        scanLimit: 500,
         startDate: "",
         endDate: "",
         signalFilter: ["攻擊K線", "多頭吞噬", "黑K吞噬", "內困型態"],
+        stockList: ["2330", "2454", "3008", "1590", "2357"],
       });
     });
   });

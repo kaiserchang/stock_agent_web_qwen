@@ -119,31 +119,31 @@ export default function SignalExplanation({ open, onOpenChange }: SignalExplanat
 
           {signals.map((signal) => (
             <TabsContent key={signal.id} value={signal.id} className="space-y-4">
-              <Card className={signal.bgColor}>
+              <Card className={`border-slate-700 bg-slate-900/90 ${signal.bgColor}`}>
                 <CardHeader>
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{signal.emoji}</span>
                     <div>
-                      <CardTitle className={signal.color}>{signal.name}</CardTitle>
-                      <CardDescription>{signal.strength}</CardDescription>
+                      <CardTitle className={`${signal.color} text-cyan-300`}>{signal.name}</CardTitle>
+                      <CardDescription className="text-slate-300">{signal.strength}</CardDescription>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {/* 定義 */}
                   <div>
-                    <h4 className="font-semibold mb-2">📌 定義</h4>
-                    <p className="text-sm text-slate-700">{signal.definition}</p>
+                    <h4 className="font-semibold mb-2 text-cyan-300">📌 定義</h4>
+                    <p className="text-sm text-slate-200">{signal.definition}</p>
                   </div>
 
                   {/* 識別條件 */}
                   <div>
-                    <h4 className="font-semibold mb-2">🔍 識別條件</h4>
+                    <h4 className="font-semibold mb-2 text-cyan-300">🔍 識別條件</h4>
                     <ul className="space-y-1 text-sm">
                       {signal.conditions.map((condition, idx) => (
                         <li key={idx} className="flex items-start gap-2">
-                          <span className="text-slate-400 mt-1">•</span>
-                          <span className="text-slate-700">{condition}</span>
+                          <span className="text-cyan-400 mt-1">•</span>
+                          <span className="text-slate-200">{condition}</span>
                         </li>
                       ))}
                     </ul>
@@ -151,10 +151,10 @@ export default function SignalExplanation({ open, onOpenChange }: SignalExplanat
 
                   {/* 投資意義 */}
                   <div>
-                    <h4 className="font-semibold mb-2">💡 投資意義</h4>
+                    <h4 className="font-semibold mb-2 text-cyan-300">💡 投資意義</h4>
                     <div className="flex flex-wrap gap-2">
                       {signal.meaning.map((meaning, idx) => (
-                        <Badge key={idx} variant="outline" className="text-xs">
+                        <Badge key={idx} variant="outline" className="text-xs border-cyan-500/40 bg-cyan-500/10 text-cyan-200">
                           {meaning}
                         </Badge>
                       ))}
@@ -162,9 +162,9 @@ export default function SignalExplanation({ open, onOpenChange }: SignalExplanat
                   </div>
 
                   {/* 實戰建議 */}
-                  <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-200">
-                    <h4 className="font-semibold mb-2 text-sm text-slate-200">💼 實戰建議</h4>
-                    <p className="text-sm text-slate-300">{signal.suggestion}</p>
+                  <div className="bg-slate-800/70 p-3 rounded-lg border border-cyan-500/30">
+                    <h4 className="font-semibold mb-2 text-sm text-cyan-300">💼 實戰建議</h4>
+                    <p className="text-sm text-slate-200">{signal.suggestion}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -173,23 +173,23 @@ export default function SignalExplanation({ open, onOpenChange }: SignalExplanat
         </Tabs>
 
         {/* 季線說明 */}
-        <Card className="bg-slate-50 border-slate-200">
+        <Card className="bg-slate-900/90 border-slate-700">
           <CardHeader>
-            <CardTitle className="text-lg">📊 季線位置判斷</CardTitle>
+            <CardTitle className="text-lg text-cyan-300">📊 季線位置判斷</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-green-50 p-3 rounded-lg border border-green-200">
-                <h5 className="font-semibold text-green-700 mb-2">✅ 股價在季線之上</h5>
-                <ul className="text-sm space-y-1 text-slate-700">
+              <div className="bg-green-900/40 p-3 rounded-lg border border-green-700/50">
+                <h5 className="font-semibold text-green-300 mb-2">✅ 股價在季線之上</h5>
+                <ul className="text-sm space-y-1 text-slate-200">
                   <li>• 代表股票處於上升趨勢</li>
                   <li>• 風險較低，更適合買入</li>
                   <li>• 多空分界明確</li>
                 </ul>
               </div>
-              <div className="bg-orange-50 p-3 rounded-lg border border-orange-200">
-                <h5 className="font-semibold text-orange-700 mb-2">⚠️ 股價在季線之下</h5>
-                <ul className="text-sm space-y-1 text-slate-700">
+              <div className="bg-orange-900/40 p-3 rounded-lg border border-orange-700/50">
+                <h5 className="font-semibold text-orange-300 mb-2">⚠️ 股價在季線之下</h5>
+                <ul className="text-sm space-y-1 text-slate-200">
                   <li>• 代表股票處於下跌趨勢</li>
                   <li>• 即使有買入訊號也應謹慎</li>
                   <li>• 建議等待股價回到季線之上</li>
@@ -200,12 +200,12 @@ export default function SignalExplanation({ open, onOpenChange }: SignalExplanat
         </Card>
 
         {/* 風險提示 */}
-        <Card className="bg-red-50 border-red-200">
+        <Card className="bg-red-950/40 border-red-700/50">
           <CardHeader>
-            <CardTitle className="text-lg text-red-700">⚠️ 風險提示</CardTitle>
+            <CardTitle className="text-lg text-red-300">⚠️ 風險提示</CardTitle>
           </CardHeader>
           <CardContent>
-            <ul className="text-sm space-y-2 text-slate-700">
+            <ul className="text-sm space-y-2 text-slate-200">
               <li>• <strong>技術訊號不是必然</strong> - 歷史訊號不保證未來表現</li>
               <li>• <strong>需要資金管理</strong> - 建議單筆投資不超過總資金的 5%</li>
               <li>• <strong>結合基本面</strong> - 不應只依賴技術面</li>

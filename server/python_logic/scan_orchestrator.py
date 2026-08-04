@@ -8,6 +8,7 @@ import time
 import requests
 from datetime import datetime, timedelta
 import yfinance as yf
+import re
 
 # 設定日誌
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -20,8 +21,74 @@ class TaiwanStockDataFetcher:
         pass
     
     def get_taiwan_stock_list(self):
-        """獲取台股清單，使用備用清單"""
+        """優先從公開市場資料來源組建台股清單，無法取得時才使用備用清單。"""
+        try:
+            stock_list = self._get_listed_stock_list()
+            if stock_list is not None and not stock_list.empty:
+                logger.info(f"Loaded {len(stock_list)} listed stocks from public market data")
+                return stock_list
+        except Exception as e:
+            logger.warning(f"Failed to load public market stock list: {e}")
         return self._get_fallback_stock_list()
+
+    def _get_listed_stock_list(self):
+        """從 TWSE / TPEX 公開行情頁面抓取上市與上櫃股票代號與名稱。"""
+        records = []
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+        }
+
+        for url in [
+            'https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?response=json&type=ALLBUT008',
+            'https://www.tpex.org.tw/web/stock/aftertrading/daily_close_quotes/stk_quote_result.php?l=zh-tw&d=%s&stkno=' % datetime.now().strftime('%Y%m%d'),
+        ]:
+            try:
+                response = requests.get(url, headers=headers, timeout=20)
+                if response.status_code != 200:
+                    continue
+                text = response.text
+                if 'tpex.org.tw' in url:
+                    data = response.json()
+                    tables = data.get('tables', [])
+                    if not tables:
+                        continue
+                    rows = tables[0].get('data', []) if tables and isinstance(tables[0], dict) else []
+                    for row in rows:
+                        if not row or len(row) < 2:
+                            continue
+                        code = str(row[0]).strip()
+                        name = str(row[1]).strip()
+                        if re.fullmatch(r'\d{4,5}', code) and name:
+                            records.append({'stock_id': code, 'stock_name': name, 'industry_category': '公開市場'})
+                else:
+                    try:
+                        data = response.json()
+                    except Exception:
+                        continue
+                    tables = data.get('tables', [])
+                    if not tables:
+                        continue
+                    for table in tables:
+                        if not isinstance(table, dict):
+                            continue
+                        rows = table.get('data', [])
+                        for row in rows:
+                            if not row or len(row) < 2:
+                                continue
+                            code = str(row[0]).strip()
+                            name = str(row[1]).strip()
+                            if re.fullmatch(r'\d{4,5}', code) and name:
+                                records.append({'stock_id': code, 'stock_name': name, 'industry_category': '公開市場'})
+            except Exception as e:
+                logger.warning(f"Failed to fetch stock list from {url}: {e}")
+
+        if records:
+            df = pd.DataFrame(records)
+            df = df.drop_duplicates(subset=['stock_id'])
+            return df
+        return None
     
     def get_stock_daily_data_twse(self, stock_id, start_date, end_date):
         """使用台灣證交所 API 取得台股日線數據，作為 yfinance 的備援"""

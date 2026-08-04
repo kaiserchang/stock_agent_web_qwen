@@ -27,7 +27,7 @@ const AVAILABLE_SIGNALS = [
 
 export default function Settings() {
   const [settings, setSettings] = useState<ScanSettings>({
-    scanLimit: 50,
+    scanLimit: 500,
     startDate: "",
     endDate: "",
     signalFilter: ["攻擊K線", "多頭吞噬", "黑K吞噬", "內困型態"],
@@ -55,7 +55,7 @@ export default function Settings() {
   useEffect(() => {
     if (scanSettings) {
       setSettings({
-        scanLimit: scanSettings.scanLimit || 50,
+        scanLimit: scanSettings.scanLimit && scanSettings.scanLimit > 0 ? scanSettings.scanLimit : 500,
         startDate: scanSettings.startDate || "",
         endDate: scanSettings.endDate || "",
         signalFilter: scanSettings.signalFilter || AVAILABLE_SIGNALS,
@@ -67,7 +67,7 @@ export default function Settings() {
   const handleScanLimitChange = (value: string) => {
     const num = parseInt(value, 10);
     if (!isNaN(num) && num > 0) {
-      setSettings({ ...settings, scanLimit: num });
+      setSettings({ ...settings, scanLimit: Math.min(500, num) });
     }
   };
 
@@ -120,7 +120,7 @@ export default function Settings() {
         signalFilter: settings.signalFilter,
       };
       localStorage.setItem('scanParams', JSON.stringify(scanParams));
-      
+
       await updateSettingsMutation.mutateAsync({
         scanLimit: settings.scanLimit,
         startDate: settings.startDate,
